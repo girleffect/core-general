@@ -8,9 +8,9 @@ Current docs/ still uses Sphinx.i
 
 To be able to run the core components using `docker-compose`, all the git repositories should be available on the same level as this repository and each contain a `Dockerfile`.
 
-To quickly check if this is the case, run:
+To quickly check if this is the case, run the following from the directory containing this README:
 ```
-s -1 ../*/Dockerfile
+ls -1 ../*/Dockerfile
 ```
 which should result in the following output:
 ```
@@ -20,6 +20,8 @@ which should result in the following output:
 ../core-management-portal/Dockerfile
 ../core-user-data-store/Dockerfile
 ```
+
+You can use `make run` as a shortcut to start `docker-compose`.
 
 ## Quick links to the Swagger Documentation for the Core Components
 
