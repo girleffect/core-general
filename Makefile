@@ -15,6 +15,7 @@ help:
 	@echo "    $(CYAN)build-virtualenv$(CLEAR): Creates virtualenv directory, 've/', in project root."
 	@echo "    $(CYAN)clean-virtualenv$(CLEAR): Deletes 've/' directory in project root."
 	@echo "    $(CYAN)docs-build$(CLEAR): Build documents and place html output in docs root."
+	@echo "    $(CYAN)run$(CLEAR): Run the core components using docker-compose."
 
 $(VENV):
 	@echo "$(CYAN)Initialise base ve...$(CLEAR)"
@@ -24,7 +25,7 @@ $(VENV):
 # Creates the virtual environment.
 build-virtualenv: $(VENV)
 	@echo "$(CYAN)Building virtualenv...$(CLEAR)"
-	# TODO: Depending on project type, requirements will need to be installed here.
+	$(PIP) install docker-compose
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 # Deletes the virtual environment.
@@ -57,3 +58,7 @@ docs-build:  $(VENV)
 	cp -r docs/build/html/. docs/
 	rm -rf docs/build/
 	@echo "$(GREEN)DONE$(CLEAR)"
+
+run: build-virtualenv
+	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose up --build

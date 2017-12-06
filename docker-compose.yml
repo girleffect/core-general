@@ -1,0 +1,26 @@
+version: '3'
+services:
+#  The core-authentication-service docker build currently fails.
+#  Uncomment this section when it works.
+#  core-authentication-service:
+#    build: ../core-authentication-service/
+#    ports:
+#        - "10000:8000"
+  core-user-data-store:
+    build: ../core-user-data-store/
+    ports:
+        - "10001:5000"
+  core-access-control:
+    build: ../core-user-data-store/
+    ports:
+        - "10002:5000"
+  core-access-control:
+    build: ../core-management-layer/
+    ports:
+        - "10003:5000"
+  core-access-control:
+    build: ../core-management-portal/
+    ports:
+        - "10004:5000"
+  redis:
+    image: "redis:alpine"

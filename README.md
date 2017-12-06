@@ -2,7 +2,24 @@
 
 This repo will port to MkDocs: http://www.mkdocs.org/
 
-Current docs/ still uses Sphinx.
+Current docs/ still uses Sphinx.i
+
+## Running the core components using `docker-compose`
+
+To be able to run the core components using `docker-compose`, all the git repositories should be available on the same level as this repository and each contain a `Dockerfile`.
+
+To quickly check if this is the case, run:
+```
+s -1 ../*/Dockerfile
+```
+which should result in the following output:
+```
+../core-access-control/Dockerfile
+../core-authentication-service/Dockerfile
+../core-management-layer/Dockerfile
+../core-management-portal/Dockerfile
+../core-user-data-store/Dockerfile
+```
 
 ## Quick links to the Swagger Documentation for the Core Components
 
