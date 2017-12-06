@@ -22,10 +22,9 @@ $(VENV):
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 # Creates the virtual environment.
-build-virtualenv:
-	# TODO: Depending on project type, requirements will need to be installed here.
+build-virtualenv: $(VENV)
 	@echo "$(CYAN)Building virtualenv...$(CLEAR)"
-	$(VENV)
+	# TODO: Depending on project type, requirements will need to be installed here.
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 # Deletes the virtual environment.
@@ -35,7 +34,7 @@ clean-virtualenv:
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 # Build sphinx docs, then move them to docs/ root for GitHub Pages usage.
-docs-build:
+docs-build:  $(VENV)
 	@echo "$(CYAN)Installing Sphinx requirements...$(CLEAR)"
 	$(PIP) install sphinx sphinx-autobuild
 	@echo "$(GREEN)DONE$(CLEAR)"
@@ -52,7 +51,7 @@ docs-build:
 	rm backup.tar
 	# Actually make html from index.rst
 	@echo "$(CYAN)Running sphinx command...$(CLEAR)"
-	$(MAKE) -C docs/ clean html
+	$(MAKE) -C docs/ clean html SPHINXBUILD=../$(VENV)/bin/sphinx-build
 	@echo "$(GREEN)DONE$(CLEAR)"
 	@echo "$(CYAN)Moving build files to docs/ root...$(CLEAR)"
 	cp -r docs/build/html/. docs/
