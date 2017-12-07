@@ -6,6 +6,12 @@ services:
 #    build: ../core-authentication-service/
 #    ports:
 #        - "10000:8000"
+#  At this stage general will not be hosting anything, it contains the base
+#  image for GE.
+#  core-general:
+#    build: .
+#    ports:
+#        - "10000:8000"
   core-user-data-store:
     build: ../core-user-data-store/
     ports:
