@@ -1,26 +1,75 @@
 version: '3'
+
 services:
 #  The core-authentication-service docker build currently fails.
 #  Uncomment this section when it works.
 #  core-authentication-service:
-#    build: ../core-authentication-service/
+#    build:
+#      context: ../core-authentication-service/
+#    volumes:
+#      - ../core-authentication-service/authentication_service:/code
 #    ports:
-#        - "10000:8000"
+#        - "8000:8000"
   core-user-data-store:
-    build: ../core-user-data-store/
-    ports:
-        - "10001:5000"
+    build:
+      context: ../core-user-data-store/
+      args:  # Maps to args defined in the Dockerfile
+        - password=secret
+        - dbkey  # Get value from the compose environment
+    volumes:
+      - ../core-user-data-store/user_data_store:/code
+    expose:
+        - "5000"
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+#      interval: 1m30s
+#      timeout: 10s
+#      retries: 3
+    extra_hosts:
+      - "somehost:8.8.8.8"
+    ulimits:
+       nproc: 65535
+       nofile:
+         soft: 20000
+         hard: 40000
+    restart: on-failure
+    command: bash -c "while true; do sleep 10; date; done"
+
   core-access-control:
-    build: ../core-user-data-store/
+    build:
+      context: ../core-access-control/
+    volumes:
+      - ../core-access-control/access_control:/code
+    expose:
+      - "5000"
+    restart: on-failure
+    command: bash -c "while true; do sleep 10; date; done"
+
+  core-management-layer:
+    build:
+      context: ../core-management-layer/
+    volumes:
+      - ../core-management-layer/management_layer:/code
     ports:
-        - "10002:5000"
-  core-access-control:
-    build: ../core-management-layer/
-    ports:
-        - "10003:5000"
-  core-access-control:
-    build: ../core-management-portal/
-    ports:
-        - "10004:5000"
+      - "8001:5000"
+    depends_on:
+      - core-access-control
+      - core-user-data-store
+      # - core-authentication-service
+    restart: on-failure
+    command: bash -c "while true; do sleep 10; date; done"
+
+#  core-management-portal:
+#    build:
+#      context: ../core-management-portal/
+#    volumes:
+#      - ../core-management-portal/management_portal:/code
+#    depends_on:
+#      - core-management-layer
+#    restart: on-failure
+#    command: bash -c "while true; do sleep 10; date; done"
+
   redis:
     image: "redis:alpine"
+    expose:
+      - "6379"
