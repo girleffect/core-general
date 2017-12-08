@@ -7,6 +7,7 @@ FROM ubuntu:17.10
 RUN apt-get update && apt-get install -y \
     python3 \
     python-virtualenv
+
 # NOTE: Project making use of this one will need to install its own deps.
 # Overlapping ones  can be added here Girl Effect matures.
 # eg: nginx, supervisor, etc.
@@ -21,5 +22,6 @@ RUN virtualenv /var/app/ve -p python3
 
 # Set app directory to working directory.
 ONBUILD WORKDIR /var/app
+
 # Activate virtual env.
 ONBUILD RUN ./ve/bin/activate
