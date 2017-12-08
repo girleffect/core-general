@@ -1,7 +1,7 @@
 # NOTE: To pull in a local image, it needs to be built out to your local repo
 # first and then make use of FROM as usual.
 
-# Base GE image, based of off LTS Ubuntu 16.04. With Python 3.5.
+# Base GE image, based off of LTS Ubuntu 16.04. With Python 3.5.
 FROM ubuntu:17.10
 
 RUN apt-get update && apt-get install -y \
