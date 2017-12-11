@@ -1,15 +1,16 @@
 # NOTE: To pull in a local image, it needs to be built out to your local repo
 # first and then make use of FROM as usual.
 
-# Base GE image, based off of LTS Ubuntu 16.04. With Python 3.5.
+# Base GE image, based off of Ubuntu 17.10. With Python 3.6.3.
 FROM ubuntu:17.10
 
 RUN apt-get update && apt-get install -y \
     python3 \
     python-virtualenv
 
-# NOTE: Project making use of this one will need to install its own deps.
-# Overlapping ones  can be added here Girl Effect matures.
+# NOTE: Projects making use of this base will need to install its own
+# dependencies.
+# Overlapping dependencies will be added here as Girl Effect matures.
 # eg: nginx, supervisor, etc.
 
 # NOTE: Depending on  project type more directories will be needed.
