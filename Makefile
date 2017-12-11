@@ -1,6 +1,7 @@
 VENV=./ve
 PYTHON=$(VENV)/bin/python
 PIP=$(VENV)/bin/pip
+DOCKER-VERSION=1.0
 
 # Colours.
 CLEAR=\033[0m
@@ -62,3 +63,8 @@ docs-build:  $(VENV)
 run: build-virtualenv
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
+
+build-docker-image:
+	@echo "$(CYAN)Building local image (version:$(DOCKER-VERSION))...$(CLEAR)"
+	docker build -t girleffect:$(DOCKER-VERSION) .
+	@echo "$(GREEN)DONE$(CLEAR)"
