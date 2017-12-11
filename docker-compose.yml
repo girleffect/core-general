@@ -33,7 +33,7 @@ services:
          soft: 20000
          hard: 40000
     restart: on-failure
-    command: bash -c "while true; do sleep 10; date; done"
+    command: ping core-access-control
 
   core-access-control:
     build:
