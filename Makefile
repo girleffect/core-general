@@ -17,6 +17,8 @@ help:
 	@echo "    $(CYAN)clean-virtualenv$(CLEAR): Deletes 've/' directory in project root."
 	@echo "    $(CYAN)docs-build$(CLEAR): Build documents and place html output in docs root."
 	@echo "    $(CYAN)run$(CLEAR): Run the core components using docker-compose."
+	@echo "    $(CYAN)docker-build-image$(CLEAR): Build out the Girl Effect base image to the local docker repo."
+	@echo "    $(CYAN)docker-remove-image$(CLEAR): Remove the Girl Effect base image from the local docker repo. NOTE: Only the Girl Effect image gets removed, not the one/s it is based off"
 
 $(VENV):
 	@echo "$(CYAN)Initialise base ve...$(CLEAR)"
@@ -64,7 +66,12 @@ run: build-virtualenv
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
 
-build-docker-image:
+docker-build-image:
 	@echo "$(CYAN)Building local image (version:$(DOCKER-VERSION))...$(CLEAR)"
 	docker build -t girleffect:$(DOCKER-VERSION) .
+	@echo "$(GREEN)DONE$(CLEAR)"
+
+docker-remove-image:
+	@echo "$(CYAN)Removing docker image...$(CLEAR)"
+	docker rmi girleffect:$(DOCKER-VERSION)
 	@echo "$(GREEN)DONE$(CLEAR)"
