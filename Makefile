@@ -62,7 +62,7 @@ docs-build:  $(VENV)
 	rm -rf docs/build/
 	@echo "$(GREEN)DONE$(CLEAR)"
 
-run: build-virtualenv
+run: build-virtualenv docker-build-image
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
 

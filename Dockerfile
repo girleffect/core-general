@@ -4,17 +4,15 @@
 # Base GE image, based off of Ubuntu 17.10. With Python 3.6.3.
 FROM ubuntu:17.10
 
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python-virtualenv
-
 # NOTE: Projects making use of this base will need to install its own
 # dependencies.
 # Overlapping dependencies will be added here as Girl Effect matures.
 # eg: nginx, supervisor, etc.
+RUN apt-get update && apt-get install -y python3 python3-pip
 
-# NOTE: Depending on  project type more directories will be needed.
-RUN virtualenv /var/app/ve -p python3
+# Ubuntu 17.10 comes with no default python or pip installed, so we do this for
+# convenience.
+RUN ln -s /usr/bin/pip3 /usr/bin/pip && ln -s /usr/bin/python3 /usr/bin/python
 
 # NOTE Projects need to have and copy their respective nginx/supervisor configs.
 # eg:
@@ -23,6 +21,3 @@ RUN virtualenv /var/app/ve -p python3
 
 # Set app directory to working directory.
 ONBUILD WORKDIR /var/app
-
-# Activate virtual env.
-ONBUILD RUN ./ve/bin/activate
