@@ -17,7 +17,7 @@ services:
         - password=secret
         - dbkey  # Get value from the compose environment
     volumes:
-      - ../core-user-data-store/user_data_store:/code
+      - ../core-user-data-store:/code
     expose:
         - "5000"
 #    healthcheck:
@@ -33,23 +33,23 @@ services:
          soft: 20000
          hard: 40000
     restart: on-failure
-    command: bash -c "while true; do sleep 10; date; done"
+    command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/user_data_store.yml -p 5000
 
   core-access-control:
     build:
       context: ../core-access-control/
     volumes:
-      - ../core-access-control/access_control:/code
+      - ../core-access-control:/code
     expose:
       - "5000"
     restart: on-failure
-    command: bash -c "while true; do sleep 10; date; done"
+    command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
 
   core-management-layer:
     build:
       context: ../core-management-layer/
     volumes:
-      - ../core-management-layer/management_layer:/code
+      - ../core-management-layer:/code
     ports:
       - "8001:5000"
     depends_on:
@@ -57,7 +57,7 @@ services:
       - core-user-data-store
       # - core-authentication-service
     restart: on-failure
-    command: bash -c "while true; do sleep 10; date; done"
+    command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 5000
 
 #  core-management-portal:
 #    build:
