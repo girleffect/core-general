@@ -1,15 +1,37 @@
 version: '3'
 
 services:
-#  The core-authentication-service docker build currently fails.
-#  Uncomment this section when it works.
-#  core-authentication-service:
-#    build:
-#      context: ../core-authentication-service/
-#    volumes:
-#      - ../core-authentication-service/authentication_service:/code
-#    ports:
-#        - "8000:8000"
+  core-general:
+    image: girleffect:1.0
+    build:
+      context: .
+
+  core-authentication-service:
+    image: ge-auth:0.1
+    build:
+      context: ../core-authentication-service/
+      # Required to poll the postgres instance for local development.
+      # NOTE: Currently installation fails. Up to current user to just restart
+      # the django container at this stage, troubleshooting was burning too
+      # much of current ticket's time.
+      #args:
+      #  - EXTRA_DEPS=postgresql-client-9.4
+    volumes:
+      - ../core-authentication-service:/code
+    command: scripts/waitFor.sh scripts/startDjango.sh
+    ports:
+      - "8000:8000"
+    environment:
+      # DB_NAME currently makes use of default postgres db, new dbs will need
+      # to be created as we require more of them.
+      - DB_HOST=db
+      - DB_NAME=postgres
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+
   core-user-data-store:
     build:
       context: ../core-user-data-store/
@@ -44,6 +66,8 @@ services:
       - "5000"
     restart: on-failure
     command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
+    depends_on:
+      - core-general
 
   core-management-layer:
     build:
