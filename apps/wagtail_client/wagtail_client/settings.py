@@ -17,7 +17,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-WAGTAIL_SITE_NAME = os.environ.get(WAGTAIL_SITE_NAME, "Wagtail Demo"),
+WAGTAIL_SITE_NAME = os.environ.get('WAGTAIL_SITE_NAME', "Wagtail Demo")
+
+OIDC_RP_CLIENT_ID = "a"#os.environ['OIDC_RP_CLIENT_ID']
+OIDC_RP_CLIENT_SECRET = "a"#os.environ['OIDC_RP_CLIENT_SECRET']
+
+# <URL of the OIDC OP authorization endpoint>
+OIDC_OP_AUTHORIZATION_ENDPOINT = "a"#os.environ['OIDC_OP_AUTHORIZATION_ENDPOINT']
+
+# <URL of the OIDC OP token endpoint>
+OIDC_OP_TOKEN_ENDPOINT = "a"#os.environ['OIDC_OP_TOKEN_ENDPOINT']
+
+# <URL of the OIDC OP userinfo endpoint>
+OIDC_OP_USER_ENDPOINT = "a"#os.environ['OIDC_OP_USER_ENDPOINT']
+
+# Need to be updated for mozilla oidc
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -36,21 +52,25 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+
+    'mozilla_django_oidc',
+
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.core',
+
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
 
     'modelcluster',
     'taggit',
@@ -64,11 +84,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'wagtail_client.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+)
 
 TEMPLATES = [
     {
