@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -29,4 +30,10 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^pages/', include(wagtail_urls)),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+
+    url(
+        r"^$",
+        TemplateView.as_view(template_name="wagtail_client/home.html"),
+        name="home"
+    )
 ]
