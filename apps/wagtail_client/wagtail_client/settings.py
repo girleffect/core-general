@@ -19,17 +19,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 WAGTAIL_SITE_NAME = os.environ.get('WAGTAIL_SITE_NAME', "Wagtail Demo")
 
-OIDC_RP_CLIENT_ID = "a"#os.environ['OIDC_RP_CLIENT_ID']
-OIDC_RP_CLIENT_SECRET = "a"#os.environ['OIDC_RP_CLIENT_SECRET']
+OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
+OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
 
 # <URL of the OIDC OP authorization endpoint>
-OIDC_OP_AUTHORIZATION_ENDPOINT = "a"#os.environ['OIDC_OP_AUTHORIZATION_ENDPOINT']
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ['OIDC_OP_AUTHORIZATION_ENDPOINT']
 
 # <URL of the OIDC OP token endpoint>
-OIDC_OP_TOKEN_ENDPOINT = "a"#os.environ['OIDC_OP_TOKEN_ENDPOINT']
+OIDC_OP_TOKEN_ENDPOINT = os.environ['OIDC_OP_TOKEN_ENDPOINT']
 
 # <URL of the OIDC OP userinfo endpoint>
-OIDC_OP_USER_ENDPOINT = "a"#os.environ['OIDC_OP_USER_ENDPOINT']
+OIDC_OP_USER_ENDPOINT = os.environ['OIDC_OP_USER_ENDPOINT']
 
 # Need to be updated for mozilla oidc
 LOGIN_REDIRECT_URL = "/"
