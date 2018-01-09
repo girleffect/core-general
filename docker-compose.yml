@@ -19,6 +19,7 @@ services:
             - DB_HOST=db
             # NOTE: we bootstrap our database container with some dbs.
             - DB_NAME=authservice
+            - ALLOWED_HOSTS=*
         depends_on:
             - db
 
