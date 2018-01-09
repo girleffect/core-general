@@ -62,6 +62,9 @@ docs-build:  $(VENV)
 	rm -rf docs/build/
 	@echo "$(GREEN)DONE$(CLEAR)"
 
+docker-network:
+	docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.1 oidcnetwork
+
 run: build-virtualenv docker-build-image
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build

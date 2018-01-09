@@ -16,12 +16,16 @@ services:
         ports:
             - "8000:8000"
         environment:
-            - DB_HOST=db
+            - DB_HOST=172.18.0.2
             # NOTE: we bootstrap our database container with some dbs.
             - DB_NAME=authservice
             - ALLOWED_HOSTS=*
+            - WAGTAIL_1_IP=http://172.18.0.4:8000/oidc/callback/
         depends_on:
             - db
+        networks:
+            oidcnetwork:
+                ipv4_address: 172.18.0.3
 
     wagtail-demo-1:
         image: wtd_1:0.1
@@ -31,17 +35,21 @@ services:
         ports:
             - "8001:8001"
         environment:
+            # Not current on postgres.
             - DB_HOST=db
             - DB_NAME=wagtail_1
             - WAGTAIL_SITE_NAME=wagtail_1_demo
-            - OIDC_RP_CLIENT_ID=asdasdasd
-            - OIDC_RP_CLIENT_SECRET=asdasd
-            - OIDC_OP_AUTHORIZATION_ENDPOINT=asdasd
-            - OIDC_OP_TOKEN_ENDPOINT=asdasd
-            - OIDC_OP_USER_ENDPOINT=asdasd
+            - OIDC_RP_CLIENT_ID=client_id_1
+            - OIDC_RP_CLIENT_SECRET=super_client_secret_1
+            - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
+            - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
+            - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
         depends_on:
             - db
             - core-authentication-service
+        networks:
+            oidcnetwork:
+                ipv4_address: 172.18.0.4
 
     db:
         build:
@@ -51,3 +59,10 @@ services:
         # To rather mount localhost postgres data.
         #volumes:
         #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
+        networks:
+            oidcnetwork:
+                ipv4_address: 172.18.0.2
+
+networks:
+    oidcnetwork:
+        external: true
