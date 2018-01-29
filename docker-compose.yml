@@ -51,11 +51,33 @@ services:
             oidcnetwork:
                 ipv4_address: 172.18.0.4
 
+    wagtail-demo-2:
+        image: wtd_2:0.1
+        build:
+            context: apps/wagtail_client/
+        command: scripts/waitFor.sh scripts/startDjango.sh
+        ports:
+            - "8002:8002"
+        environment:
+            # Not current on postgres.
+            - DB_HOST=db
+            - DB_NAME=wagtail_2
+            - WAGTAIL_SITE_NAME=wagtail_2_demo
+            - OIDC_RP_CLIENT_ID=client_id_2
+            - OIDC_RP_CLIENT_SECRET=super_client_secret_2
+            - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
+            - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
+            - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+        depends_on:
+            - db
+            - core-authentication-service
+        networks:
+            oidcnetwork:
+                ipv4_address: 172.18.0.5
+
     db:
         build:
             context: apps/database/
-        environment:
-            - WAGTAILDBS=wagtail_1 wagtail_2
         # To rather mount localhost postgres data.
         #volumes:
         #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
