@@ -1,9 +1,26 @@
-<html>
-    <body>
+{% extends "wagtailadmin/admin_base.html" %}
+{% block titletag %}Sign in{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block furniture %}
+    <div class="content-wrapper">
+        <h1>Welcome to the home page</h1>
         {% if user.is_authenticated %}
-            <p>Current user: {{ user.email }}</p>
+            <h1>Current user: {{ user.email }}</h1>
         {% else %}
-            <a href="{% url 'oidc_authentication_init' %}">Login</a>
+            <a class="button" href="{% url 'oidc_authentication_init' %}">Login</a>
         {% endif %}
-    </body>
-</html>
+
+        <h2 class="help">Are you a new user? Register here:</h2>
+        {% comment %}
+            TODO once sure how we want to demo it, a management command should suffice, wagtail can build pages.
+        {% endcomment %}
+
+        <div class="submit">
+            <a class="button" href="http://172.18.0.3:8000/registration/?theme=django&security=high&redirect_url=http://172.18.0.4:8000/">High security register</a>
+            <a class="button" href="http://172.18.0.3:8000/registration/?theme=django&redirect_url=http://172.18.0.4:8000/">Register</a>
+        <div>
+    </div>
+{% endblock %}
