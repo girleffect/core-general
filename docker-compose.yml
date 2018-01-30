@@ -18,7 +18,7 @@ services:
         environment:
             - DB_HOST=172.18.0.2
             # NOTE: we bootstrap our database container with some dbs.
-            - DB_NAME=authservice
+            - DB_NAME=authentication_service
             - ALLOWED_HOSTS=*
             - WAGTAIL_1_IP=http://172.18.0.4:8000/oidc/callback/
         depends_on:
