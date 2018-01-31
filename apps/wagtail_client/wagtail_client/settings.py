@@ -31,9 +31,11 @@ OIDC_OP_TOKEN_ENDPOINT = os.environ['OIDC_OP_TOKEN_ENDPOINT']
 # <URL of the OIDC OP userinfo endpoint>
 OIDC_OP_USER_ENDPOINT = os.environ['OIDC_OP_USER_ENDPOINT']
 
-# Need to be updated for mozilla oidc
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+
+# These can 404 for now, jsut so we know what got triggered.
+LOGOUT_REDIRECT_URL = "logout-redirected/"
+LOGIN_REDIRECT_URL_FAILURE = "failure/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
