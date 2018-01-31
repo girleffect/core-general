@@ -1,9 +1,67 @@
-<html>
-    <body>
+{% extends "wagtailadmin/admin_base.html" %}
+{% block titletag %}Sign in{% endblock %}
+{% block extra_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block furniture %}
+    <div class="content-wrapper">
+        <h1>Welcome to the home page</h1>
         {% if user.is_authenticated %}
-            <p>Current user: {{ user.email }}</p>
+            <h1>Current user: {{ user.email }}</h1>
         {% else %}
-            <a href="{% url 'oidc_authentication_init' %}">Login</a>
+            <a class="button" href="{% url 'oidc_authentication_init' %}">Login</a>
         {% endif %}
-    </body>
-</html>
+
+        {% comment %}
+            TODO once sure how we want to demo it, a management command should suffice, wagtail can build pages.
+        {% endcomment %}
+        <br />
+        <br />
+        <h2 class="help">Are you a new user? Register here:</h2>
+        <p class="help">Customise your registration experience</p>
+        <div>
+            <p>Toggle some options:</p>
+            <input id="security" type="checkbox" value="security" checked>High security<br>
+            <input id="show2fa" type="checkbox" value="show2fa">Show two factor auth<br>
+            <input id="redirect" type="checkbox" value="redirect" checked>Redirect back here?<br>
+            <br />
+            <p>Pick a theme:</p>
+            <select id="theme">
+                <option value="django">Django theme</option>
+                <option value="ge">Horrid black theme</option>
+                <option value="none">No theme</option>
+            </select>
+        </div>
+        <br />
+        <div class="submit">
+            <a id="redirectButton" class="button" href="http://172.18.0.3:8000/registration/?redirect_url=http://172.18.0.4:8000/">Register</a>
+        <div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+<script>
+    // Hard coded like this is fine for demo purposes.
+    // TODO The redirect urls will need to be updated from context later on.
+    document.addEventListener('DOMContentLoaded', function(event) {
+        document.getElementById('redirectButton').addEventListener('click', function(e) {
+            e.preventDefault()
+            var href = 'http://172.18.0.3:8000/registration/';
+            var theme = document.getElementById('theme').value;
+            href += '?theme=' + theme;
+            if (document.getElementById('security').checked) {
+                href += '&security=high';
+            }
+            if (document.getElementById('show2fa').checked) {
+                href += '&show2fa=true';
+            }
+            if (document.getElementById('redirect').checked) {
+                href += '&redirect_url=http://172.18.0.4:8000/';
+            }
+            console.info(href);
+            window.location.href = href
+        });
+    });
+</script>
+{% endblock %}
