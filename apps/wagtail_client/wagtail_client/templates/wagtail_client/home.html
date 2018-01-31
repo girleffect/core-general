@@ -10,6 +10,9 @@
             <h1>Welcome back!</h1>
             <h1>email: {{ user.email }}</h1>
             <h1>{{ user }}</h1>
+            <div class="submit">
+                <a class="button" href="{% url "logout" %}">Logout</a>
+            <div>
         {% else %}
             <h1>Welcome to the home page</h1>
             <a class="button" href="{% url 'oidc_authentication_init' %}">Login</a>

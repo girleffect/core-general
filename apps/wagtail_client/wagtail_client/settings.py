@@ -32,9 +32,9 @@ OIDC_OP_TOKEN_ENDPOINT = os.environ['OIDC_OP_TOKEN_ENDPOINT']
 OIDC_OP_USER_ENDPOINT = os.environ['OIDC_OP_USER_ENDPOINT']
 
 LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # These can 404 for now, just so we know what got triggered.
-LOGOUT_REDIRECT_URL = "logout-redirected/"
 LOGIN_REDIRECT_URL_FAILURE = "failure/"
 
 # Quick-start development settings - unsuitable for production
