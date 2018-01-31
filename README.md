@@ -48,6 +48,11 @@ External APIs
 
 ## Other useful links
 
+### Continuous Integration
+
+* Build information: https://travis-ci.org/girleffect
+* Test coverage information: https://coveralls.io/github/girleffect
+
 ### Setting up HTTPS in Mesos Clusters
 
 http://ways-of-working.readthedocs.io/en/latest/tech/https.html#https
