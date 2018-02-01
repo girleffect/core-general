@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import TemplateView
+from django.contrib.auth.views import logout
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
@@ -35,5 +36,6 @@ urlpatterns = [
         r"^$",
         TemplateView.as_view(template_name="wagtail_client/home.html"),
         name="home"
-    )
+    ),
+    url(r"^logout/", logout, name="logout"),
 ]
