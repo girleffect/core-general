@@ -4,7 +4,6 @@ The technical background can be found here:
 https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additional-optional-configuration
 """
 import logging
-import unicodedata
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 
 # Connecting OIDC user identities to Django users
@@ -19,9 +18,8 @@ from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 # mozilla_django_oidc.auth.OIDCAuthenticationBackend class and override the
 # filter_users_by_claims method.
 
-UUID_FIELD = "username"
+USERNAME_FIELD = "username"
 EMAIL_FIELD = "email"
-MSISDN_FIELD = "msisdn"
 
 LOGGER = logging.getLogger(__name__)
 
@@ -36,38 +34,37 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         subject identifier)
         :return: A user identified by the claims, else None
         """
-        uuid = claims.get("sub")
-        assert uuid
+        uuid = claims["sub"]
         try:
-            kwargs = {UUID_FIELD: uuid}
+            kwargs = {USERNAME_FIELD: uuid}
             return [self.UserModel.objects.get(**kwargs)]
         except self.UserModel.DoesNotExist:
-            print("Lookup failed based on {}".format(kwargs))
             LOGGER.debug("Lookup failed based on {}".format(kwargs))
 
-        email = claims.get("email", None)
-        if email:
-            try:
-                kwargs = {EMAIL_FIELD: email}
-                return [self.UserModel.objects.get(**kwargs)]
-            except self.UserModel.DoesNotExist:
-                print("Lookup failed based on {}".format(kwargs))
-                LOGGER.debug("Lookup failed based on {}".format(kwargs))
+        # The code below is an example of how we can perform a secondary check
+        # on the email address.
+        # email = claims.get("email")
+        # if email:
+        #     try:
+        #         kwargs = {EMAIL_FIELD: email}
+        #         return [self.UserModel.objects.get(**kwargs)]
+        #     except self.UserModel.DoesNotExist:
+        #         LOGGER.debug("Lookup failed based on {}".format(kwargs))
 
         return self.UserModel.objects.none()
 
     def create_user(self, claims):
+        """Return object for a newly created user account.
+        The default OIDC client create_user() function expects an email address
+        to be available. This is not the case for Girl Effect accounts, where
+        the email field is optional.
+        We use the user id (called the subscriber identity in OIDC) as the
+        username, since it is always available and guaranteed to be unique.
         """
-        In addition to the limited fields that are populated in the user
-        profile, we can set some more in this function.
-        """
-        user = super(GirlEffectOIDCBackend, self).create_user(claims)
+        username = claims["sub"]  # The sub field _must_ be in the claims.
+        email = claims.get('email')  # Email is optional
 
-        user.username = claims.get("sub")
-        user.first_name = claims.get("given_name", "")
-        user.last_name = claims.get("family_name", "")
-
-        return user
+        return self.UserModel.objects.create_user(username, email)
 
     def verify_claims(self, claims):
         """
@@ -79,25 +76,3 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         # logging in.
         # verified = verified and claims.get("email_verified")
         return verified
-
-# If a user logs into your site and doesn’t already have an account,
-# by default, mozilla-django-oidc will create a new Django user account. It will
-# create the User instance filling in the username (hash of the email address)
-# and email fields.
-#
-# If you want something different, set settings.OIDC_USERNAME_ALGO to a Python
-# dotted path to the function you want to use.
-#
-# The function takes in an email address as a text (Python 2 unicode or Python
-# 3 string) and returns a text (Python 2 unicode or Python 3 string).
-#
-# Here’s an example function for Python 3 and Django 1.11 that doesn’t convert
-# the email address at all:
-
-
-def generate_username(email):
-    # Using Python 3 and Django 1.11, usernames can contain alphanumeric
-    # (ascii and unicode), _, @, +, . and - characters. So we normalize
-    # it and slice at 150 characters.
-    return unicodedata.normalize('NFKC', email)[:150]
-
