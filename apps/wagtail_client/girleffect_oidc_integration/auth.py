@@ -50,7 +50,7 @@ class GirlEffectOIDCBackend(OIDCAuthenticationBackend):
         username, since it is always available and guaranteed to be unique.
         """
         username = claims["sub"]  # The sub field _must_ be in the claims.
-        email = claims.get('email')  # Email is optional
+        email = claims.get("email")  # Email is optional
 
         return self.UserModel.objects.create_user(username, email)
 
