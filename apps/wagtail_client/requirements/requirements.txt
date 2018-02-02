@@ -1,3 +1,0 @@
-Django>=1.11,<2.0
-wagtail>=1.13,<2.0
-mozilla-django-oidc==0.5.0
