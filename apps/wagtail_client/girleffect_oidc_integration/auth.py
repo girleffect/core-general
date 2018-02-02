@@ -6,18 +6,6 @@ https://mozilla-django-oidc.readthedocs.io/en/stable/installation.html#additiona
 import logging
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 
-# Connecting OIDC user identities to Django users
-# By default, mozilla-django-oidc looks up a Django user matching the email
-# field to the email address returned in the user info data from the OIDC
-# provider. This means that no two users in the Django user table can have the
-# same email address. Since the email field is not unique, it’s possible that
-# this can happen. Especially if you allow users to change their email address.
-# If it ever happens, then the users in question won’t be able to authenticate.
-#
-# If you want different behavior, subclass the
-# mozilla_django_oidc.auth.OIDCAuthenticationBackend class and override the
-# filter_users_by_claims method.
-
 USERNAME_FIELD = "username"
 EMAIL_FIELD = "email"
 
