@@ -31,7 +31,7 @@ services:
   wagtail-demo-1:
     image: wtd_1:0.1
     build:
-      context: apps/wagtail_client/
+      context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
       - "8001:8001"
@@ -49,7 +49,7 @@ services:
       - db
       - core-authentication-service
     volumes:
-        - "./apps/wagtail_client/:/app/"
+        - "../core-integration-demo/:/app/"
     networks:
       oidcnetwork:
         ipv4_address: 172.18.0.4
