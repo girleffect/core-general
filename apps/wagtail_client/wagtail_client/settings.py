@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -31,11 +33,20 @@ OIDC_OP_TOKEN_ENDPOINT = os.environ['OIDC_OP_TOKEN_ENDPOINT']
 # <URL of the OIDC OP userinfo endpoint>
 OIDC_OP_USER_ENDPOINT = os.environ['OIDC_OP_USER_ENDPOINT']
 
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 15 * 60  # 15 minutes
+
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # These can 404 for now, just so we know what got triggered.
-LOGIN_REDIRECT_URL_FAILURE = "failure/"
+LOGIN_REDIRECT_URL_FAILURE = reverse_lazy("login")  # "/failure/"
+
+# When an ID Token refresh attempt fails, it must redirect to a page
+# which will not trigger an automatic refresh again. This page should be
+# explicitly exempted from triggering the refresh.
+OIDC_EXEMPT_URLS = [
+    reverse_lazy("login"), "/failure/"
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -90,13 +101,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    #'mozilla_django_oidc.middleware.RefreshIDToken',
 ]
 
 ROOT_URLCONF = 'wagtail_client.urls'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'girleffect_oidc_integration.auth.GirlEffectOIDCBackend',
 )
 
 TEMPLATES = [

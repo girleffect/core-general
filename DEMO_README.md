@@ -23,3 +23,4 @@
 
 Once everything is done, the wagtail demo app should be accessible on `http://172.18.0.4:8000/`
 
+The superuser credentials for the Authentication Service is username `admin` and password `local`.
