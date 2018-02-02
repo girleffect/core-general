@@ -31,6 +31,10 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^pages/', include(wagtail_urls)),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
+    url(r'^login/',
+        TemplateView.as_view(template_name="wagtail_client/home.html"),
+        name="login"
+        ),
 
     url(
         r"^$",
