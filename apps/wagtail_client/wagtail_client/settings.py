@@ -37,7 +37,14 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # These can 404 for now, just so we know what got triggered.
-LOGIN_REDIRECT_URL_FAILURE = "failure/"
+LOGIN_REDIRECT_URL_FAILURE = "/failure/"
+
+# When an ID Token refresh attempt fails, it must redirect to a page
+# which will not trigger an automatic refresh again. This page should be
+# explicitly exempted from triggering the refresh.
+OIDC_EXEMPT_URLS = [
+    "/failure/"
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
