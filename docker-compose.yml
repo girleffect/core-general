@@ -34,7 +34,7 @@ services:
       context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "8001:8001"
+      - "8001:8000"
     environment:
       # Not current on postgres.
       - DB_HOST=db
