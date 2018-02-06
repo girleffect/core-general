@@ -11613,7 +11613,7 @@
 							"length": "30",
 							"primaryKey": false,
 							"foreignKey": false,
-							"nullable": false,
+							"nullable": true,
 							"unique": false
 						},
 						{
@@ -11627,7 +11627,7 @@
 							"length": "30",
 							"primaryKey": false,
 							"foreignKey": false,
-							"nullable": false,
+							"nullable": true,
 							"unique": false
 						},
 						{
