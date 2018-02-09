@@ -54,6 +54,27 @@ services:
       oidcnetwork:
         ipv4_address: 172.18.0.4
 
+  gmp:
+    image: ge-gmp:0.1
+    build:
+      context: ../core-management-portal/
+    command: yarn start
+    ports:
+      - "8002:3000"
+    environment:
+      - OIDC_RP_CLIENT_ID=client_id_2
+      - OIDC_RP_CLIENT_SECRET=super_client_secret_2
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+    depends_on:
+      - core-authentication-service
+    volumes:
+        - "../core-management-portal/:/app/"
+    networks:
+      oidcnetwork:
+        ipv4_address: 172.18.0.5
+
 #  wagtail-demo-2:
 #    image: wtd_2:0.1
 #    build:
