@@ -40,6 +40,8 @@ services:
       # Not current on postgres.
       - DB_HOST=db
       - DB_NAME=wagtail_1
+      - DB_USER=wagtail_1
+      - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Blue Wagtail"
       - WAGTAIL_SITE_COLOUR=blue
       - WAGTAIL_REDIRECT_URL=http://172.18.0.4/
@@ -69,6 +71,8 @@ services:
       # Not current on postgres.
       - DB_HOST=db
       - DB_NAME=wagtail_2
+      - DB_USER=wagtail_2
+      - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Green Wagtail"
       - WAGTAIL_SITE_COLOUR=green
       - WAGTAIL_REDIRECT_URL=http://172.18.0.5/
