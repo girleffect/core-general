@@ -22,6 +22,7 @@ services:
       - DB_NAME=authentication_service
       - ALLOWED_HOSTS=*
       - WAGTAIL_1_IP=http://172.18.0.4:8000/oidc/callback/
+      - WAGTAIL_2_IP=http://172.18.0.5:8000/oidc/callback/
     depends_on:
       - db
     networks:
@@ -39,9 +40,12 @@ services:
       # Not current on postgres.
       - DB_HOST=db
       - DB_NAME=wagtail_1
-      - WAGTAIL_SITE_NAME=wagtail_1_demo
+      - WAGTAIL_SITE_NAME="Blue Wagtail"
+      - WAGTAIL_SITE_COLOUR=blue
+      - WAGTAIL_REDIRECT_URL=http://172.18.0.4/
       - OIDC_RP_CLIENT_ID=client_id_1
       - OIDC_RP_CLIENT_SECRET=super_client_secret_1
+      - OIDC_OP=http://172.18.0.3:8000
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
@@ -54,13 +58,42 @@ services:
       oidcnetwork:
         ipv4_address: 172.18.0.4
 
+  wagtail-demo-2:
+    image: wtd_2:0.1
+    build:
+      context: ../core-integration-demo/
+    command: scripts/waitFor.sh scripts/startDjango.sh
+    ports:
+      - "8002:8000"
+    environment:
+      # Not current on postgres.
+      - DB_HOST=db
+      - DB_NAME=wagtail_2
+      - WAGTAIL_SITE_NAME="Green Wagtail"
+      - WAGTAIL_SITE_COLOUR=green
+      - WAGTAIL_REDIRECT_URL=http://172.18.0.5/
+      - OIDC_RP_CLIENT_ID=client_id_2
+      - OIDC_RP_CLIENT_SECRET=super_client_secret_2
+      - OIDC_OP=http://172.18.0.3:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../core-integration-demo/:/app/"
+    networks:
+      oidcnetwork:
+        ipv4_address: 172.18.0.5
+
   gmp:
     image: ge-gmp:0.1
     build:
       context: ../core-management-portal/
     command: yarn start
     ports:
-      - "8002:3000"
+      - "8003:3000"
     environment:
       - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
@@ -73,31 +106,7 @@ services:
         - "../core-management-portal/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.5
-
-#  wagtail-demo-2:
-#    image: wtd_2:0.1
-#    build:
-#      context: apps/wagtail_client/
-#    command: scripts/waitFor.sh scripts/startDjango.sh
-#    ports:
-#      - "8002:8002"
-#    environment:
-#      # Not current on postgres.
-#      - DB_HOST=db
-#      - DB_NAME=wagtail_2
-#      - WAGTAIL_SITE_NAME=wagtail_2_demo
-#      - OIDC_RP_CLIENT_ID=client_id_2
-#      - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-#      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-#      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-#      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
-#    depends_on:
-#      - db
-#      - core-authentication-service
-#    networks:
-#      oidcnetwork:
-#        ipv4_address: 172.18.0.5
+        ipv4_address: 172.18.0.7
 
   db:
     build:
