@@ -1,26 +1,6 @@
 version: '3'
 
-# IPs
-# ----------
-# 172.18.0.2  core-access-control
-# 172.18.0.3  core-authentication-service
-# 172.18.0.4  wagtail-demo-1
-# 172.18.0.5  wagtail-demo-2
-# 172.18.0.6  core-management-layer
-# 172.18.0.7  core-management-portal
-# 172.18.0.8  core-user-data-store
-# -----------
-# 172.18.0.10 db
-# 172.18.0.11 redis
-# 172.18.0.12 memcache
-#
-# Local ports
-# -----------
-# 10000 core-access-control
-# 10001 wagtail-demo-1
-# 10002 wagtail-demo-2
-# 10003 core-management-layer
-# 10004 core-management-portal
+# Refer to the .env file for IP and port-related definitions
 
 services:
 
@@ -31,11 +11,6 @@ services:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
     volumes:
       - ../core-user-data-store/:/app/
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://localhost:5000"]
-#      interval: 1m30s
-#      timeout: 10s
-#      retries: 3
     ulimits:
        nproc: 65535
        nofile:
@@ -48,7 +23,7 @@ services:
       - db
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.8
+        ipv4_address: ${USER_DATA_STORE_IP}
 
   core-access-control:
     build:
@@ -64,7 +39,7 @@ services:
       - db
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.2
+        ipv4_address: ${ACCESS_CONTROL_IP}
 
   core-authentication-service:
     image: ge-auth:0.1
@@ -74,20 +49,20 @@ services:
       - ../core-authentication-service/:/app/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "10000:8000"
+      - "${AUTHENTICATION_SERVICE_PORT}:8000"
     environment:
       - DB_HOST=db
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
       - DB_NAME=authentication_service
       - ALLOWED_HOSTS=*
-      - WAGTAIL_1_IP=http://172.18.0.4:8000/oidc/callback/
-      - WAGTAIL_2_IP=http://172.18.0.5:8000/oidc/callback/
+      - WAGTAIL_1_IP=http://${WAGTAIL_DEMO_1_IP}:8000/oidc/callback/
+      - WAGTAIL_2_IP=http://${WAGTAIL_DEMO_2_IP}:8000/oidc/callback/
     depends_on:
       - db
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.3
+        ipv4_address: ${AUTHENTICATION_SERVICE_IP}
 
   wagtail-demo-1:
     image: wtd_1:0.1
@@ -95,7 +70,7 @@ services:
       context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "10001:8000"
+      - "${WAGTAIL_DEMO_1_PORT}:8000"
     environment:
       # Not current on postgres.
       - DB_HOST=db
@@ -104,13 +79,13 @@ services:
       - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Blue Wagtail"
       - WAGTAIL_SITE_COLOUR=blue
-      - WAGTAIL_REDIRECT_URL=http://172.18.0.4/
+      - WAGTAIL_REDIRECT_URL=http://${WAGTAIL_DEMO_1_IP}/
       - OIDC_RP_CLIENT_ID=client_id_1
       - OIDC_RP_CLIENT_SECRET=super_client_secret_1
-      - OIDC_OP=http://172.18.0.3:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP=http://${AUTHENTICATION_SERVICE_IP}:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - db
       - core-authentication-service
@@ -118,7 +93,7 @@ services:
         - "../core-integration-demo/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.4
+        ipv4_address: ${WAGTAIL_DEMO_1_IP}
 
   wagtail-demo-2:
     image: wtd_2:0.1
@@ -126,7 +101,7 @@ services:
       context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "10002:8000"
+      - "${WAGTAIL_DEMO_2_PORT}:8000"
     environment:
       # Not current on postgres.
       - DB_HOST=db
@@ -135,13 +110,13 @@ services:
       - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Green Wagtail"
       - WAGTAIL_SITE_COLOUR=green
-      - WAGTAIL_REDIRECT_URL=http://172.18.0.5/
+      - WAGTAIL_REDIRECT_URL=http://${WAGTAIL_DEMO_2_IP}/
       - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP=http://172.18.0.3:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP=http://${AUTHENTICATION_SERVICE_IP}:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - db
       - core-authentication-service
@@ -149,7 +124,7 @@ services:
         - "../core-integration-demo/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.5
+        ipv4_address: ${WAGTAIL_DEMO_2_IP}
 
   core-management-layer:
     build:
@@ -157,7 +132,7 @@ services:
     volumes:
       - ../core-management-layer/:/app/
     ports:
-      - "10003:5000"
+      - "${MANAGEMENT_LAYER_PORT}:5000"
     depends_on:
       - core-access-control
       - core-user-data-store
@@ -168,7 +143,7 @@ services:
     command: swagger_server/httpd.py --logging=debug
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.6
+        ipv4_address: ${MANAGEMENT_LAYER_IP}
 
   core-management-portal:
     image: ge-gmp:0.1
@@ -176,20 +151,20 @@ services:
       context: ../core-management-portal/
     command: yarn start
     ports:
-      - "10004:3000"
+      - "${MANAGEMENT_PORTAL_PORT}:3000"
     environment:
       - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - core-authentication-service
     volumes:
         - "../core-management-portal/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.7
+        ipv4_address: ${MANAGEMENT_PORTAL_IP}
 
   db:
     build:
@@ -199,7 +174,7 @@ services:
     #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.10
+        ipv4_address: ${POSTGRESQL_IP}
 
   redis:
     image: "redis:alpine"
@@ -207,13 +182,15 @@ services:
       - "6379"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.11
+        ipv4_address: ${REDIS_IP}
 
   memcache:
     image: "memcached:alpine"
+    expose:
+      - "11211"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.12
+        ipv4_address: ${MEMCACHE_IP}
 
 networks:
   oidcnetwork:
