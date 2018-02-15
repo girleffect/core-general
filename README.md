@@ -2,7 +2,7 @@
 
 This repo will port to MkDocs: http://www.mkdocs.org/
 
-Current docs/ still uses Sphinx.i
+Current docs/ still uses Sphinx.
 
 ## Running the core components using `docker-compose`
 

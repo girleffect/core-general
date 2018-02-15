@@ -1,33 +1,68 @@
 version: '3'
 
+# Refer to the .env file for IP and port-related definitions
+
 services:
-#  core-general:
-#    image: girleffect:1.0
-#    build:
-#     context: .
+
+  core-user-data-store:
+    build:
+      context: ../core-user-data-store/
+    environment:
+      - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
+    volumes:
+      - ../core-user-data-store/:/app/
+    ulimits:
+       nproc: 65535
+       nofile:
+         soft: 20000
+         hard: 40000
+    restart: on-failure
+    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/user_data_store.yml -p 5000
+    command: -m swagger_server
+    depends_on:
+      - db
+    networks:
+      oidcnetwork:
+        ipv4_address: ${USER_DATA_STORE_IP}
+
+  core-access-control:
+    build:
+      context: ../core-access-control/
+    environment:
+      - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
+    volumes:
+      - ../core-access-control/:/app/
+    restart: on-failure
+    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
+    command: -m swagger_server
+    depends_on:
+      - db
+    networks:
+      oidcnetwork:
+        ipv4_address: ${ACCESS_CONTROL_IP}
 
   core-authentication-service:
     image: ge-auth:0.1
     build:
       context: ../core-authentication-service/
     volumes:
-      - ../core-authentication-service:/code
+      - ../core-authentication-service/:/app/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "8000:8000"
+      - "${AUTHENTICATION_SERVICE_PORT}:8000"
     environment:
-      - DB_HOST=172.18.0.2
-      - REDIS_URI=redis://172.18.0.6:6379/0
+      - DB_HOST=db
+      - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
       - DB_NAME=authentication_service
       - ALLOWED_HOSTS=*
-      - WAGTAIL_1_IP=http://172.18.0.4:8000/oidc/callback/
-      - WAGTAIL_2_IP=http://172.18.0.5:8000/oidc/callback/
+      - WAGTAIL_1_IP=http://${WAGTAIL_DEMO_1_IP}:8000/oidc/callback/
+      - WAGTAIL_2_IP=http://${WAGTAIL_DEMO_2_IP}:8000/oidc/callback/
     depends_on:
       - db
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.3
+        ipv4_address: ${AUTHENTICATION_SERVICE_IP}
 
   wagtail-demo-1:
     image: wtd_1:0.1
@@ -35,7 +70,7 @@ services:
       context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "8001:8000"
+      - "${WAGTAIL_DEMO_1_PORT}:8000"
     environment:
       # Not current on postgres.
       - DB_HOST=db
@@ -44,13 +79,13 @@ services:
       - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Blue Wagtail"
       - WAGTAIL_SITE_COLOUR=blue
-      - WAGTAIL_REDIRECT_URL=http://172.18.0.4/
+      - WAGTAIL_REDIRECT_URL=http://${WAGTAIL_DEMO_1_IP}/
       - OIDC_RP_CLIENT_ID=client_id_1
       - OIDC_RP_CLIENT_SECRET=super_client_secret_1
-      - OIDC_OP=http://172.18.0.3:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP=http://${AUTHENTICATION_SERVICE_IP}:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - db
       - core-authentication-service
@@ -58,7 +93,7 @@ services:
         - "../core-integration-demo/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.4
+        ipv4_address: ${WAGTAIL_DEMO_1_IP}
 
   wagtail-demo-2:
     image: wtd_2:0.1
@@ -66,7 +101,7 @@ services:
       context: ../core-integration-demo/
     command: scripts/waitFor.sh scripts/startDjango.sh
     ports:
-      - "8002:8000"
+      - "${WAGTAIL_DEMO_2_PORT}:8000"
     environment:
       # Not current on postgres.
       - DB_HOST=db
@@ -75,13 +110,13 @@ services:
       - DB_PASSWORD=password
       - WAGTAIL_SITE_NAME="Green Wagtail"
       - WAGTAIL_SITE_COLOUR=green
-      - WAGTAIL_REDIRECT_URL=http://172.18.0.5/
+      - WAGTAIL_REDIRECT_URL=http://${WAGTAIL_DEMO_2_IP}/
       - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP=http://172.18.0.3:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP=http://${AUTHENTICATION_SERVICE_IP}:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - db
       - core-authentication-service
@@ -89,28 +124,47 @@ services:
         - "../core-integration-demo/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.5
+        ipv4_address: ${WAGTAIL_DEMO_2_IP}
 
-  gmp:
+  core-management-layer:
+    build:
+      context: ../core-management-layer/
+    volumes:
+      - ../core-management-layer/:/app/
+    ports:
+      - "${MANAGEMENT_LAYER_PORT}:5000"
+    depends_on:
+      - core-access-control
+      - core-user-data-store
+      - core-authentication-service
+    restart: on-failure
+    # For mocking:
+    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
+    command: swagger_server/httpd.py --logging=debug
+    networks:
+      oidcnetwork:
+        ipv4_address: ${MANAGEMENT_LAYER_IP}
+
+  core-management-portal:
     image: ge-gmp:0.1
     build:
       context: ../core-management-portal/
     command: yarn start
     ports:
-      - "8003:3000"
+      - "${MANAGEMENT_PORTAL_PORT}:3000"
     environment:
       - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://172.18.0.3:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://172.18.0.3:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://172.18.0.3:8000/openid/userinfo/
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://${AUTHENTICATION_SERVICE_IP}:8000/openid/userinfo/
     depends_on:
       - core-authentication-service
     volumes:
         - "../core-management-portal/:/app/"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.7
+        ipv4_address: ${MANAGEMENT_PORTAL_IP}
 
   db:
     build:
@@ -120,70 +174,7 @@ services:
     #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.2
-
-#  # Moved down for now, to keep ticket related docker data together.
-#  core-user-data-store:
-#    build:
-#      context: ../core-user-data-store/
-#      args:  # Maps to args defined in the Dockerfile
-#        - password=secret
-#        - dbkey  # Get value from the compose environment
-#    volumes:
-#      - ../core-user-data-store:/code
-#    expose:
-#        - "5000"
-##    healthcheck:
-##      test: ["CMD", "curl", "-f", "http://localhost:5000"]
-##      interval: 1m30s
-##      timeout: 10s
-##      retries: 3
-#    extra_hosts:
-#      - "somehost:8.8.8.8"
-#    ulimits:
-#       nproc: 65535
-#       nofile:
-#         soft: 20000
-#         hard: 40000
-#    restart: on-failure
-#    command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/user_data_store.yml -p 5000
-#
-#  core-access-control:
-#    build:
-#      context: ../core-access-control/
-#    volumes:
-#      - ../core-access-control:/code
-#    expose:
-#      - "5000"
-#    restart: on-failure
-#    command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
-#    depends_on:
-#      - core-general
-#
-#  core-management-layer:
-#    build:
-#      context: ../core-management-layer/
-#    volumes:
-#      - ../core-management-layer:/code
-#    ports:
-#      - "8001:8080"
-#    depends_on:
-#      - core-access-control
-#      - core-user-data-store
-#      # - core-authentication-service
-#    restart: on-failure
-#    # For mocking:
-#    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
-#
-##  core-management-portal:
-##    build:
-##      context: ../core-management-portal/
-##    volumes:
-##      - ../core-management-portal/management_portal:/code
-##    depends_on:
-##      - core-management-layer
-##    restart: on-failure
-##    command: bash -c "while true; do sleep 10; date; done"
+        ipv4_address: ${POSTGRESQL_IP}
 
   redis:
     image: "redis:alpine"
@@ -191,7 +182,15 @@ services:
       - "6379"
     networks:
       oidcnetwork:
-        ipv4_address: 172.18.0.6
+        ipv4_address: ${REDIS_IP}
+
+  memcache:
+    image: "memcached:alpine"
+    expose:
+      - "11211"
+    networks:
+      oidcnetwork:
+        ipv4_address: ${MEMCACHE_IP}
 
 networks:
   oidcnetwork:
