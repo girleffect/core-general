@@ -129,10 +129,16 @@ services:
   core-management-layer:
     build:
       context: ../core-management-layer/
+    environment:
+      - STUBS_CLASS=management_layer.integration.Implementation
+      - PYTHONASYNCIODEBUG=1
+      - ACCESS_CONTROL_API=http://${ACCESS_CONTROL_IP}:8080/api/v1
+      - AUTHENTICATION_SERVICE_API=http://${AUTHENTICATION_SERVICE_IP}:8000/api/v1
+      - USER_DATA_STORE_API=http://${USER_DATA_STORE_IP}:8080/api/v1
     volumes:
       - ../core-management-layer/:/app/
     ports:
-      - "${MANAGEMENT_LAYER_PORT}:5000"
+      - "${MANAGEMENT_LAYER_PORT}:8000"
     depends_on:
       - core-access-control
       - core-user-data-store
@@ -140,7 +146,7 @@ services:
     restart: on-failure
     # For mocking:
     # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
-    command: swagger_server/httpd.py --logging=debug
+    command: httpd.py --logging=debug
     networks:
       oidcnetwork:
         ipv4_address: ${MANAGEMENT_LAYER_IP}
