@@ -21,9 +21,9 @@ services:
     command: -m swagger_server
     depends_on:
       - db
-    networks:
-      oidcnetwork:
-        ipv4_address: ${USER_DATA_STORE_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${USER_DATA_STORE_IP}
 
   core-access-control:
     build:
@@ -37,9 +37,9 @@ services:
     command: -m swagger_server
     depends_on:
       - db
-    networks:
-      oidcnetwork:
-        ipv4_address: ${ACCESS_CONTROL_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${ACCESS_CONTROL_IP}
 
   core-authentication-service:
     image: ge-auth:0.1
@@ -60,9 +60,9 @@ services:
       - WAGTAIL_2_IP=http://${WAGTAIL_DEMO_2_IP}:8000/oidc/callback/
     depends_on:
       - db
-    networks:
-      oidcnetwork:
-        ipv4_address: ${AUTHENTICATION_SERVICE_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${AUTHENTICATION_SERVICE_IP}
 
   wagtail-demo-1:
     image: wtd_1:0.1
@@ -91,9 +91,9 @@ services:
       - core-authentication-service
     volumes:
         - "../core-integration-demo/:/app/"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${WAGTAIL_DEMO_1_IP}
+          #    networks:
+          #      oidcnetwork:
+          #        ipv4_address: ${WAGTAIL_DEMO_1_IP}
 
   wagtail-demo-2:
     image: wtd_2:0.1
@@ -122,9 +122,9 @@ services:
       - core-authentication-service
     volumes:
         - "../core-integration-demo/:/app/"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${WAGTAIL_DEMO_2_IP}
+          #    networks:
+          #      oidcnetwork:
+          #        ipv4_address: ${WAGTAIL_DEMO_2_IP}
 
   core-management-layer:
     build:
@@ -149,9 +149,9 @@ services:
     # For mocking:
     # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
     command: httpd.py --logging=debug
-    networks:
-      oidcnetwork:
-        ipv4_address: ${MANAGEMENT_LAYER_IP}
+    #    networks:
+    #      oidcnetwork:
+    #        ipv4_address: ${MANAGEMENT_LAYER_IP}
 
   core-management-portal:
     image: ge-gmp:0.1
@@ -170,9 +170,9 @@ services:
       - core-authentication-service
     volumes:
         - "../core-management-portal/:/app/"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${MANAGEMENT_PORTAL_IP}
+          #    networks:
+          #      oidcnetwork:
+          #        ipv4_address: ${MANAGEMENT_PORTAL_IP}
 
   db:
     build:
@@ -180,25 +180,25 @@ services:
     # To rather mount localhost postgres data.
     #volumes:
     #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${POSTGRESQL_IP}
+    #    networks:
+    #      oidcnetwork:
+    #        ipv4_address: ${POSTGRESQL_IP}
 
   redis:
     image: "redis:alpine"
     expose:
       - "6379"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${REDIS_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${REDIS_IP}
 
   memcache:
     image: "memcached:alpine"
     expose:
       - "11211"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${MEMCACHE_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${MEMCACHE_IP}
 
   squid:
     image: "datadog/squid"
@@ -206,11 +206,11 @@ services:
       - "3128"
     ports:
       - "${SQUID_PORT}:3128"
-    networks:
-      oidcnetwork:
-        ipv4_address: ${SQUID_IP}
+        #    networks:
+        #      oidcnetwork:
+        #        ipv4_address: ${SQUID_IP}
 
-networks:
-  oidcnetwork:
-    external: true
+        #networks:
+        #  oidcnetwork:
+        #    external: true
 
