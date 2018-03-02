@@ -132,14 +132,24 @@ services:
       context: ../core-management-layer/
     environment:
       - STUBS_CLASS=management_layer.integration.Implementation
-      - PYTHONASYNCIODEBUG=1
+      - PYTHONASYNCIODEBUG=0
       - ACCESS_CONTROL_API=http://${ACCESS_CONTROL_IP}:8080/api/v1
       - AUTHENTICATION_SERVICE_API=http://${AUTHENTICATION_SERVICE_IP}:8000/api/v1
       - USER_DATA_STORE_API=http://${USER_DATA_STORE_IP}:8080/api/v1
+      - INSECURE=true
+      - WITH_UI=true
+      - UI_HOST=${MANAGEMENT_LAYER_IP}
+      - JWT_SECRET=management_layer_workaround
+      - JWT_AUDIENCE=management_layer_workaround
     volumes:
       - ../core-management-layer/:/app/
     ports:
       - "${MANAGEMENT_LAYER_PORT}:8000"
+    ulimits:
+       nproc: 65535
+       nofile:
+         soft: 20000
+         hard: 40000
     depends_on:
       - core-access-control
       - core-user-data-store
@@ -198,6 +208,25 @@ services:
     networks:
       oidcnetwork:
         ipv4_address: ${MEMCACHE_IP}
+
+  squid:
+    image: "datadog/squid"
+    expose:
+      - "3128"
+    ports:
+      - "${SQUID_PORT}:3128"
+    networks:
+      oidcnetwork:
+        ipv4_address: ${SQUID_IP}
+
+  pacserver:
+    build:
+      context: apps/proxy/
+    ports:
+      - "${PACSERVER_PORT}:8000"
+    networks:
+      oidcnetwork:
+        ipv4_address: ${PACSERVER_IP}
 
 networks:
   oidcnetwork:
