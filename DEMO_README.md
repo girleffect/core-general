@@ -21,7 +21,11 @@
 * _Create rsa keys for the clients._
 `$ python manage.py creatersakey`
 
-Once everything is done, the wagtail demo app should be accessible on `http://172.18.0.4:8000/`
+Once everything is done, the wagtail demo applications should be accessible on
+* `http://wagtail-demo-1:8000/`
+* `http://wagtail-demo-2:8000/`
+
+It will redirect to the authentication service running on `http://core-authentication-service:8000/`
 
 ### User Credentials for Wagtail Demo:
 
