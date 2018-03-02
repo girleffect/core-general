@@ -58,6 +58,7 @@ services:
       - ALLOWED_HOSTS=*
       - WAGTAIL_1_IP=http://${WAGTAIL_DEMO_1_IP}:8000/oidc/callback/
       - WAGTAIL_2_IP=http://${WAGTAIL_DEMO_2_IP}:8000/oidc/callback/
+      - CELERY_BROKER_URL=redis://redis:6379/0
     depends_on:
       - db
     networks:
