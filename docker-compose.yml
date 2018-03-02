@@ -218,6 +218,15 @@ services:
       oidcnetwork:
         ipv4_address: ${SQUID_IP}
 
+  pacserver:
+    build:
+      context: apps/proxy/
+    ports:
+      - "${PACSERVER_PORT}:8000"
+    networks:
+      oidcnetwork:
+        ipv4_address: ${PACSERVER_IP}
+
 networks:
   oidcnetwork:
     external: true
