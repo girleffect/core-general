@@ -18,7 +18,7 @@ services:
          hard: 40000
     restart: on-failure
     # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/user_data_store.yml -p 5000
-    command: -m swagger_server
+    command: scripts/startApp.sh
     depends_on:
       - db
 
@@ -31,7 +31,7 @@ services:
       - ../core-access-control/:/app/
     restart: on-failure
     # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
-    command: -m swagger_server
+    command: scripts/startApp.sh
     depends_on:
       - db
 
