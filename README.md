@@ -22,6 +22,7 @@ which should result in the following output:
 ```
 
 You can use `make run` as a shortcut to start `docker-compose`.
+Look at [DEMO_README.md](DEMO_README.md) for further setup instructions.
 
 ## Quick links to the Swagger Documentation for the Core Components
 
