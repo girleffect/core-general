@@ -6,7 +6,7 @@ function FindProxyForURL(url, host) {
         return PROXY;
 
     // HTTP services
-    if (shExpMatch(url, "https://wagtail-demo-*") || shExpMatch(url, "http://core-*"))
+    if (shExpMatch(url, "http://wagtail-demo-*") || shExpMatch(url, "http://core-*"))
         return PROXY;
 
     // HTTPS services
