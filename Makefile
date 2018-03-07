@@ -19,6 +19,7 @@ help:
 	@echo "    $(CYAN)run$(CLEAR): Run the core components using docker-compose."
 	@echo "    $(CYAN)docker-build-image$(CLEAR): Build out the Girl Effect base image to the local docker repo."
 	@echo "    $(CYAN)docker-remove-image$(CLEAR): Remove the Girl Effect base image from the local docker repo. NOTE: Only the Girl Effect image gets removed, not the one/s it is based off"
+	@echo "    $(CYAN)list-services$(CLEAR): List the services defined in the docker-compose.yml file""
 
 $(VENV):
 	@echo "$(CYAN)Initialise base ve...$(CLEAR)"
@@ -78,3 +79,7 @@ docker-remove-image:
 	@echo "$(CYAN)Removing docker image...$(CLEAR)"
 	docker rmi girleffect:$(DOCKER-VERSION)
 	@echo "$(GREEN)DONE$(CLEAR)"
+
+list-services:
+	# Requires libghc-yaml-dev and jq packages to be installed
+	@yaml2json docker-compose.yml | jq '.services | to_entries[] | .key'
