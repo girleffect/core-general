@@ -21,6 +21,8 @@ services:
     command: scripts/startApp.sh
     depends_on:
       - db
+    networks:
+      - oidcnetwork
 
   core-access-control:
     build:
@@ -34,6 +36,8 @@ services:
     command: scripts/startApp.sh
     depends_on:
       - db
+    networks:
+      - oidcnetwork
 
   core-authentication-service:
     image: ge-auth:0.1
@@ -53,6 +57,8 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
     depends_on:
       - db
+    networks:
+      - oidcnetwork
 
   wagtail-demo-1:
     image: wtd_1:0.1
@@ -79,6 +85,8 @@ services:
       - core-authentication-service
     volumes:
         - "../core-integration-demo/:/app/"
+    networks:
+      - oidcnetwork
 
   wagtail-demo-2:
     image: wtd_2:0.1
@@ -105,6 +113,8 @@ services:
       - core-authentication-service
     volumes:
         - "../core-integration-demo/:/app/"
+    networks:
+      - oidcnetwork
 
   core-management-layer:
     build:
@@ -135,6 +145,8 @@ services:
     # For mocking:
     # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
     command: httpd.py --logging=debug
+    networks:
+      - oidcnetwork
 
   core-management-portal:
     image: ge-gmp:0.1
@@ -151,6 +163,8 @@ services:
       - core-authentication-service
     volumes:
         - "../core-management-portal/:/app/"
+    networks:
+      - oidcnetwork
 
   db:
     build:
@@ -158,16 +172,22 @@ services:
     # To rather mount localhost postgres data.
     #volumes:
     #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
+    networks:
+      - oidcnetwork
 
   redis:
     image: "redis:alpine"
     expose:
       - "6379"
+    networks:
+      - oidcnetwork
 
   memcache:
     image: "memcached:alpine"
     expose:
       - "11211"
+    networks:
+      - oidcnetwork
 
   squid:
     image: "datadog/squid"
@@ -175,12 +195,16 @@ services:
       - "3128"
     ports:
       - "${SQUID_PORT}:3128"
+    networks:
+      - oidcnetwork
 
   pacserver:
     build:
       context: apps/proxy/
     ports:
       - "${PACSERVER_PORT}:8000"
+    networks:
+      - oidcnetwork
 
 # This network definition limits the IP range that can be used.
 # This is convenient because we need to refer to the IP range in the
