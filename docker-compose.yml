@@ -143,7 +143,7 @@ services:
       - core-authentication-service
     restart: on-failure
     # For mocking:
-    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/management_layer.yml -p 8080
+    # command: ./prism run --validate --debug --list --mockDynamic -s ./swagger/management_layer.yml -p 8080
     command: httpd.py --logging=debug
     networks:
       - oidcnetwork
