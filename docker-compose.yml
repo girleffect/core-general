@@ -9,6 +9,8 @@ services:
       context: ../core-user-data-store/
     environment:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
+      - API_KEY="demo-user-data-store-api-key"
+      - ALLOWED_API_KEYS="demo-authentication-service-api-key, demo-management-layer-api-key"
     volumes:
       - ../core-user-data-store/:/app/
     ulimits:
@@ -29,6 +31,8 @@ services:
       context: ../core-access-control/
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
+      - API_KEY="demo-access-control-api-key"
+      - ALLOWED_API_KEY="demo-authentication-service-api-key, demo-management-layer-api-key"
     volumes:
       - ../core-access-control/:/app/
     restart: on-failure
@@ -55,6 +59,8 @@ services:
       - WAGTAIL_1_IP=http://wagtail-demo-1:8000/oidc/callback/
       - WAGTAIL_2_IP=http://wagtail-demo-2:8000/oidc/callback/
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - API_KEY="demo-authentication-service-api-key"
+      - ALLOWED_API_KEYS="demo-management-layer-api-key"
     depends_on:
       - db
     networks:
@@ -130,6 +136,10 @@ services:
       - UI_HOST=core-management-layer
       - JWT_SECRET=management_layer_workaround
       - JWT_AUDIENCE=management_layer_workaround
+      - API_KEY="demo-management-layer-api-key"
+      - ACCESS_CONTROL_API_KEY="demo-access-control-api-key
+      - AUTHENTICATION_SERVICE_API_KEY="demo-authentication-service-api-key"
+      - USER_DATA_STORE_API_KEY="demo-user-data-store-api-key"
     volumes:
       - ../core-management-layer/:/app/
     ulimits:
