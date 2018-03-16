@@ -47,10 +47,9 @@ services:
       - ../core-authentication-service/:/app/
     command: scripts/waitFor.sh scripts/startDjango.sh
     environment:
-      - DB_HOST=db
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
-      - DB_NAME=authentication_service
+      - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - ALLOWED_HOSTS=*
       - WAGTAIL_1_IP=http://wagtail-demo-1:8000/oidc/callback/
       - WAGTAIL_2_IP=http://wagtail-demo-2:8000/oidc/callback/
