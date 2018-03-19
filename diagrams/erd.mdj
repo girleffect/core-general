@@ -10004,7 +10004,7 @@
 									"containerExtending": false,
 									"left": 1488,
 									"top": 741,
-									"width": 255,
+									"width": 269,
 									"height": 13,
 									"autoResize": false,
 									"underline": false,
@@ -10043,7 +10043,7 @@
 											"containerExtending": false,
 											"left": 1493,
 											"top": 764,
-											"width": 245,
+											"width": 259,
 											"height": 13,
 											"autoResize": false
 										},
@@ -10067,7 +10067,7 @@
 											"containerExtending": false,
 											"left": 1493,
 											"top": 779,
-											"width": 245,
+											"width": 259,
 											"height": 13,
 											"autoResize": false
 										},
@@ -10091,7 +10091,7 @@
 											"containerExtending": false,
 											"left": 1493,
 											"top": 794,
-											"width": 245,
+											"width": 259,
 											"height": 13,
 											"autoResize": false
 										},
@@ -10115,7 +10115,7 @@
 											"containerExtending": false,
 											"left": 1493,
 											"top": 809,
-											"width": 245,
+											"width": 259,
 											"height": 13,
 											"autoResize": false
 										},
@@ -10139,7 +10139,7 @@
 											"containerExtending": false,
 											"left": 1493,
 											"top": 824,
-											"width": 245,
+											"width": 259,
 											"height": 13,
 											"autoResize": false
 										}
@@ -10155,7 +10155,7 @@
 									"containerExtending": false,
 									"left": 1488,
 									"top": 759,
-									"width": 255,
+									"width": 269,
 									"height": 83,
 									"autoResize": false
 								}
@@ -10171,7 +10171,7 @@
 							"containerExtending": false,
 							"left": 1488,
 							"top": 736,
-							"width": 255,
+							"width": 269,
 							"height": 106,
 							"autoResize": false,
 							"nameLabel": {
@@ -11760,6 +11760,7 @@
 								"$ref": "AAAAAAFfCeOfncXGQRA="
 							},
 							"name": "password",
+							"documentation": "Hashed answer using Django's standard password hash mechanism",
 							"type": "VARCHAR",
 							"length": "128",
 							"primaryKey": false,
@@ -15359,9 +15360,9 @@
 								"$ref": "AAAAAAFgWR972pvigj0="
 							},
 							"name": "answer",
-							"documentation": "Trimmed, lowercased and hased answer",
-							"type": "TEXT",
-							"length": 0,
+							"documentation": "Trimmed, lowercased and hashed answer using Django's standard password hash mechanism",
+							"type": "VARCHAR",
+							"length": "128",
 							"primaryKey": false,
 							"foreignKey": false,
 							"nullable": false,
