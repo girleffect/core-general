@@ -1,6 +1,6 @@
 --
 -- This is an example of how to query data from multiple
--- databases and agreggating the results.
+-- databases and agreggate the results.
 --
 -- This script will create a new database called
 -- "migration_investigation" into which the remote tables
