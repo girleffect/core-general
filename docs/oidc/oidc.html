@@ -32,6 +32,7 @@
             
   <div class="section" id="openid-connect">
 <h1>1. OpenID Connect<a class="headerlink" href="#openid-connect" title="Permalink to this headline">¶</a></h1>
+<p>A brief look at OpenID Connect. For more information, see the source list.</p>
 <div class="section" id="what-is-openid-connect">
 <h2>1.1. What is OpenID Connect?<a class="headerlink" href="#what-is-openid-connect" title="Permalink to this headline">¶</a></h2>
 <p>OpenID Connect (OIDC) is a simple mechanism based on the OAuth 2.0
@@ -54,32 +55,79 @@ prevents someone from stealing the <em>client_id</em> and using it to have infor
 </ol>
 <div class="figure align-center" id="id1">
 <img alt="../_images/first_time_authentication.png" src="../_images/first_time_authentication.png" />
-<p class="caption"><span class="caption-text">OIDC web-based flow (TODO: FIX DIAGRAM)</span></p>
+<p class="caption"><span class="caption-text">OIDC web-based flow.</span></p>
 </div>
 </div>
 <div class="section" id="access-tokens">
 <h2>1.3. Access Tokens<a class="headerlink" href="#access-tokens" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>Access Tokens are used to communicate to the API that the bearer of the
+token have been authorized to access the API and perform actions that
+are permitted by the custom scope of the API (Auth0, 2018).</p>
 </div>
 <div class="section" id="id-tokens">
 <h2>1.4. ID Tokens<a class="headerlink" href="#id-tokens" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>An ID token contains identity data such as the user’s name and email. The data is consumed
+by the client application and is typically used for UI display. These tokens conform to the RFC 7519
+standard for JSON Web Tokens and must contain 3 parts: a header, a body and a signature (Auth0, 2018).</p>
+</div>
+<div class="section" id="json-web-token-jwt">
+<h2>1.5. JSON Web Token (JWT)<a class="headerlink" href="#json-web-token-jwt" title="Permalink to this headline">¶</a></h2>
+<p>JSON Web Tokens allows for secure transmission of information between parties as a JSON object. The
+information is digitally signed, using either a secret or a public/private key pair. Therefor
+the information can be trusted and verified (Jwt.io, 2018).</p>
+<p><strong>An encoded JWT:</strong> - in the form <em>x.y.z</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span><span class="o">.</span><span class="n">eyJzdWIiOiIxMjM0NTY3ODkwIiwibm</span>
+<span class="n">FtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ</span><span class="o">.</span><span class="n">XbPfbIHMI6arZ3Y922BhjWg</span>
+<span class="n">QzWXcXNrz0ogtVhfEd2o</span>
+</pre></div>
+</div>
+<p>can be decoded into three parts:</p>
+<p><strong>Header (x)</strong> - Algorithm &amp; Token Type</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;alg&quot;</span><span class="p">:</span> <span class="s2">&quot;HS256&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;typ&quot;</span><span class="p">:</span> <span class="s2">&quot;JWT&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Body (y)</strong> - Data</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;sub&quot;</span><span class="p">:</span> <span class="s2">&quot;1234567890&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;iat&quot;</span><span class="p">:</span> <span class="mi">1516239022</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Signature (z)</strong> - Gets verified by doing</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">HMACSHA256</span><span class="p">(</span>
+    <span class="n">base64UrlEncode</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span>
+    <span class="n">base64UrlEncode</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
+    <span class="n">secret</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="oidc-in-girl-effect">
-<h2>1.5. OIDC in Girl Effect<a class="headerlink" href="#oidc-in-girl-effect" title="Permalink to this headline">¶</a></h2>
-<p>TODO: Add examples of the following:</p>
-<ul class="simple">
-<li>Django OIDC Provider</li>
-<li>Mozilla OIDC examples</li>
-<li>Wagtail implementation</li>
-</ul>
+<h2>1.6. OIDC in Girl Effect<a class="headerlink" href="#oidc-in-girl-effect" title="Permalink to this headline">¶</a></h2>
+<p><strong>Django OIDC Provider:</strong></p>
+<blockquote>
+<div>The Girl Effect Authentication Service uses the Django OIDC Provider library to perform all OIDC related tasks and makes use
+of the Django OIDC Provider models to create clients, etc. The Django OIDC Provider can be found here: <a class="reference external" href="https://github.com/juanifioren/django-oidc-provider">https://github.com/juanifioren/django-oidc-provider</a></div></blockquote>
+<p><strong>Mozilla Django OIDC:</strong></p>
+<blockquote>
+<div>Mozilla Django OIDC is used by other Django apps to integrate with the OIDC enabled Authentication Service on Girl Effect. Other
+libraries can/should be used for other types of apps. Mozilla Django OIDC can be found here: <a class="reference external" href="https://github.com/mozilla/mozilla-django-oidc">https://github.com/mozilla/mozilla-django-oidc</a></div></blockquote>
+<p><strong>Wagtail implementation:</strong></p>
+<blockquote>
+<div>An example of a wagtail app using OIDC and the Girl Effect Authentication service can be found here:
+<a class="reference external" href="https://github.com/girleffect/core-integration-demo/tree/develop/girleffect_oidc_integration">https://github.com/girleffect/core-integration-demo/tree/develop/girleffect_oidc_integration</a></div></blockquote>
 </div>
 <div class="section" id="sources">
-<h2>1.6. Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h2>
+<h2>1.7. Sources<a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h2>
 <p>Auth0. (2018). OpenID Connect. [online] Available at: <a class="reference external" href="https://auth0.com/docs/protocols/oidc">https://auth0.com/docs/protocols/oidc</a> [Accessed 22 Mar. 2018].</p>
 <p>Offenhartz, J. (2017). OpenID Connect explained in plain English.
 [Blog] Available at: <a class="reference external" href="https://www.onelogin.com/blog/openid-connect-explained-in-plain-english">https://www.onelogin.com/blog/openid-connect-explained-in-plain-english</a> [Accessed 22 Mar. 2018].</p>
 <p>Connect2id.com. (2018). OpenID Connect explained | Connect2id. [online] Available at: <a class="reference external" href="https://connect2id.com/learn/openid-connect">https://connect2id.com/learn/openid-connect</a> [Accessed 23 Mar. 2018].</p>
+<p>Jwt.io. (2018). JWT.IO - JSON Web Tokens Introduction. [online] Available at: <a class="reference external" href="https://jwt.io/introduction/">https://jwt.io/introduction/</a> [Accessed 26 Mar. 2018].</p>
 </div>
 </div>
 

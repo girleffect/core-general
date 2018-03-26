@@ -1,6 +1,8 @@
 OpenID Connect
 ==============
 
+A brief look at OpenID Connect. For more information, see the source list.
+
 What is OpenID Connect?
 -----------------------
 
@@ -27,7 +29,7 @@ An example of a web-based OIDC flow (Auth0, 2018):
 .. figure:: first_time_authentication.png
     :align: center
 
-    OIDC web-based flow (TODO: FIX DIAGRAM TO INCLUDE ID TOKEN)
+    OIDC web-based flow.
 
 Access Tokens
 -------------
@@ -37,16 +39,72 @@ are permitted by the custom scope of the API (Auth0, 2018).
 
 ID Tokens
 ---------
-TODO
+An ID token contains identity data such as the user's name and email. The data is consumed
+by the client application and is typically used for UI display. These tokens conform to the RFC 7519
+standard for JSON Web Tokens and must contain 3 parts: a header, a body and a signature (Auth0, 2018).
+
+JSON Web Token (JWT)
+--------------------
+JSON Web Tokens allows for secure transmission of information between parties as a JSON object. The
+information is digitally signed, using either a secret or a public/private key pair. Therefor
+the information can be trusted and verified (Jwt.io, 2018).
+
+**An encoded JWT:** - in the form *x.y.z*
+
+.. code-block:: python
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibm
+    FtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWg
+    QzWXcXNrz0ogtVhfEd2o
+
+can be decoded into three parts:
+
+**Header (x)** - Algorithm & Token Type
+
+.. code-block:: JSON
+
+    {
+        "alg": "HS256",
+        "typ": "JWT"
+    }
+
+**Body (y)** - Data
+
+.. code-block:: JSON
+
+    {
+        "sub": "1234567890",
+        "name": "John Doe",
+        "iat": 1516239022
+    }
+
+**Signature (z)** - Gets verified by doing
+
+.. code-block:: python
+
+    HMACSHA256(
+        base64UrlEncode(header) + "." +
+        base64UrlEncode(payload),
+        secret
+    )
 
 OIDC in Girl Effect
 -------------------
 
-TODO: Add examples of the following:
+**Django OIDC Provider:**
 
-- Django OIDC Provider: https://github.com/juanifioren/django-oidc-provider
-- Mozilla Django OIDC: https://github.com/mozilla/mozilla-django-oidc
-- Wagtail implementation: https://github.com/girleffect/core-integration-demo/tree/develop/girleffect_oidc_integration
+    The Girl Effect Authentication Service uses the Django OIDC Provider library to perform all OIDC related tasks and makes use
+    of the Django OIDC Provider models to create clients, etc. The Django OIDC Provider can be found here: https://github.com/juanifioren/django-oidc-provider
+
+**Mozilla Django OIDC:**
+
+    Mozilla Django OIDC is used by other Django apps to integrate with the OIDC enabled Authentication Service on Girl Effect. Other
+    libraries can/should be used for other types of apps. Mozilla Django OIDC can be found here: https://github.com/mozilla/mozilla-django-oidc
+
+**Wagtail implementation:**
+
+    An example of a wagtail app using OIDC and the Girl Effect Authentication service can be found here:
+    https://github.com/girleffect/core-integration-demo/tree/develop/girleffect_oidc_integration
 
 Sources
 -------
@@ -56,3 +114,5 @@ Offenhartz, J. (2017). OpenID Connect explained in plain English.
 [Blog] Available at: https://www.onelogin.com/blog/openid-connect-explained-in-plain-english [Accessed 22 Mar. 2018].
 
 Connect2id.com. (2018). OpenID Connect explained | Connect2id. [online] Available at: https://connect2id.com/learn/openid-connect [Accessed 23 Mar. 2018].
+
+Jwt.io. (2018). JWT.IO - JSON Web Tokens Introduction. [online] Available at: https://jwt.io/introduction/ [Accessed 26 Mar. 2018].
