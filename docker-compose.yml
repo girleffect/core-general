@@ -148,6 +148,7 @@ services:
          soft: 20000
          hard: 40000
     depends_on:
+      - memcache
       - core-access-control
       - core-user-data-store
       - core-authentication-service
