@@ -129,6 +129,7 @@ services:
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - AUTHENTICATION_SERVICE_API=http://core-authentication-service:8000/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - AUTHENTICATION_SERVICE_JWKS=http://core-authentication-service:8000/openid/jwks
       - INSECURE=true
       - WITH_UI=true
       - UI_HOST=core-management-layer
