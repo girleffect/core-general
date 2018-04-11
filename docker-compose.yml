@@ -134,7 +134,7 @@ services:
       - WITH_UI=true
       - UI_HOST=core-management-layer
       - JWT_SECRET=management_layer_workaround
-      - JWT_AUDIENCE=management_layer_workaround
+      - JWT_AUDIENCE=management_portal
       - ACCESS_CONTROL_API_KEY=demo-management-layer-api-key
       - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
       - USER_DATA_STORE_API_KEY=demo-management-layer-api-key
