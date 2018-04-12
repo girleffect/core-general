@@ -9110,139 +9110,6 @@
 						},
 						{
 							"_type": "ERDRelationshipView",
-							"_id": "AAAAAAFgSpbTSwPJNXk=",
-							"_parent": {
-								"$ref": "AAAAAAFfCeNqV8XCFS8="
-							},
-							"model": {
-								"$ref": "AAAAAAFgSpbTRwPFyeo="
-							},
-							"subViews": [
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFgSpbTSwPKKgA=",
-									"_parent": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"visible": false,
-									"enabled": true,
-									"lineColor": "#000000",
-									"fillColor": "#ffffff",
-									"fontColor": "#000000",
-									"font": "Arial;13;0",
-									"showShadow": true,
-									"containerChangeable": false,
-									"containerExtending": false,
-									"left": 119,
-									"top": 990,
-									"width": 0,
-									"height": 13,
-									"autoResize": false,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
-									"hostEdge": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"edgePosition": 1,
-									"underline": false,
-									"horizontalAlignment": 2,
-									"verticalAlignment": 5,
-									"wordWrap": false
-								},
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFgSpbTTAPLRnk=",
-									"_parent": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"visible": true,
-									"enabled": true,
-									"lineColor": "#000000",
-									"fillColor": "#ffffff",
-									"fontColor": "#000000",
-									"font": "Arial;13;0",
-									"showShadow": true,
-									"containerChangeable": false,
-									"containerExtending": false,
-									"left": 1185,
-									"top": 384,
-									"width": 10,
-									"height": 13,
-									"autoResize": false,
-									"alpha": 0.5235987755982988,
-									"distance": 30,
-									"hostEdge": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"edgePosition": 2,
-									"underline": false,
-									"text": "id",
-									"horizontalAlignment": 2,
-									"verticalAlignment": 5,
-									"wordWrap": false
-								},
-								{
-									"_type": "EdgeLabelView",
-									"_id": "AAAAAAFgSpbTTAPMFLw=",
-									"_parent": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"visible": true,
-									"enabled": true,
-									"lineColor": "#000000",
-									"fillColor": "#ffffff",
-									"fontColor": "#000000",
-									"font": "Arial;13;0",
-									"showShadow": true,
-									"containerChangeable": false,
-									"containerExtending": false,
-									"left": 140,
-									"top": 1597,
-									"width": 52,
-									"height": 13,
-									"autoResize": false,
-									"alpha": -0.5235987755982988,
-									"distance": 30,
-									"hostEdge": {
-										"$ref": "AAAAAAFgSpbTSwPJNXk="
-									},
-									"edgePosition": 0,
-									"underline": false,
-									"text": "invitor_id",
-									"horizontalAlignment": 2,
-									"verticalAlignment": 5,
-									"wordWrap": false
-								}
-							],
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"head": {
-								"$ref": "AAAAAAFf47GcAkeKzkw="
-							},
-							"tail": {
-								"$ref": "AAAAAAFfCeOfnsXIQBs="
-							},
-							"lineStyle": 0,
-							"points": "1216:376;104:376;104:1618;192:1618",
-							"nameLabel": {
-								"$ref": "AAAAAAFgSpbTSwPKKgA="
-							},
-							"tailNameLabel": {
-								"$ref": "AAAAAAFgSpbTTAPLRnk="
-							},
-							"headNameLabel": {
-								"$ref": "AAAAAAFgSpbTTAPMFLw="
-							}
-						},
-						{
-							"_type": "ERDRelationshipView",
 							"_id": "AAAAAAFgWKhyn5qEMCY=",
 							"_parent": {
 								"$ref": "AAAAAAFfCeNqV8XCFS8="
@@ -11178,29 +11045,6 @@
 							"headNameLabel": {
 								"$ref": "AAAAAAFhVrX9FV+55cc="
 							}
-						},
-						{
-							"_type": "UMLTextView",
-							"_id": "AAAAAAFh9cU8YE0SnDg=",
-							"_parent": {
-								"$ref": "AAAAAAFfCeNqV8XCFS8="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 912,
-							"top": 1288,
-							"width": 233,
-							"height": 121,
-							"autoResize": false,
-							"text": "The Site uses the unique Client.client_id VARCHAR field as foreign key. This allows for more efficient lookups in the Access Control component, where typically we want to map the client_id received in the JWT token to a Site.",
-							"wordWrap": true
 						}
 					]
 				},
@@ -13574,8 +13418,8 @@
 								"$ref": "AAAAAAFfCn/ZBMjmMNQ="
 							},
 							"name": "client_id",
-							"type": "VARCHAR",
-							"length": "255",
+							"type": "INTEGER",
+							"length": 0,
 							"primaryKey": false,
 							"foreignKey": true,
 							"referenceTo": {
