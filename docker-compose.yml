@@ -168,10 +168,11 @@ services:
       context: ../core-management-portal/
     command: yarn start
     environment:
+      - REACT_APP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/login/?next=/openid/authorize/
+      - REACT_APP_CLIENT_ID=management_portal
+      - REACT_APP_LOGIN_CALLBACK=http://core-management-portal:3000/#/oidc/callback?
       - REACT_APP_MANAGEMENT_LAYER=http://core-management-layer:8000
-      - OIDC_RP_CLIENT_ID=client_id_2
       - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
     depends_on:
