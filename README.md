@@ -58,3 +58,8 @@ External APIs
 
 http://ways-of-working.readthedocs.io/en/latest/tech/https.html#https
 
+### Creating sites on access-control via curl:
+curl 'http://access-control-service.qa-hub.ie.gehosting.org/api/v1/sites' \
+-H 'content-type: application/json' -H 'x-api-key: <API-KEY-ENV-VAR>' \
+--data '{"domain_id":<integer>,"client_id":<django_client_id>, "name":"site-name"}'
+
