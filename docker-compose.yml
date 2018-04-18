@@ -63,6 +63,31 @@ services:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - EMAIL_HOST_USER=somedummydata
+      - EMAIL_HOST_PASSWORD=somedummydata
+    depends_on:
+      - db
+    networks:
+      - oidcnetwork
+
+  core-authentication-celery:
+    image: ge-auth:0.1
+    build:
+      context: ../core-authentication-service/
+    volumes:
+      - ../core-authentication-service/:/app/
+    command: scripts/waitFor.sh celery -A authentication_service worker -l info
+    environment:
+      - ALLOWED_API_KEYS=demo-management-layer-api-key
+      - REDIS_URI=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - EMAIL_HOST_USER=somedummydata
+      - EMAIL_HOST_PASSWORD=somedummydata
+      - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
+      - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
+      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
+      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - C_FORCE_ROOT=true
     depends_on:
       - db
     networks:
