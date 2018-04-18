@@ -88,6 +88,7 @@ services:
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
     depends_on:
       - db
       - core-authentication-service
@@ -116,6 +117,7 @@ services:
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
     depends_on:
       - db
       - core-authentication-service
