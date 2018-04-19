@@ -79,7 +79,7 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh celery -A authentication_service worker -l info
+    command: scripts/waitFor.sh celery -A project worker -l info
     environment:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - REDIS_URI=redis://redis:6379/0
