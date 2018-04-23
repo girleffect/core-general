@@ -202,8 +202,10 @@ services:
     environment:
       - REACT_APP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - REACT_APP_CLIENT_ID=management_portal
-      - REACT_APP_LOGIN_CALLBACK=http://core-management-portal:3000/#/oidc/callback?
+      - REACT_APP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
       - REACT_APP_MANAGEMENT_LAYER=http://core-management-layer:8000
+      - REACT_APP_PORTAL_URL=http://core-management-portal:3000/
+      - REACT_APP_PORTAL_LOGIN_CALLBACK=#/oidc/callback?
     depends_on:
       - core-authentication-service
     volumes:
