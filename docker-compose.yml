@@ -61,8 +61,6 @@ services:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
-      - EMAIL_HOST_USER=somedummydata
-      - EMAIL_HOST_PASSWORD=somedummydata
       # The varaibles below are not used in production, just the docker-compose env
       - WAGTAIL_1_CALLBACK=http://wagtail-demo-1:8000/oidc/callback/
       - WAGTAIL_2_CALLBACK=http://wagtail-demo-2:8000/oidc/callback/
@@ -79,18 +77,15 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh celery -A project worker -l info
+    command: scripts/waitFor.sh celery -A project worker -l debug
     environment:
+      - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - REDIS_URI=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
       - EMAIL_HOST_USER=somedummydata
       - EMAIL_HOST_PASSWORD=somedummydata
-      - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
-      - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
-      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
-      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
-      - C_FORCE_ROOT=true
+      - CELERY_APP=project
     depends_on:
       - db
     networks:
