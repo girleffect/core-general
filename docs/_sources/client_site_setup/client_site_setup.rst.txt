@@ -16,20 +16,21 @@ In order for your application to make use of OIDC, you will need to set up a cli
 
 **The fields explained:**
 
-Name
-    Whatever you want to call your application.
+Name (required)
+    Display name for the your client.
 
-Client Type
+Client Type (required)
     Select **Confidential**.
 
-Response Type
+Response Type (required)
     Select **Code (Authorization Code Flow)**.
 
-Redirect URIs
-    Where you want the Authentication Service to redirect back to after a successful event. An example
-    would be http://example.com/oidc/callback/.
+Redirect URIs (required)
+    A list of comma delimited uri strings. This is validated against the
+    client, to ensure the users are never redirected off site unless its
+    a trusted client. An example would be http://example.com/oidc/callback/.
 
-JWT Algorithm
+JWT Algorithm (required)
     Select the most appropriate for your application.
 
 Require consent
@@ -39,8 +40,8 @@ Reuse consent
     If you only want to ask for consent on the first login, this should be checked.
 
 Post Logout Redirect URIs
-    If you want to have your user return to your site after logging out, you should add the uri. For example: http://example.com.
-
+    A list of comma delimited uri strings to ensure users are redirected back to
+    your application. An example would be http://example.com
 
 
 Creating a Site
@@ -55,19 +56,19 @@ Now that the client has been created, we can set up a site for the client over `
 
 **The fields explained:**
 
-Client:
+Client (required)
     Select the client you just created.
 
-Domain:
+Domain (required)
     Select a domain most appropriate to your application.
 
-Name:
-    Name your site.
+Name (required)
+    Name your site. Preferably the same as the client name you used previously.
 
-Is Active:
+Is Active
     Make active if you want to use your site immediately.
 
-Description:
+Description
     Describe your application.
 
 Setting up the data schema for a site
@@ -80,10 +81,10 @@ Setting up the data schema for a site
 
 **The fields explained:**
 
-Site:
+Site (required)
     Select the site you have created.
 
-Schema:
+Schema (required)
     The schema defines what your users' data will look like. The data is validated against this
     schema. `JsonSchema <https://pypi.org/project/jsonschema/>`_ is used to define the schemas.
     A basic schema can be: {"type": "object"}.

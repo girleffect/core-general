@@ -43,23 +43,25 @@
 </div>
 <p><strong>The fields explained:</strong></p>
 <dl class="docutils">
-<dt>Name</dt>
-<dd>Whatever you want to call your application.</dd>
-<dt>Client Type</dt>
+<dt>Name (required)</dt>
+<dd>Display name for the your client.</dd>
+<dt>Client Type (required)</dt>
 <dd>Select <strong>Confidential</strong>.</dd>
-<dt>Response Type</dt>
+<dt>Response Type (required)</dt>
 <dd>Select <strong>Code (Authorization Code Flow)</strong>.</dd>
-<dt>Redirect URIs</dt>
-<dd>Where you want the Authentication Service to redirect back to after a successful event. An example
-would be <a class="reference external" href="http://example.com/oidc/callback/">http://example.com/oidc/callback/</a>.</dd>
-<dt>JWT Algorithm</dt>
+<dt>Redirect URIs (required)</dt>
+<dd>A list of comma delimited uri strings. This is validated against the
+client, to ensure the users are never redirected off site unless its
+a trusted client. An example would be <a class="reference external" href="http://example.com/oidc/callback/">http://example.com/oidc/callback/</a>.</dd>
+<dt>JWT Algorithm (required)</dt>
 <dd>Select the most appropriate for your application.</dd>
 <dt>Require consent</dt>
 <dd>If your site is accessing any personal information of your user, this should be checked.</dd>
 <dt>Reuse consent</dt>
 <dd>If you only want to ask for consent on the first login, this should be checked.</dd>
 <dt>Post Logout Redirect URIs</dt>
-<dd>If you want to have your user return to your site after logging out, you should add the uri. For example: <a class="reference external" href="http://example.com">http://example.com</a>.</dd>
+<dd>A list of comma delimited uri strings to ensure users are redirected back to
+your application. An example would be <a class="reference external" href="http://example.com">http://example.com</a></dd>
 </dl>
 </div>
 <div class="section" id="creating-a-site">
@@ -71,15 +73,15 @@ would be <a class="reference external" href="http://example.com/oidc/callback/">
 </div>
 <p><strong>The fields explained:</strong></p>
 <dl class="docutils">
-<dt>Client:</dt>
+<dt>Client (required)</dt>
 <dd>Select the client you just created.</dd>
-<dt>Domain:</dt>
+<dt>Domain (required)</dt>
 <dd>Select a domain most appropriate to your application.</dd>
-<dt>Name:</dt>
-<dd>Name your site.</dd>
-<dt>Is Active:</dt>
+<dt>Name (required)</dt>
+<dd>Name your site. Preferably the same as the client name you used previously.</dd>
+<dt>Is Active</dt>
 <dd>Make active if you want to use your site immediately.</dd>
-<dt>Description:</dt>
+<dt>Description</dt>
 <dd>Describe your application.</dd>
 </dl>
 </div>
@@ -91,9 +93,9 @@ would be <a class="reference external" href="http://example.com/oidc/callback/">
 </div>
 <p><strong>The fields explained:</strong></p>
 <dl class="docutils">
-<dt>Site:</dt>
+<dt>Site (required)</dt>
 <dd>Select the site you have created.</dd>
-<dt>Schema:</dt>
+<dt>Schema (required)</dt>
 <dd>The schema defines what your users’ data will look like. The data is validated against this
 schema. <a class="reference external" href="https://pypi.org/project/jsonschema/">JsonSchema</a> is used to define the schemas.
 A basic schema can be: {“type”: “object”}.</dd>
