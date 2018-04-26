@@ -12,6 +12,7 @@ Welcome to Girl Effect: Core General's documentation!
    :numbered:
 
    oidc/oidc
+   client_site_setup/client_site_setup
 
 
 
