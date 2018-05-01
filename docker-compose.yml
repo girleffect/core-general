@@ -49,7 +49,8 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh scripts/startDjango.sh
+    command: # scripts/waitFor.sh scripts/startDjango.sh
+    command: project.wsgi:application --threads 5 --timeout 50
     environment:
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
@@ -79,10 +80,11 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh celery -A project worker -l info
+    command: celery worker # scripts/waitFor.sh celery -A project worker -l info
     environment:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - REDIS_URI=redis://redis:6379/0
+      - CELERY_APP=project
       - CELERY_BROKER_URL=redis://redis:6379/0
       - EMAIL_HOST_USER=somedummydata
       - EMAIL_HOST_PASSWORD=somedummydata
