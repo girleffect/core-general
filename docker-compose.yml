@@ -49,7 +49,7 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: # scripts/waitFor.sh scripts/startDjango.sh
+    # command: scripts/waitFor.sh scripts/startDjango.sh
     command: project.wsgi:application --threads 5 --timeout 50
     environment:
       - REDIS_URI=redis://redis:6379/0
