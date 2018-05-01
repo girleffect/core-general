@@ -12,3 +12,5 @@ CREATE DATABASE wagtail_1;
 
 CREATE USER wagtail_2 PASSWORD 'password';
 CREATE DATABASE wagtail_2;
+
+CREATE EXTENSION pg_trgm;
