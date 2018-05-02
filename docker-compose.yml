@@ -49,7 +49,8 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh scripts/startDjango.sh
+    # command: scripts/waitFor.sh scripts/startDjango.sh
+    command: project.wsgi:application --threads 5 --timeout 50
     environment:
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
@@ -61,6 +62,8 @@ services:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - EMAIL_HOST=smtp
+      # - SKIP_MIGRATIONS=1  Set this on QA, but not for docker compose.
       # The varaibles below are not used in production, just the docker-compose env
       - WAGTAIL_1_CALLBACK=http://wagtail-demo-1:8000/oidc/callback/
       - WAGTAIL_2_CALLBACK=http://wagtail-demo-2:8000/oidc/callback/
@@ -68,6 +71,7 @@ services:
       - WAGTAIL_2_LOGOUT_REDIRECT=http://wagtail-demo-2:8000/
     depends_on:
       - db
+      - smtp
     networks:
       - oidcnetwork
 
@@ -77,17 +81,23 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh celery -A project worker -l debug
+    command: celery worker # scripts/waitFor.sh celery -A project worker -l info
     environment:
-      - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - ALLOWED_API_KEYS=demo-management-layer-api-key
+      - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - REDIS_URI=redis://redis:6379/0
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - EMAIL_HOST_USER=somedummydata
-      - EMAIL_HOST_PASSWORD=somedummydata
       - CELERY_APP=project
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - EMAIL_HOST=smtp
+      - SKIP_MIGRATIONS=1
+      # - EMAIL_USER=
+      # - EMAIL_PASSWORD=
+      # - EMAIL_USE_TLS=
+      # - EMAIL_USE_SSL=
+      # - EMAIL_TIMEOUT=
     depends_on:
       - db
+      - smtp
     networks:
       - oidcnetwork
 
@@ -237,6 +247,13 @@ services:
       - "3128"
     ports:
       - "${SQUID_PORT}:3128"
+    networks:
+      - oidcnetwork
+
+  smtp:
+    image: "namshi/smtp"
+    expose:
+      - "25"
     networks:
       - oidcnetwork
 
