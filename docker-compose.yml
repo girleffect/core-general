@@ -90,10 +90,9 @@ services:
       - EMAIL_HOST=smtp
       # - EMAIL_USER=
       # - EMAIL_PASSWORD=
-      - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
-      - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
-      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
-      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      # - EMAIL_USE_TLS=
+      # - EMAIL_USE_SSL=
+      # - EMAIL_TIMEOUT=
       - C_FORCE_ROOT=true
     depends_on:
       - db
