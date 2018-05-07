@@ -10,6 +10,7 @@ services:
     environment:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
       - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-user-data-store/:/app/
     ulimits:
@@ -31,6 +32,7 @@ services:
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
       - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-access-control/:/app/
     restart: on-failure
@@ -47,20 +49,55 @@ services:
       context: ../core-authentication-service/
     volumes:
       - ../core-authentication-service/:/app/
-    command: scripts/waitFor.sh scripts/startDjango.sh
+    # command: scripts/waitFor.sh scripts/startDjango.sh
+    command: project.wsgi:application --threads 5 --timeout 50
     environment:
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
       - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - ALLOWED_HOSTS=*
-      - WAGTAIL_1_IP=http://wagtail-demo-1:8000/oidc/callback/
-      - WAGTAIL_2_IP=http://wagtail-demo-2:8000/oidc/callback/
       - CELERY_BROKER_URL=redis://redis:6379/0
       - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
       - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
       - ALLOWED_API_KEYS=demo-management-layer-api-key
+      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
+      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - EMAIL_HOST=smtp
+      # - SKIP_MIGRATIONS=1  Set this on QA, but not for docker compose.
+      # The varaibles below are not used in production, just the docker-compose env
+      - WAGTAIL_1_CALLBACK=http://wagtail-demo-1:8000/oidc/callback/
+      - WAGTAIL_2_CALLBACK=http://wagtail-demo-2:8000/oidc/callback/
+      - WAGTAIL_1_LOGOUT_REDIRECT=http://wagtail-demo-1:8000/
+      - WAGTAIL_2_LOGOUT_REDIRECT=http://wagtail-demo-2:8000/
     depends_on:
       - db
+      - smtp
+    networks:
+      - oidcnetwork
+
+  core-authentication-celery:
+    image: ge-auth:0.1
+    build:
+      context: ../core-authentication-service/
+    volumes:
+      - ../core-authentication-service/:/app/
+    command: celery worker # scripts/waitFor.sh celery -A project worker -l info
+    environment:
+      - ALLOWED_API_KEYS=demo-management-layer-api-key
+      - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
+      - REDIS_URI=redis://redis:6379/0
+      - CELERY_APP=project
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - EMAIL_HOST=smtp
+      - SKIP_MIGRATIONS=1
+      # - EMAIL_USER=
+      # - EMAIL_PASSWORD=
+      # - EMAIL_USE_TLS=
+      # - EMAIL_USE_SSL=
+      # - EMAIL_TIMEOUT=
+    depends_on:
+      - db
+      - smtp
     networks:
       - oidcnetwork
 
@@ -84,6 +121,7 @@ services:
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
     depends_on:
       - db
       - core-authentication-service
@@ -112,6 +150,7 @@ services:
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
       - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
     depends_on:
       - db
       - core-authentication-service
@@ -129,14 +168,18 @@ services:
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - AUTHENTICATION_SERVICE_API=http://core-authentication-service:8000/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - AUTHENTICATION_SERVICE_JWKS=http://core-authentication-service:8000/openid/jwks
       - INSECURE=true
       - WITH_UI=true
       - UI_HOST=core-management-layer
       - JWT_SECRET=management_layer_workaround
-      - JWT_AUDIENCE=management_layer_workaround
+      - JWT_AUDIENCE=management_portal
       - ACCESS_CONTROL_API_KEY=demo-management-layer-api-key
       - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
       - USER_DATA_STORE_API_KEY=demo-management-layer-api-key
+      - MEMCACHE_HOST=memcache
+      - MEMCACHE_PORT=11211
+      # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-management-layer/:/app/
     ulimits:
@@ -145,6 +188,7 @@ services:
          soft: 20000
          hard: 40000
     depends_on:
+      - memcache
       - core-access-control
       - core-user-data-store
       - core-authentication-service
@@ -161,11 +205,12 @@ services:
       context: ../core-management-portal/
     command: yarn start
     environment:
-      - OIDC_RP_CLIENT_ID=client_id_2
-      - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - REACT_APP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - REACT_APP_CLIENT_ID=management_portal
+      - REACT_APP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+      - REACT_APP_MANAGEMENT_LAYER=http://core-management-layer:8000
+      - REACT_APP_PORTAL_URL=http://core-management-portal:3000/
+      - REACT_APP_PORTAL_LOGIN_CALLBACK=#/oidc/callback?
     depends_on:
       - core-authentication-service
     volumes:
@@ -202,6 +247,13 @@ services:
       - "3128"
     ports:
       - "${SQUID_PORT}:3128"
+    networks:
+      - oidcnetwork
+
+  smtp:
+    image: "namshi/smtp"
+    expose:
+      - "25"
     networks:
       - oidcnetwork
 
