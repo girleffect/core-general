@@ -12,3 +12,7 @@ CREATE DATABASE wagtail_1;
 
 CREATE USER wagtail_2 PASSWORD 'password';
 CREATE DATABASE wagtail_2;
+
+-- Connect to database before creating extension
+\c authentication_service
+CREATE EXTENSION pg_trgm;
