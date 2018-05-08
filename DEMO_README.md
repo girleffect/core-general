@@ -21,6 +21,11 @@
 * _Create rsa keys for the clients._
 `$ python manage.py creatersakey`
 
+* _Next attach to the core_access_control container and run the following:_
+`$ python seed_data.py`
+
+`TEMP NOTE: In the event that the core_authentication container exits with a code 1 and complains about a TCP/IP issue. Simply restart that singular container. Its a know issue, the django app attempts to access the DB before it is ready.`
+
 In order to be able to access the services by name from a browser on the host system, the browser needs to be configured to use the proxy running inside the compose environment. In your favourite browser, point your proxy to: `http://localhost:3128` for hostnames starting with `core-*` and `wagtail-*`. If you are on a Mac, you can use the `proxy.pac` located at `http://localhost:3129/app/proxy.pac` to configure your proxy.
 
 Once everything is done, the wagtail demo applications should be accessible on
