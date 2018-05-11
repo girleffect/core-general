@@ -1,0 +1,151 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>2. Adding a new application &#8212; Girl Effect: Core general  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="1. OpenID Connect" href="../oidc/oidc.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-a-new-application">
+<h1>2. Adding a new application<a class="headerlink" href="#adding-a-new-application" title="Permalink to this headline">¶</a></h1>
+<p>To add a new application to the Girl Effect infrastructure, a few things need to be set up.</p>
+<div class="section" id="creating-a-client">
+<h2>2.1. Creating a Client<a class="headerlink" href="#creating-a-client" title="Permalink to this headline">¶</a></h2>
+<p>In order for your application to make use of OIDC, you will need to set up a client in the
+<a class="reference external" href="http://authentication-service.qa-hub.ie.gehosting.org/en/admin/oidc_provider/client/add/">Authentication Service</a>.</p>
+<div class="figure align-center" id="id1">
+<img alt="../_images/client_creation.png" src="../_images/client_creation.png" />
+<p class="caption"><span class="caption-text">The client creation form.</span></p>
+</div>
+<p><strong>The fields explained:</strong></p>
+<dl class="docutils">
+<dt>Name (required)</dt>
+<dd>Display name for the your client.</dd>
+<dt>Client Type (required)</dt>
+<dd>Select <strong>Confidential</strong>.</dd>
+<dt>Response Type (required)</dt>
+<dd>Select <strong>Code (Authorization Code Flow)</strong>.</dd>
+<dt>Redirect URIs (required)</dt>
+<dd>A list of comma delimited uri strings. This is validated against the
+client, to ensure the users are never redirected off site unless its
+a trusted client. An example would be <a class="reference external" href="http://example.com/oidc/callback/">http://example.com/oidc/callback/</a>.</dd>
+<dt>JWT Algorithm (required)</dt>
+<dd>Select the most appropriate for your application.</dd>
+<dt>Require consent</dt>
+<dd>If your site is accessing any personal information of your user, this should be checked.</dd>
+<dt>Reuse consent</dt>
+<dd>If you only want to ask for consent on the first login, this should be checked.</dd>
+<dt>Post Logout Redirect URIs</dt>
+<dd>A list of comma delimited uri strings to ensure users are redirected back to
+your application. An example would be <a class="reference external" href="http://example.com">http://example.com</a></dd>
+</dl>
+</div>
+<div class="section" id="creating-a-site">
+<h2>2.2. Creating a Site<a class="headerlink" href="#creating-a-site" title="Permalink to this headline">¶</a></h2>
+<p>Now that the client has been created, we can set up a site for the client over <a class="reference external" href="http://management-portal.qa-hub.ie.gehosting.org/#/sites/create">here</a>.</p>
+<div class="figure align-center" id="id2">
+<img alt="../_images/site_creation.png" src="../_images/site_creation.png" />
+<p class="caption"><span class="caption-text">The site creation form.</span></p>
+</div>
+<p><strong>The fields explained:</strong></p>
+<dl class="docutils">
+<dt>Client (required)</dt>
+<dd>Select the client you just created.</dd>
+<dt>Domain (required)</dt>
+<dd>Select a domain most appropriate to your application.</dd>
+<dt>Name (required)</dt>
+<dd>Name your site. Preferably the same as the client name you used previously.</dd>
+<dt>Is Active</dt>
+<dd>Make active if you want to use your site immediately.</dd>
+<dt>Description</dt>
+<dd>Describe your application.</dd>
+</dl>
+</div>
+<div class="section" id="setting-up-the-data-schema-for-a-site">
+<h2>2.3. Setting up the data schema for a site<a class="headerlink" href="#setting-up-the-data-schema-for-a-site" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id3">
+<img alt="../_images/schema_creation.png" src="../_images/schema_creation.png" />
+<p class="caption"><span class="caption-text">The schema creation form.</span></p>
+</div>
+<p><strong>The fields explained:</strong></p>
+<dl class="docutils">
+<dt>Site (required)</dt>
+<dd>Select the site you have created.</dd>
+<dt>Schema (required)</dt>
+<dd>The schema defines what your users’ data will look like. The data is validated against this
+schema. <a class="reference external" href="https://pypi.org/project/jsonschema/">JsonSchema</a> is used to define the schemas.
+A basic schema can be: {“type”: “object”}.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../oidc/oidc.html" title="previous chapter">1. OpenID Connect</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Girl Effect.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/client_site_setup/client_site_setup.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
