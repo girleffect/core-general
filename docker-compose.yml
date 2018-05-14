@@ -246,7 +246,7 @@ services:
     expose:
       - "3128"
     ports:
-      - "${SQUID_PORT}:3128"
+        - "127.0.0.1:${SQUID_PORT}:3128"
     networks:
       - oidcnetwork
 
