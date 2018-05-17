@@ -41,7 +41,7 @@ clean-virtualenv:
 # Build sphinx docs, then move them to docs/ root for GitHub Pages usage.
 docs-build:  $(VENV)
 	@echo "$(CYAN)Installing Sphinx requirements...$(CLEAR)"
-	$(PIP) install sphinx sphinx-autobuild
+	$(PIP) install sphinx sphinx-autobuild sphinx_rtd_theme
 	@echo "$(GREEN)DONE$(CLEAR)"
 	@echo "$(CYAN)Backing up docs/ directory content...$(CLEAR)"
 	tar -cvf backup.tar docs/source docs/Makefile
