@@ -65,10 +65,12 @@ services:
       - EMAIL_HOST=smtp
       # - SKIP_MIGRATIONS=1  Set this on QA, but not for docker compose.
       # The varaibles below are not used in production, just the docker-compose env
-      - WAGTAIL_1_CALLBACK=http://wagtail-demo-1:8000/oidc/callback/
-      - WAGTAIL_2_CALLBACK=http://wagtail-demo-2:8000/oidc/callback/
-      - WAGTAIL_1_LOGOUT_REDIRECT=http://wagtail-demo-1:8000/
-      - WAGTAIL_2_LOGOUT_REDIRECT=http://wagtail-demo-2:8000/
+      - WAGTAIL_1_CALLBACK=http://wagtail-demo-1-site-1:8000/oidc/callback/
+      - WAGTAIL_2_CALLBACK=http://wagtail-demo-2-site-1:8000/oidc/callback/
+      - WAGTAIL_3_CALLBACK=http://wagtail-demo-1-site-2:8000/oidc/callback/
+      - WAGTAIL_1_LOGOUT_REDIRECT=http://wagtail-demo-1-site-1:8000/
+      - WAGTAIL_2_LOGOUT_REDIRECT=http://wagtail-demo-2-site-1:8000/
+      - WAGTAIL_3_LOGOUT_REDIRECT=http://wagtail-demo-1-site-2:8000/
     depends_on:
       - db
       - smtp
@@ -112,11 +114,10 @@ services:
       - DB_NAME=wagtail_1
       - DB_USER=wagtail_1
       - DB_PASSWORD=password
-      - WAGTAIL_SITE_NAME="Springster"
       - SITE_CODE=springster
-      - WAGTAIL_REDIRECT_URL=http://wagtail-demo-1:8000/
-      - OIDC_RP_CLIENT_ID=client_id_1
-      - OIDC_RP_CLIENT_SECRET=super_client_secret_1
+      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-1:8000/
+      # - OIDC_RP_CLIENT_ID=client_id_1
+      # - OIDC_RP_CLIENT_SECRET=super_client_secret_1
       - OIDC_OP=http://core-authentication-service:8000
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
@@ -128,7 +129,10 @@ services:
     volumes:
         - "../core-integration-demo/:/app/"
     networks:
-      - oidcnetwork
+      oidcnetwork:
+        aliases:
+          - wagtail-demo-1-site-1
+          - wagtail-demo-1-site-2
 
   wagtail-demo-2:
     image: wtd_2:0.1
@@ -141,11 +145,10 @@ services:
       - DB_NAME=wagtail_2
       - DB_USER=wagtail_2
       - DB_PASSWORD=password
-      - WAGTAIL_SITE_NAME="Ninyampinga"
       - SITE_CODE=ninyampinga
-      - WAGTAIL_REDIRECT_URL=http://wagtail-demo-2:8000/
-      - OIDC_RP_CLIENT_ID=client_id_2
-      - OIDC_RP_CLIENT_SECRET=super_client_secret_2
+      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-2:8000/
+      # - OIDC_RP_CLIENT_ID=client_id_2
+      # - OIDC_RP_CLIENT_SECRET=super_client_secret_2
       - OIDC_OP=http://core-authentication-service:8000
       - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
       - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
@@ -157,7 +160,9 @@ services:
     volumes:
         - "../core-integration-demo/:/app/"
     networks:
-      - oidcnetwork
+      oidcnetwork:
+        aliases:
+          - wagtail-demo-2-site-1
 
   core-management-layer:
     build:
