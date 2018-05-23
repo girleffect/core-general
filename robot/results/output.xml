@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180522 22:27:58.482" generator="Robot 3.0.4 (Python 2.7.10 on darwin)">
+<suite source="/Users/jasonb/projects/girleffect/core-general/robot/tests/Springster-Demo-Site.robot" id="s1" name="Springster-Demo-Site">
+<test id="s1-t1" name="Re-activate end-user">
+<kw type="setup" name="Begin Web Test" library="common">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${START_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180522 22:27:58.733" level="INFO">Opening browser 'chrome' to base url 'http://springster-example.qa-hub.ie.gehosting.org/'.</msg>
+<status status="PASS" endtime="20180522 22:28:04.361" starttime="20180522 22:27:58.733"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:04.361" starttime="20180522 22:27:58.732"></status>
+</kw>
+<kw name="Change User State" library="girleffect_api">
+<doc>Set the user 'is_active' flag to true/false.</doc>
+<arguments>
+<arg>3f08f30e-5dc4-11e8-99a6-0242ac11000a</arg>
+<arg>${true}</arg>
+</arguments>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>hook</arg>
+<arg>http://${auth_host}</arg>
+<arg>verify=${True}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:04.363" level="INFO">Creating Session using : alias=hook, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" endtime="20180522 22:28:04.364" starttime="20180522 22:28:04.363"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>status</arg>
+<arg>http://${auth_host}</arg>
+<arg>verify=${True}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:04.365" level="INFO">Creating Session using : alias=status, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" endtime="20180522 22:28:04.365" starttime="20180522 22:28:04.364"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>is_active=${state}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20180522 22:28:04.366" level="INFO">${body} = {u'is_active': True}</msg>
+<status status="PASS" endtime="20180522 22:28:04.366" starttime="20180522 22:28:04.365"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Accept=application/json</arg>
+<arg>X-API-Key=${api_key}</arg>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20180522 22:28:04.367" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20180522 22:28:04.367" starttime="20180522 22:28:04.366"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the</doc>
+<arguments>
+<arg>hook</arg>
+<arg>/api/v1/users/${user_id}</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180522 22:28:05.215" level="INFO">Put Request using : alias=hook, uri=/api/v1/users/3f08f30e-5dc4-11e8-99a6-0242ac11000a, data={"is_active": true},                     headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}, allow_redirects=True </msg>
+<msg timestamp="20180522 22:28:05.215" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180522 22:28:05.215" starttime="20180522 22:28:04.367"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180522 22:28:05.216" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20180522 22:28:05.216" starttime="20180522 22:28:05.215"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Accept=application/json</arg>
+<arg>X-API-Key=${api_key}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20180522 22:28:05.217" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'}</msg>
+<status status="PASS" endtime="20180522 22:28:05.217" starttime="20180522 22:28:05.216"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>status</arg>
+<arg>/api/v1/users/${user_id}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180522 22:28:05.624" level="INFO">Get Request using : alias=status, uri=/api/v1/users/3f08f30e-5dc4-11e8-99a6-0242ac11000a, headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'} json=None</msg>
+<msg timestamp="20180522 22:28:05.624" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180522 22:28:05.624" starttime="20180522 22:28:05.217"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<status status="PASS" endtime="20180522 22:28:05.626" starttime="20180522 22:28:05.625"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.json()["is_active"]}</arg>
+<arg>${state}</arg>
+</arguments>
+<status status="PASS" endtime="20180522 22:28:05.627" starttime="20180522 22:28:05.626"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:05.627" starttime="20180522 22:28:04.362"></status>
+</kw>
+<kw name="Login As User" library="springster">
+<arguments>
+<arg>end-user</arg>
+<arg>ROBOT</arg>
+<arg>${RANDOM_PWD}</arg>
+</arguments>
+<kw name="Load Landing Page" library="LandingPage">
+<kw name="Go To" library="SeleniumLibrary">
+<doc>Navigates the active browser instance to the provided ``url``.</doc>
+<arguments>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:05.628" level="INFO">Opening url 'http://springster-example.qa-hub.ie.gehosting.org/'</msg>
+<status status="PASS" endtime="20180522 22:28:06.180" starttime="20180522 22:28:05.628"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:06.180" starttime="20180522 22:28:05.628"></status>
+</kw>
+<kw name="Login" library="LandingPage">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>${landingpage.login}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:06.181" level="INFO">Clicking link '//a[@href="/oidc/authenticate/"]'.</msg>
+<status status="PASS" endtime="20180522 22:28:07.705" starttime="20180522 22:28:06.180"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:07.705" starttime="20180522 22:28:06.180"></status>
+</kw>
+<kw name="Enter Auth Username" library="LoginPage">
+<arguments>
+<arg>${RANDOM_USER}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>name:auth-username</arg>
+<arg>${AUTH_USERNAME}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:07.706" level="INFO">Typing text 'ROBOT' into text field 'name:auth-username'.</msg>
+<status status="PASS" endtime="20180522 22:28:07.804" starttime="20180522 22:28:07.706"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:07.805" starttime="20180522 22:28:07.705"></status>
+</kw>
+<kw name="Enter Auth Password" library="LoginPage">
+<arguments>
+<arg>${RANDOM_PWD}</arg>
+</arguments>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>name:auth-password</arg>
+<arg>${AUTH_PASSWORD}</arg>
+</arguments>
+<msg timestamp="20180522 22:28:07.806" level="INFO">Typing text 'SDF!@er45' into text field 'name:auth-password'.</msg>
+<status status="PASS" endtime="20180522 22:28:07.877" starttime="20180522 22:28:07.805"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:07.877" starttime="20180522 22:28:07.805"></status>
+</kw>
+<kw name="Submit" library="LoginPage">
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>Login</arg>
+</arguments>
+<msg timestamp="20180522 22:28:07.878" level="INFO">Clicking button 'Login'.</msg>
+<status status="PASS" endtime="20180522 22:28:10.837" starttime="20180522 22:28:07.878"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:10.837" starttime="20180522 22:28:07.878"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:10.837" starttime="20180522 22:28:05.627"></status>
+</kw>
+<kw name="Ensure Login Successful" library="springster">
+<kw name="Verify Auth Page" library="AuthPage">
+<kw name="Wait Until Page Contains" library="SeleniumLibrary">
+<doc>Waits until ``text`` appears on current page.</doc>
+<arguments>
+<arg>Request for Permission</arg>
+</arguments>
+<status status="PASS" endtime="20180522 22:28:10.861" starttime="20180522 22:28:10.838"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:10.861" starttime="20180522 22:28:10.838"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:10.862" starttime="20180522 22:28:10.838"></status>
+</kw>
+<kw type="teardown" name="End Web Test" library="common">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180522 22:28:10.934" starttime="20180522 22:28:10.862"></status>
+</kw>
+<status status="PASS" endtime="20180522 22:28:10.935" starttime="20180522 22:28:10.862"></status>
+</kw>
+<doc>Re-activate a previously blocked user and ensure they can login.</doc>
+<tags>
+<tag>end-user</tag>
+<tag>re-activate</tag>
+<tag>ready</tag>
+</tags>
+<status status="PASS" endtime="20180522 22:28:10.935" critical="yes" starttime="20180522 22:27:58.731"></status>
+</test>
+<doc>This is a set of tests for the Springster demo site.</doc>
+<status status="PASS" endtime="20180522 22:28:10.936" starttime="20180522 22:27:58.484"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">end-user</stat>
+<stat fail="0" pass="1">re-activate</stat>
+<stat fail="0" pass="1">ready</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Springster-Demo-Site" pass="1">Springster-Demo-Site</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
