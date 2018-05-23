@@ -29,8 +29,9 @@
 In order to be able to access the services by name from a browser on the host system, the browser needs to be configured to use the proxy running inside the compose environment. In your favourite browser, point your proxy to: `http://localhost:3128` for hostnames starting with `core-*` and `wagtail-*`. If you are on a Mac, you can use the `proxy.pac` located at `http://localhost:3129/app/proxy.pac` to configure your proxy.
 
 Once everything is done, the wagtail demo applications should be accessible on
-* `http://wagtail-demo-1:8000/`
-* `http://wagtail-demo-2:8000/`
+* `http://wagtail-demo-1-site-1:8000/`
+* `http://wagtail-demo-1-site-2:8000/`
+* `http://wagtail-demo-2-site-1:8000/`
 
 It will redirect to the authentication service running on `http://core-authentication-service:8000/`
 
