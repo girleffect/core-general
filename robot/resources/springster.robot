@@ -89,3 +89,6 @@ Ensure Login Blocked
 
 Ensure Login Successful
     AuthPage.Verify Auth Page
+
+Exceed Login Attempts
+    LoginPage.Login As User Incorrect Password

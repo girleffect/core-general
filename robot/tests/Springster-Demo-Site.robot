@@ -74,13 +74,22 @@ End user registration with missing fields
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
     [Tags]  end-user
 
+    springster.Create User String
+    springster.Register As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
+
 Reset end-user pwd via security questions
     [Documentation]  End-user with no email address.
     [Tags]  end-user
 
+    # Reset steps here...
+    springster.Login As User  end-user  ROBOT  ${RANDOM_PWD}
+    springster.Ensure Login Successful
+
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
     [Tags]  end-user
+
+    # Do this via front-end or API?
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
@@ -135,46 +144,52 @@ Edit Profile
     [Documentation]  
     [Tags]  
 
+    springster.Login As User  end-user  ROBOT  ${RANDOM_PWD}
+    springster.Login As User  system-user  ${RANDOM_USER}  ${RANDOM_PWD} 
+
 Edit lost password questions
     [Documentation]
     [Tags]
+
+    springster.Login As User  end-user  ROBOT  ${RANDOM_PWD}
 
 Reset end-user password with email address
     [Documentation]  
     [Tags]  
 
-Reset system-user password with email address
+    # Add email address via API PUT request.
+    girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  user@example.com
+    springster.Lost Password  end-user  ROBOT  ${RANDOM_PWD}
+
+Reset system-user password without email address via security questions
     [Documentation]  
     [Tags] 
+
+    # Add email address via API PUT request.
+    girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  ${EMPTY}
+    springster.Lost Password  system-user  ROBOT  ${RANDOM_PWD}
 
 User with email address already exists
     [Documentation]  
     [Tags]  
 
-Duplicate user email via GMP? 
-    [Documentation]  When editing a user's details, enter already used email address.
-    [Tags]
-
-Reset system-user pwd via security questions
-    [Documentation]  System-user with no email address.
-    [Tags]
+    springster.Create User String
+    springster.Register As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
 
 Exceed maximum login attempts
     [Documentation]
     [Tags]
 
-#Provide consent as an adult user.
-#    [Documentation]  If the user's age is older than 16, show the Ts & Cs. GE-430.
-#    [Tags]
-
-Check error message colour?
-    [Documentation]  Is this even possible?
-    [Tags]  validation
+    springster.Exceed Login Attempts end-user  ROBOT  ${RANDOM_PWD}
 
 Assign user roles view GMP
     [Documentation]
     [Tags]
 
+    # Probably best to do this via API and then check the FE?
+
 Assign site roles via GMP
     [Documentation]
     [Tags]
+
+    # Probably best to do this via API and then check the FE?
