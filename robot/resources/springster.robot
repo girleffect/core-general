@@ -96,3 +96,8 @@ Exceed Login Attempts
 
 Assert User Logged In
     UserHome.Verify User Home Page
+
+Create New Profile
+    [Arguments]  ${UserData}
+
+    RegistrationPage.Enter User Details

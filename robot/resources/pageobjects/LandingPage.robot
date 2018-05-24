@@ -10,7 +10,7 @@ ${landingpage.register_admin_btn} =  id:systemUserRedirectButton
 
 *** Keywords ***
 Load Landing Page
-    Go To  ${START_URL}
+    Go To  ${URL.${ENVIRONMENT}}
 
 Load CMS
     #Click Link  ${LandingPage.admin_login}

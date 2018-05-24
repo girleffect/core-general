@@ -11,11 +11,15 @@ Test Teardown  End Web Test
 
 *** Variables ***
 
+${ENVIRONMENT} =  qa
 ${BROWSER} =  chrome
-${START_URL} =  http://springster-example.qa-hub.ie.gehosting.org/
-${GMP_URL} =  http://management-portal.qa-hub.ie.gehosting.org/#/login
+&{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/
+&{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
+&{END_USER_VALID}  type=end-user  username=${RANDOM_USER}  pwd=${RANDOM_PWD}  age=21  gender=male  question1=1  answer1=xxxxxx  question2=2  answer2=xxxxxx
+&{END_USER_INVALID}  type=end-user  username=${RANDOM_USER}  pwd=${RANDOM_PWD}  age=${EMPTY}  gender=${EMPTY}  question1=1  question2=2
+&{SYSTEM_USER}
 
 *** Test Cases ***
 Register as an end-user
@@ -25,7 +29,7 @@ Register as an end-user
     springster.Create User String
     springster.Register As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
 
-Login as an end-user
+Login as an new end-user
     [Documentation]  Login as the end user created above.
     [Tags]  ready  end-user
 
@@ -73,10 +77,10 @@ Re-activate end-user
 
 End user registration with missing fields
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
-    [Tags]  end-user
+    [Tags]  end-user  copy
 
     springster.Create User String
-    springster.Register As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
+    springster.Create New Profile  ${END_USER_INVALID}
 
 Reset end-user pwd via security questions
     [Documentation]  End-user with no email address.
@@ -90,7 +94,8 @@ End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
     [Tags]  end-user
 
-    # Do this via front-end or API?
+    springster.Login As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
+    springster.Delete Profile
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.

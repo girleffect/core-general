@@ -29,6 +29,8 @@ ${registration_form.tclink} =  xpath://a[@]
 ${RANDOM_PWD} =  SDF!@er45
 
 *** Keywords ***
+#TODO - Make granular keywords.
+
 Create Random User
     ${RANDOM_USER} =  Generate Random String  8  [LETTERS]
     Set Global Variable  ${RANDOM_USER}
@@ -197,3 +199,24 @@ Password Length Error
     ...  ELSE IF  "${type}" == "system-user"  Wait Until Page Contains  This password is too short. It must contain at least 8 characters.
 
 #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
+
+Enter User Details
+    [Arguments]  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+
+    Run Keyword If  "${type}" == "end-user"  Enter End User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
+    ...  ELSE IF  "${type}" == "system-user"  Enter System User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
+
+Enter End User Details
+    [Arguments]  ${UserData}
+
+    Input Text  ${registration.form_username}  ${UserData.username} 
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+    Input Text  ${registration.form_age}  ${UserData.age}
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Select From List By Value  ${registration.form_question1}  ${UserData.question1} 
+    Input Text  ${registration.form_answer1}  ${UserData.answer1}
+    Select From List By Value  ${registration.form_question2}  ${UserData.question2}
+    Input Text  ${registration.form_answer2}  ${UserData.answer2}
+    
+    Click Element  ${registration_form.terms}
