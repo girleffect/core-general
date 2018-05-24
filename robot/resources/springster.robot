@@ -4,6 +4,7 @@ Resource  ../resources/pageobjects/LoginPage.robot
 Resource  ../resources/pageobjects/RegistrationPage.robot
 Resource  ../resources/pageobjects/AuthPage.robot
 Resource  ../resources/pageobjects/ManagementPortal.robot
+Resource  ../resources/pageobjects/UserHome.robot
 
 *** Variables ***
 
@@ -92,3 +93,6 @@ Ensure Login Successful
 
 Exceed Login Attempts
     LoginPage.Login As User Incorrect Password
+
+Assert User Logged In
+    UserHome.Verify User Home Page

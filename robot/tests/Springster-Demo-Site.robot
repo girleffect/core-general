@@ -31,6 +31,7 @@ Login as an end-user
 
     springster.Login As User  end-user  ${RANDOM_USER}  ${RANDOM_PWD}
     springster.Authorise Registration
+    springster.Assert User Logged In
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement.
@@ -68,7 +69,7 @@ Re-activate end-user
 
     girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  ${true}
     springster.Login As User  end-user  ROBOT  ${RANDOM_PWD}
-    springster.Ensure Login Successful
+    springster.Assert User Logged In
 
 End user registration with missing fields
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
@@ -93,7 +94,7 @@ End User submitting a request to delete their profile
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
-    [Tags]  ready
+    [Tags]  ready  end-user
 
     springster.Registration Questions  end-user
     #springster.registration questions  system-user

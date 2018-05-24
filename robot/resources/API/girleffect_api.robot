@@ -37,14 +37,13 @@ Change User State
 
     # Do the PUT request:
     ${body} =  Create Dictionary  is_active=${state}
-    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY  Content-Type=application/json   
+    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}  Content-Type=application/json   
     ${resp} =  RequestsLibrary.Put Request  hook  /api/v1/users/${user_id}  data=${body}  headers=${headers}
     Should Be Equal As Strings  ${resp.status_code}  200
 
     # Check that the flag has been set correctly:
-    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY 
-    ${resp} =  RequestsLibrary.Get Request  status  /api/v1/users/${user_id}  headers=${headers}
-    Log To Console  ${resp.json()}    
+    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}
+    ${resp} =  RequestsLibrary.Get Request  status  /api/v1/users/${user_id}  headers=${headers}  
     Should be Equal  ${resp.json()["is_active"]}  ${state}
 
 Get Site Roles
