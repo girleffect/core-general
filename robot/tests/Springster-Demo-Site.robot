@@ -19,7 +19,7 @@ ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
 &{END_USER_INVALID}  type=end-user  username=invalid  pwd=password  age=${EMPTY}  gender=${EMPTY}  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{API_USER}  id=3f08f30e-5dc4-11e8-99a6-0242ac11000a  username=ROBOT  pwd=SDF45!@
+&{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 
 *** Test Cases ***
 Create new end user profile

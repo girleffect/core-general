@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180528 09:05:26.157" generator="Robot 3.0.4 (Python 2.7.10 on darwin)">
+<robot generated="20180528 09:13:41.146" generator="Robot 3.0.4 (Python 2.7.10 on darwin)">
 <suite source="/Users/jasonb/projects/girleffect/core-general/robot/tests/Springster-Demo-Site.robot" id="s1" name="Springster-Demo-Site">
-<test id="s1-t1" name="De-activate end user">
+<test id="s1-t1" name="Re-activate end user">
 <kw type="setup" name="Run Keywords" library="BuiltIn">
 <doc>Executes all the given keywords in a sequence.</doc>
 <arguments>
@@ -14,18 +14,18 @@
 <arg>${URL.${ENVIRONMENT}}</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:26.464" level="INFO">Opening browser 'chrome' to base url 'http://springster-example.qa-hub.ie.gehosting.org/'.</msg>
-<status status="PASS" endtime="20180528 09:05:31.495" starttime="20180528 09:05:26.463"></status>
+<msg timestamp="20180528 09:13:41.450" level="INFO">Opening browser 'chrome' to base url 'http://springster-example.qa-hub.ie.gehosting.org/'.</msg>
+<status status="PASS" endtime="20180528 09:13:57.562" starttime="20180528 09:13:41.449"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:31.495" starttime="20180528 09:05:26.463"></status>
+<status status="PASS" endtime="20180528 09:13:57.563" starttime="20180528 09:13:41.449"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:31.495" starttime="20180528 09:05:26.463"></status>
+<status status="PASS" endtime="20180528 09:13:57.563" starttime="20180528 09:13:41.449"></status>
 </kw>
 <kw name="Change User State" library="girleffect_api">
 <doc>Set the user 'is_active' flag to true/false.</doc>
 <arguments>
 <arg>${API_USER}</arg>
-<arg>${false}</arg>
+<arg>${true}</arg>
 </arguments>
 <kw name="Create Session" library="RequestsLibrary">
 <doc>Create Session: create a HTTP session to a server</doc>
@@ -34,8 +34,8 @@
 <arg>http://${AUTH_HOST}</arg>
 <arg>verify=${True}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:31.497" level="INFO">Creating Session using : alias=hook, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<status status="PASS" endtime="20180528 09:05:31.498" starttime="20180528 09:05:31.497"></status>
+<msg timestamp="20180528 09:13:57.565" level="INFO">Creating Session using : alias=hook, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" endtime="20180528 09:13:57.565" starttime="20180528 09:13:57.564"></status>
 </kw>
 <kw name="Create Session" library="RequestsLibrary">
 <doc>Create Session: create a HTTP session to a server</doc>
@@ -44,8 +44,8 @@
 <arg>http://${AUTH_HOST}</arg>
 <arg>verify=${True}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:31.499" level="INFO">Creating Session using : alias=status, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
-<status status="PASS" endtime="20180528 09:05:31.499" starttime="20180528 09:05:31.498"></status>
+<msg timestamp="20180528 09:13:57.566" level="INFO">Creating Session using : alias=status, url=http://authentication-service.qa-hub.ie.gehosting.org, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" endtime="20180528 09:13:57.566" starttime="20180528 09:13:57.565"></status>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
@@ -55,8 +55,8 @@
 <assign>
 <var>${body}</var>
 </assign>
-<msg timestamp="20180528 09:05:31.501" level="INFO">${body} = {u'is_active': False}</msg>
-<status status="PASS" endtime="20180528 09:05:31.501" starttime="20180528 09:05:31.499"></status>
+<msg timestamp="20180528 09:13:57.568" level="INFO">${body} = {u'is_active': True}</msg>
+<status status="PASS" endtime="20180528 09:13:57.568" starttime="20180528 09:13:57.566"></status>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
@@ -68,8 +68,8 @@
 <assign>
 <var>${headers}</var>
 </assign>
-<msg timestamp="20180528 09:05:31.501" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}</msg>
-<status status="PASS" endtime="20180528 09:05:31.501" starttime="20180528 09:05:31.501"></status>
+<msg timestamp="20180528 09:13:57.569" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20180528 09:13:57.569" starttime="20180528 09:13:57.568"></status>
 </kw>
 <kw name="Put Request" library="RequestsLibrary">
 <doc>Send a PUT request on the session object found using the</doc>
@@ -82,9 +82,9 @@
 <assign>
 <var>${resp}</var>
 </assign>
-<msg timestamp="20180528 09:05:31.924" level="INFO">Put Request using : alias=hook, uri=/api/v1/users/3f08f30e-5dc4-11e8-99a6-0242ac11000a, data={"is_active": false},                     headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}, allow_redirects=True </msg>
-<msg timestamp="20180528 09:05:31.924" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" endtime="20180528 09:05:31.924" starttime="20180528 09:05:31.502"></status>
+<msg timestamp="20180528 09:13:59.101" level="INFO">Put Request using : alias=hook, uri=/api/v1/users/3d0bd676-6246-11e8-94fc-0242ac110007, data={"is_active": true},                     headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy', u'Content-Type': u'application/json'}, allow_redirects=True </msg>
+<msg timestamp="20180528 09:13:59.101" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180528 09:13:59.101" starttime="20180528 09:13:57.569"></status>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <doc>Fails if objects are unequal after converting them to strings.</doc>
@@ -92,10 +92,10 @@
 <arg>${resp.status_code}</arg>
 <arg>200</arg>
 </arguments>
-<msg timestamp="20180528 09:05:31.925" level="INFO">Argument types are:
+<msg timestamp="20180528 09:13:59.102" level="INFO">Argument types are:
 &lt;type 'int'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20180528 09:05:31.925" starttime="20180528 09:05:31.925"></status>
+<status status="PASS" endtime="20180528 09:13:59.102" starttime="20180528 09:13:59.102"></status>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
@@ -106,8 +106,8 @@
 <assign>
 <var>${headers}</var>
 </assign>
-<msg timestamp="20180528 09:05:31.926" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'}</msg>
-<status status="PASS" endtime="20180528 09:05:31.926" starttime="20180528 09:05:31.926"></status>
+<msg timestamp="20180528 09:13:59.103" level="INFO">${headers} = {u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'}</msg>
+<status status="PASS" endtime="20180528 09:13:59.103" starttime="20180528 09:13:59.103"></status>
 </kw>
 <kw name="Get Request" library="RequestsLibrary">
 <doc>Send a GET request on the session object found using the</doc>
@@ -119,9 +119,9 @@
 <assign>
 <var>${resp}</var>
 </assign>
-<msg timestamp="20180528 09:05:32.348" level="INFO">Get Request using : alias=status, uri=/api/v1/users/3f08f30e-5dc4-11e8-99a6-0242ac11000a, headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'} json=None</msg>
-<msg timestamp="20180528 09:05:32.348" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" endtime="20180528 09:05:32.348" starttime="20180528 09:05:31.927"></status>
+<msg timestamp="20180528 09:13:59.622" level="INFO">Get Request using : alias=status, uri=/api/v1/users/3d0bd676-6246-11e8-94fc-0242ac110007, headers={u'Accept': u'application/json', u'X-API-Key': u'qa_ThashaerieL2ahfa0ahy'} json=None</msg>
+<msg timestamp="20180528 09:13:59.622" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180528 09:13:59.623" starttime="20180528 09:13:59.104"></status>
 </kw>
 <kw name="Should Be Equal" library="BuiltIn">
 <doc>Fails if the given objects are unequal.</doc>
@@ -129,9 +129,9 @@
 <arg>${resp.json()["is_active"]}</arg>
 <arg>${state}</arg>
 </arguments>
-<status status="PASS" endtime="20180528 09:05:32.350" starttime="20180528 09:05:32.349"></status>
+<status status="PASS" endtime="20180528 09:13:59.624" starttime="20180528 09:13:59.623"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:32.350" starttime="20180528 09:05:31.496"></status>
+<status status="PASS" endtime="20180528 09:13:59.624" starttime="20180528 09:13:57.563"></status>
 </kw>
 <kw name="Login As User" library="springster">
 <arguments>
@@ -143,10 +143,10 @@
 <arguments>
 <arg>${URL.${ENVIRONMENT}}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:32.352" level="INFO">Opening url 'http://springster-example.qa-hub.ie.gehosting.org/'</msg>
-<status status="PASS" endtime="20180528 09:05:32.785" starttime="20180528 09:05:32.351"></status>
+<msg timestamp="20180528 09:13:59.626" level="INFO">Opening url 'http://springster-example.qa-hub.ie.gehosting.org/'</msg>
+<status status="PASS" endtime="20180528 09:14:00.396" starttime="20180528 09:13:59.626"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:32.785" starttime="20180528 09:05:32.351"></status>
+<status status="PASS" endtime="20180528 09:14:00.396" starttime="20180528 09:13:59.625"></status>
 </kw>
 <kw name="Login" library="LandingPage">
 <kw name="Click Link" library="SeleniumLibrary">
@@ -154,10 +154,10 @@
 <arguments>
 <arg>${landingpage.login}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:32.786" level="INFO">Clicking link '//a[@href="/oidc/authenticate/"]'.</msg>
-<status status="PASS" endtime="20180528 09:05:34.433" starttime="20180528 09:05:32.786"></status>
+<msg timestamp="20180528 09:14:00.397" level="INFO">Clicking link '//a[@href="/oidc/authenticate/"]'.</msg>
+<status status="PASS" endtime="20180528 09:14:03.443" starttime="20180528 09:14:00.397"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:34.433" starttime="20180528 09:05:32.785"></status>
+<status status="PASS" endtime="20180528 09:14:03.444" starttime="20180528 09:14:00.397"></status>
 </kw>
 <kw name="Enter Auth Username" library="LoginPage">
 <arguments>
@@ -169,10 +169,10 @@
 <arg>name:auth-username</arg>
 <arg>${UserData.username}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:34.435" level="INFO">Typing text 'ROBOT' into text field 'name:auth-username'.</msg>
-<status status="PASS" endtime="20180528 09:05:34.553" starttime="20180528 09:05:34.435"></status>
+<msg timestamp="20180528 09:14:03.445" level="INFO">Typing text 'robot' into text field 'name:auth-username'.</msg>
+<status status="PASS" endtime="20180528 09:14:03.534" starttime="20180528 09:14:03.444"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:34.553" starttime="20180528 09:05:34.434"></status>
+<status status="PASS" endtime="20180528 09:14:03.535" starttime="20180528 09:14:03.444"></status>
 </kw>
 <kw name="Enter Auth Password" library="LoginPage">
 <arguments>
@@ -184,10 +184,10 @@
 <arg>name:auth-password</arg>
 <arg>${UserData.pwd}</arg>
 </arguments>
-<msg timestamp="20180528 09:05:34.555" level="INFO">Typing text 'SDF45!@' into text field 'name:auth-password'.</msg>
-<status status="PASS" endtime="20180528 09:05:34.647" starttime="20180528 09:05:34.554"></status>
+<msg timestamp="20180528 09:14:03.536" level="INFO">Typing text 'SDF45!@' into text field 'name:auth-password'.</msg>
+<status status="PASS" endtime="20180528 09:14:03.603" starttime="20180528 09:14:03.535"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:34.647" starttime="20180528 09:05:34.554"></status>
+<status status="PASS" endtime="20180528 09:14:03.603" starttime="20180528 09:14:03.535"></status>
 </kw>
 <kw name="Submit" library="LoginPage">
 <kw name="Click Button" library="SeleniumLibrary">
@@ -195,49 +195,49 @@
 <arguments>
 <arg>Login</arg>
 </arguments>
-<msg timestamp="20180528 09:05:34.648" level="INFO">Clicking button 'Login'.</msg>
-<status status="PASS" endtime="20180528 09:05:36.285" starttime="20180528 09:05:34.648"></status>
+<msg timestamp="20180528 09:14:03.604" level="INFO">Clicking button 'Login'.</msg>
+<status status="PASS" endtime="20180528 09:14:07.199" starttime="20180528 09:14:03.604"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:36.285" starttime="20180528 09:05:34.647"></status>
+<status status="PASS" endtime="20180528 09:14:07.199" starttime="20180528 09:14:03.603"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:36.286" starttime="20180528 09:05:32.350"></status>
+<status status="PASS" endtime="20180528 09:14:07.199" starttime="20180528 09:13:59.624"></status>
 </kw>
-<kw name="Ensure Login Blocked" library="springster">
-<kw name="Confirm Account Blocked" library="LoginPage">
-<kw name="Wait Until Page Contains" library="SeleniumLibrary">
-<doc>Waits until ``text`` appears on current page.</doc>
+<kw name="Assert User Logged In" library="springster">
+<kw name="Verify User Home Page" library="UserHome">
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` appears on current page.</doc>
 <arguments>
-<arg>Your account has been deactivated. Please contact support.</arg>
+<arg>${userhome.logout_btn}</arg>
 </arguments>
 <kw name="Capture Page Screenshot" library="SeleniumLibrary">
 <doc>Takes screenshot of the current page and embeds it into log file.</doc>
-<msg timestamp="20180528 09:05:41.936" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20180528 09:05:41.937" starttime="20180528 09:05:41.390"></status>
+<msg timestamp="20180528 09:14:12.863" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180528 09:14:12.864" starttime="20180528 09:14:12.315"></status>
 </kw>
-<msg timestamp="20180528 09:05:41.938" level="FAIL">Text 'Your account has been deactivated. Please contact support.' did not appear in 5 seconds.</msg>
-<status status="FAIL" endtime="20180528 09:05:41.938" starttime="20180528 09:05:36.287"></status>
+<msg timestamp="20180528 09:14:12.864" level="FAIL">Element 'xpath://input[@value="Logout"]' did not appear in 5 seconds.</msg>
+<status status="FAIL" endtime="20180528 09:14:12.864" starttime="20180528 09:14:07.201"></status>
 </kw>
-<status status="FAIL" endtime="20180528 09:05:41.939" starttime="20180528 09:05:36.286"></status>
+<status status="FAIL" endtime="20180528 09:14:12.865" starttime="20180528 09:14:07.200"></status>
 </kw>
-<status status="FAIL" endtime="20180528 09:05:41.939" starttime="20180528 09:05:36.286"></status>
+<status status="FAIL" endtime="20180528 09:14:12.865" starttime="20180528 09:14:07.200"></status>
 </kw>
 <kw type="teardown" name="End Web Test" library="common">
 <kw name="Close All Browsers" library="SeleniumLibrary">
 <doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" endtime="20180528 09:05:42.008" starttime="20180528 09:05:41.940"></status>
+<status status="PASS" endtime="20180528 09:14:12.934" starttime="20180528 09:14:12.866"></status>
 </kw>
-<status status="PASS" endtime="20180528 09:05:42.009" starttime="20180528 09:05:41.939"></status>
+<status status="PASS" endtime="20180528 09:14:12.934" starttime="20180528 09:14:12.865"></status>
 </kw>
-<doc>De-activate an end-user and ensure they are blocked from accessing the site.</doc>
+<doc>Re-activate a previously blocked user and ensure they can login.</doc>
 <tags>
-<tag>de-activate</tag>
 <tag>end-user</tag>
+<tag>re-activate</tag>
 <tag>ready</tag>
 </tags>
-<status status="FAIL" endtime="20180528 09:05:42.009" critical="yes" starttime="20180528 09:05:26.462">Text 'Your account has been deactivated. Please contact support.' did not appear in 5 seconds.</status>
+<status status="FAIL" endtime="20180528 09:14:12.935" critical="yes" starttime="20180528 09:13:41.448">Element 'xpath://input[@value="Logout"]' did not appear in 5 seconds.</status>
 </test>
 <doc>This is a set of tests for the Springster demo site.</doc>
-<status status="FAIL" endtime="20180528 09:05:42.010" starttime="20180528 09:05:26.162"></status>
+<status status="FAIL" endtime="20180528 09:14:12.937" starttime="20180528 09:13:41.150"></status>
 </suite>
 <statistics>
 <total>
@@ -245,8 +245,8 @@
 <stat fail="1" pass="0">All Tests</stat>
 </total>
 <tag>
-<stat fail="1" pass="0">de-activate</stat>
 <stat fail="1" pass="0">end-user</stat>
+<stat fail="1" pass="0">re-activate</stat>
 <stat fail="1" pass="0">ready</stat>
 </tag>
 <suite>
