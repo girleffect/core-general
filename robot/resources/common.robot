@@ -6,7 +6,7 @@ Library  OperatingSystem
 
 *** Keywords ***
 Begin Web Test
-    Open Browser  ${START_URL}  ${BROWSER}
+    Open Browser  ${URL.${ENVIRONMENT}}  ${BROWSER}
 
 End Web Test
     Close All Browsers

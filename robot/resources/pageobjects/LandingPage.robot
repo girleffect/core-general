@@ -17,10 +17,10 @@ Load CMS
     Go To  ${CMS_URL}
 
 Open Registration Form
-    [Arguments]  ${type}
+    [Arguments]  ${UserData}
 
-    Run Keyword If  "${type}" == "end-user"  Click Link  ${landingpage.register_user_btn}
-    ...  ELSE IF  "${type}" == "system-user"  Click Link  ${landingpage.register_admin_btn}
+    Run Keyword If  "${UserData.type}" == "end-user"  Click Link  ${landingpage.register_user_btn}
+    ...  ELSE IF  "${UserData.type}" == "system-user"  Click Link  ${landingpage.register_admin_btn}
     ...  ELSE  Log  Invalid user specified.
 
 Verify Landing Page

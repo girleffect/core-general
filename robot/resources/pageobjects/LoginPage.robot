@@ -8,14 +8,14 @@ ${loginpage.auth_password}  name:auth-password
 *** Keywords ***
 
 Enter Auth Username
-    [Arguments]  ${AUTH_USERNAME}
+    [Arguments]  ${UserData}
 
-    Input Text  name:auth-username  ${AUTH_USERNAME}
+    Input Text  name:auth-username  ${UserData.username}
 
 Enter Auth Password
-    [Arguments]  ${AUTH_PASSWORD}
+    [Arguments]  ${UserData}
 
-    Input Text  name:auth-password  ${AUTH_PASSWORD}
+    Input Text  name:auth-password  ${UserData.pwd}
 
 Submit
     Click Button  Login

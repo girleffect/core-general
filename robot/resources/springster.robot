@@ -9,8 +9,9 @@ Resource  ../resources/pageobjects/UserHome.robot
 *** Variables ***
 
 *** Keywords ***
-Create User String
-    RegistrationPage.Create Random User
+Generate User Name
+    ${RND_USER} =  Generate Random String  8  [LETTERS]
+    Set Global Variable  ${RND_USER}
 
 Verify User Form Fields
     [Arguments]  ${type}
@@ -20,12 +21,12 @@ Verify User Form Fields
     RegistrationPage.Verify User Fields  ${type}
 
 Register As User
-    [Arguments]  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${type}  ${RND_USER}  ${RND_PWD}
 
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${type}
     RegistrationPage.Verify Registration Form
-    RegistrationPage.Enter User Fields  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+    RegistrationPage.Enter User Fields  ${type}  ${RND_USER}  ${RND_PWD}
     RegistrationPage.Submit Form
 
 Authorise Registration
@@ -36,12 +37,12 @@ Decline Registration
     AuthPage.Decline
 
 Login As User
-    [Arguments]  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
     LandingPage.Login
-    LoginPage.Enter Auth Username  ${RANDOM_USER}
-    LoginPage.Enter Auth Password  ${RANDOM_PWD}
+    LoginPage.Enter Auth Username  ${UserData}
+    LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
 
 Login To CMS
@@ -100,4 +101,13 @@ Assert User Logged In
 Create New Profile
     [Arguments]  ${UserData}
 
-    RegistrationPage.Enter User Details
+    LandingPage.Load Landing Page
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Verify Registration Form
+    RegistrationPage.Enter User Details  ${UserData}
+    RegistrationPage.Submit Form
+
+Delete User Profile
+    [Arguments]  ${UserData}
+
+    girleffect_api.Delete User  ${UserData}

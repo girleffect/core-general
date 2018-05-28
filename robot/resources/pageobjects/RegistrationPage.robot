@@ -26,23 +26,38 @@ ${registration.form_msisdn} =  name:msisdn
 ${registration_form.qr_code} =  xpath://*[@class="QR-image"]
 ${registration_form.terms} =  name:terms
 ${registration_form.tclink} =  xpath://a[@]
-${RANDOM_PWD} =  SDF!@er45
 
 *** Keywords ***
 #TODO - Make granular keywords.
 
-Create Random User
-    ${RANDOM_USER} =  Generate Random String  8  [LETTERS]
-    Set Global Variable  ${RANDOM_USER}
-    
-    #${RANDOM_PWD} =  Generate Random String  8  [LETTERS]
-    #Set Global Variable  ${RANDOM_PWD}
+Enter Username Field
+Enter First Name Field
+Enter Last Name Field
+Enter Email Field
+Enter MSISDN Field
+Enter Password Field
+Choose Gender From List
+Choose Age From List
+Choose Question One
+Choose Question Two
+Choose Answer One
+Choose Answer Two
+Accept terms
+    Click Element  ${registration_form.terms}
+
+Submit Form
+    Click Button  Register  
+
+Verify Registration Form
+    #Wait Until Page Contains  Registration
+    Wait Until Element Is Visible  ${header_txt} 
+
 
 Enter User Fields
-    [Arguments]  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${type}  ${RND_USER}  ${RND_PWD}
 
-    Run Keyword If  "${type}" == "end-user"  Enter End User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
-    ...  ELSE IF  "${type}" == "system-user"  Enter System User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
+    Run Keyword If  "${type}" == "end-user"  Enter End User Fields  ${RND_USER}  ${RND_PWD}
+    ...  ELSE IF  "${type}" == "system-user"  Enter System User Fields  ${RND_USER}  ${RND_PWD}
 
 Verify User Fields
     [Arguments]  ${type}
@@ -60,13 +75,13 @@ Grab Code
     Log  ${qr_img}
 
 Enter End User Fields
-    [Arguments]  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${RND_USER}  ${RND_PWD}
 
-    Input Text  ${registration.form_username}  ${RANDOM_USER}
+    Input Text  ${registration.form_username}  ${RND_USER}
     Select From List By Value  ${registration.form_gender}  male
     Input Text  ${registration.form_age}  21
-    Input Text  ${registration.form_pwd1}  ${RANDOM_PWD}
-    Input Text  ${registration.form_pwd2}  ${RANDOM_PWD}
+    Input Text  ${registration.form_pwd1}  ${RND_PWD}
+    Input Text  ${registration.form_pwd2}  ${RND_PWD}
     Select From List By Value  ${registration.form_question1}  1 
     Input Text  ${registration.form_answer1}  xxxxxx
     Select From List By Value  ${registration.form_question2}  2
@@ -75,18 +90,18 @@ Enter End User Fields
     Click Element  ${registration_form.terms}
 
 Enter System User Fields
-    [Arguments]  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${RND_USER}  ${RND_PWD}
 
-    Input Text  ${registration.form_username}  ${RANDOM_USER}
+    Input Text  ${registration.form_username}  ${RND_USER}
     Input Text  ${registration.form_first}  Robot
     Input Text  ${registration.form_last}  Framework
-    Input Text  ${registration.form_email}  ${RANDOM_USER}@praekelt.com
+    Input Text  ${registration.form_email}  ${RND_USER}@praekelt.com
     #Input Text  ${registration.form_country} =  name:country
     Input Text  ${registration.form_msisdn}  0712345678
     Select From List By Value  ${registration.form_gender}  male
     Input Text  ${registration.form_age}  21
-    Input Text  ${registration.form_pwd1}  ${RANDOM_PWD}
-    Input Text  ${registration.form_pwd2}  ${RANDOM_PWD}
+    Input Text  ${registration.form_pwd1}  ${RND_PWD}
+    Input Text  ${registration.form_pwd2}  ${RND_PWD}
     Select From List By Value  ${registration.form_question1}  1 
     Input Text  ${registration.form_answer1}  xxxxxx
     Select From List By Value  ${registration.form_question2}  2
@@ -96,13 +111,6 @@ Enter System User Fields
     #Submit Form
     #Enable 2FA
     #Grab Code
-
-Submit Form
-    Click Button  Register  
-
-Verify Registration Form
-    #Wait Until Page Contains  Registration
-    Wait Until Element Is Visible  ${header_txt}  
 
 Verify System User Login
     Wait Until Page Contains  Enable Two-Factor Authentication
@@ -131,7 +139,6 @@ Verify End User Fields
     Element Should Not Be Visible  ${registration.form_msisdn}
 
 Verify System User Fields
-
     Element Should Be Visible  ${registration.form_username}
     Element Should Be Visible  ${registration.form_gender}
     Element Should Be Visible  ${registration.form_age}
@@ -201,10 +208,10 @@ Password Length Error
 #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
 Enter User Details
-    [Arguments]  ${type}  ${RANDOM_USER}  ${RANDOM_PWD}
+    [Arguments]  ${UserData}
 
-    Run Keyword If  "${type}" == "end-user"  Enter End User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
-    ...  ELSE IF  "${type}" == "system-user"  Enter System User Fields  ${RANDOM_USER}  ${RANDOM_PWD}
+    Run Keyword If  "${UserData.type}" == "end-user"  Enter End User Details  ${UserData}
+    ...  ELSE IF  "${UserData.type}" == "system-user"  Enter System User Details  ${UserData}
 
 Enter End User Details
     [Arguments]  ${UserData}
@@ -214,9 +221,9 @@ Enter End User Details
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
     Input Text  ${registration.form_pwd2}  ${UserData.pwd}
-    Select From List By Value  ${registration.form_question1}  ${UserData.question1} 
-    Input Text  ${registration.form_answer1}  ${UserData.answer1}
-    Select From List By Value  ${registration.form_question2}  ${UserData.question2}
-    Input Text  ${registration.form_answer2}  ${UserData.answer2}
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question} 
+    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
+    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
     
     Click Element  ${registration_form.terms}
