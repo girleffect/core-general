@@ -26,9 +26,14 @@ ${registration.form_msisdn} =  name:msisdn
 ${registration_form.qr_code} =  xpath://*[@class="QR-image"]
 ${registration_form.terms} =  name:terms
 ${registration_form.tclink} =  xpath://a[@]
+${registration_form.novalidate} =  var forms = document.querySelectorAll('.Form');for (var i = 0; i < forms.length; i++){forms[i].setAttribute('novalidate', false);}
 
 *** Keywords ***
 #TODO - Make granular keywords.
+
+Set No-validate
+    Execute Javascript  ${registration_form.novalidate}
+}
 
 Enter Username Field
 Enter First Name Field

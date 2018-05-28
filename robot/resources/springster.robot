@@ -103,6 +103,7 @@ Create New Profile
 
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Set No-validate
     RegistrationPage.Verify Registration Form
     RegistrationPage.Enter User Details  ${UserData}
     RegistrationPage.Submit Form
