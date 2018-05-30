@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180528 10:18:25.429" generator="Robot 3.0.4 (Python 2.7.10 on darwin)">
+<robot generated="20180528 11:27:09.052" generator="Robot 3.0.4 (Python 2.7.10 on darwin)">
 <suite source="/Users/jasonb/projects/girleffect/core-general/robot/tests/Springster-Demo-Site.robot" id="s1" name="Springster-Demo-Site">
 <test id="s1-t1" name="End user registration with missing fields">
 <kw type="setup" name="Run Keywords" library="BuiltIn">
@@ -14,12 +14,12 @@
 <arg>${URL.${ENVIRONMENT}}</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:25.726" level="INFO">Opening browser 'chrome' to base url 'http://springster-example.qa-hub.ie.gehosting.org/'.</msg>
-<status status="PASS" endtime="20180528 10:18:31.858" starttime="20180528 10:18:25.726"></status>
+<msg timestamp="20180528 11:27:09.444" level="INFO">Opening browser 'chrome' to base url 'http://springster-example.qa-hub.ie.gehosting.org/'.</msg>
+<status status="PASS" endtime="20180528 11:27:15.365" starttime="20180528 11:27:09.443"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:31.859" starttime="20180528 10:18:25.726"></status>
+<status status="PASS" endtime="20180528 11:27:15.365" starttime="20180528 11:27:09.443"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:31.859" starttime="20180528 10:18:25.725"></status>
+<status status="PASS" endtime="20180528 11:27:15.365" starttime="20180528 11:27:09.443"></status>
 </kw>
 <kw name="Generate User Name" library="springster">
 <kw name="Generate Random String" library="String">
@@ -31,18 +31,18 @@
 <assign>
 <var>${RND_USER}</var>
 </assign>
-<msg timestamp="20180528 10:18:31.860" level="INFO">${RND_USER} = hLXXvYvV</msg>
-<status status="PASS" endtime="20180528 10:18:31.860" starttime="20180528 10:18:31.860"></status>
+<msg timestamp="20180528 11:27:15.367" level="INFO">${RND_USER} = McKfIucs</msg>
+<status status="PASS" endtime="20180528 11:27:15.367" starttime="20180528 11:27:15.367"></status>
 </kw>
 <kw name="Set Global Variable" library="BuiltIn">
 <doc>Makes a variable available globally in all tests and suites.</doc>
 <arguments>
 <arg>${RND_USER}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:31.861" level="INFO">${RND_USER} = hLXXvYvV</msg>
-<status status="PASS" endtime="20180528 10:18:31.861" starttime="20180528 10:18:31.861"></status>
+<msg timestamp="20180528 11:27:15.368" level="INFO">${RND_USER} = McKfIucs</msg>
+<status status="PASS" endtime="20180528 11:27:15.368" starttime="20180528 11:27:15.367"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:31.861" starttime="20180528 10:18:31.859"></status>
+<status status="PASS" endtime="20180528 11:27:15.368" starttime="20180528 11:27:15.366"></status>
 </kw>
 <kw name="Create New Profile" library="springster">
 <arguments>
@@ -54,10 +54,10 @@
 <arguments>
 <arg>${URL.${ENVIRONMENT}}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:31.863" level="INFO">Opening url 'http://springster-example.qa-hub.ie.gehosting.org/'</msg>
-<status status="PASS" endtime="20180528 10:18:32.371" starttime="20180528 10:18:31.862"></status>
+<msg timestamp="20180528 11:27:15.370" level="INFO">Opening url 'http://springster-example.qa-hub.ie.gehosting.org/'</msg>
+<status status="PASS" endtime="20180528 11:27:15.931" starttime="20180528 11:27:15.369"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:32.371" starttime="20180528 10:18:31.862"></status>
+<status status="PASS" endtime="20180528 11:27:15.931" starttime="20180528 11:27:15.369"></status>
 </kw>
 <kw name="Open Registration Form" library="LandingPage">
 <arguments>
@@ -82,12 +82,12 @@
 <arguments>
 <arg>${landingpage.register_user_btn}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:32.373" level="INFO">Clicking link 'id:endUserRedirectButton'.</msg>
-<status status="PASS" endtime="20180528 10:18:33.927" starttime="20180528 10:18:32.372"></status>
+<msg timestamp="20180528 11:27:15.933" level="INFO">Clicking link 'id:endUserRedirectButton'.</msg>
+<status status="PASS" endtime="20180528 11:27:17.826" starttime="20180528 11:27:15.933"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:33.927" starttime="20180528 10:18:32.372"></status>
+<status status="PASS" endtime="20180528 11:27:17.826" starttime="20180528 11:27:15.932"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:33.928" starttime="20180528 10:18:32.371"></status>
+<status status="PASS" endtime="20180528 11:27:17.826" starttime="20180528 11:27:15.932"></status>
 </kw>
 <kw name="Set No-validate" library="RegistrationPage">
 <kw name="Execute Javascript" library="SeleniumLibrary">
@@ -95,11 +95,11 @@
 <arguments>
 <arg>${registration_form.novalidate}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:33.929" level="INFO">Executing JavaScript:
+<msg timestamp="20180528 11:27:17.827" level="INFO">Executing JavaScript:
 var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.length; i++){forms[i].setAttribute('novalidate', false);}</msg>
-<status status="PASS" endtime="20180528 10:18:33.934" starttime="20180528 10:18:33.928"></status>
+<status status="PASS" endtime="20180528 11:27:17.834" starttime="20180528 11:27:17.827"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:33.934" starttime="20180528 10:18:33.928"></status>
+<status status="PASS" endtime="20180528 11:27:17.834" starttime="20180528 11:27:17.827"></status>
 </kw>
 <kw name="Verify Registration Form" library="RegistrationPage">
 <kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
@@ -107,9 +107,9 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arguments>
 <arg>${header_txt}</arg>
 </arguments>
-<status status="PASS" endtime="20180528 10:18:33.960" starttime="20180528 10:18:33.934"></status>
+<status status="PASS" endtime="20180528 11:27:17.861" starttime="20180528 11:27:17.835"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:33.960" starttime="20180528 10:18:33.934"></status>
+<status status="PASS" endtime="20180528 11:27:17.861" starttime="20180528 11:27:17.834"></status>
 </kw>
 <kw name="Enter User Details" library="RegistrationPage">
 <arguments>
@@ -136,8 +136,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_username}</arg>
 <arg>${UserData.username}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:33.962" level="INFO">Typing text 'invalid' into text field 'name:username'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.066" starttime="20180528 10:18:33.962"></status>
+<msg timestamp="20180528 11:27:17.864" level="INFO">Typing text '' into text field 'name:username'.</msg>
+<status status="PASS" endtime="20180528 11:27:17.914" starttime="20180528 11:27:17.863"></status>
 </kw>
 <kw name="Select From List By Value" library="SeleniumLibrary">
 <doc>Selects options from selection list ``locator`` by ``values``.</doc>
@@ -145,8 +145,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_gender}</arg>
 <arg>${UserData.gender}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.067" level="INFO">Selecting options from selection list 'name:gender' by value .</msg>
-<status status="PASS" endtime="20180528 10:18:34.118" starttime="20180528 10:18:34.067"></status>
+<msg timestamp="20180528 11:27:17.915" level="INFO">Selecting options from selection list 'name:gender' by value male.</msg>
+<status status="PASS" endtime="20180528 11:27:17.988" starttime="20180528 11:27:17.914"></status>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <doc>Types the given ``text`` into text field identified by ``locator``.</doc>
@@ -154,8 +154,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_age}</arg>
 <arg>${UserData.age}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.119" level="INFO">Typing text '' into text field 'name:age'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.169" starttime="20180528 10:18:34.118"></status>
+<msg timestamp="20180528 11:27:17.989" level="INFO">Typing text '' into text field 'name:age'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.042" starttime="20180528 11:27:17.989"></status>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <doc>Types the given ``text`` into text field identified by ``locator``.</doc>
@@ -163,8 +163,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_pwd1}</arg>
 <arg>${UserData.pwd}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.170" level="INFO">Typing text 'password' into text field 'name:password1'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.237" starttime="20180528 10:18:34.170"></status>
+<msg timestamp="20180528 11:27:18.042" level="INFO">Typing text 'password' into text field 'name:password1'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.144" starttime="20180528 11:27:18.042"></status>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <doc>Types the given ``text`` into text field identified by ``locator``.</doc>
@@ -172,8 +172,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_pwd2}</arg>
 <arg>${UserData.pwd}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.237" level="INFO">Typing text 'password' into text field 'name:password2'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.302" starttime="20180528 10:18:34.237"></status>
+<msg timestamp="20180528 11:27:18.145" level="INFO">Typing text 'password' into text field 'name:password2'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.209" starttime="20180528 11:27:18.145"></status>
 </kw>
 <kw name="Select From List By Value" library="SeleniumLibrary">
 <doc>Selects options from selection list ``locator`` by ``values``.</doc>
@@ -181,8 +181,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_question1}</arg>
 <arg>${UserData.first_question}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.303" level="INFO">Selecting options from selection list 'name:form-0-question' by value 1.</msg>
-<status status="PASS" endtime="20180528 10:18:34.369" starttime="20180528 10:18:34.302"></status>
+<msg timestamp="20180528 11:27:18.210" level="INFO">Selecting options from selection list 'name:form-0-question' by value 1.</msg>
+<status status="PASS" endtime="20180528 11:27:18.275" starttime="20180528 11:27:18.210"></status>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <doc>Types the given ``text`` into text field identified by ``locator``.</doc>
@@ -190,8 +190,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_answer1}</arg>
 <arg>${UserData.first_answer}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.370" level="INFO">Typing text '1' into text field 'name:form-0-answer'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.424" starttime="20180528 10:18:34.369"></status>
+<msg timestamp="20180528 11:27:18.276" level="INFO">Typing text '1' into text field 'name:form-0-answer'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.332" starttime="20180528 11:27:18.276"></status>
 </kw>
 <kw name="Select From List By Value" library="SeleniumLibrary">
 <doc>Selects options from selection list ``locator`` by ``values``.</doc>
@@ -199,8 +199,8 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_question2}</arg>
 <arg>${UserData.second_question}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.425" level="INFO">Selecting options from selection list 'name:form-1-question' by value 2.</msg>
-<status status="PASS" endtime="20180528 10:18:34.487" starttime="20180528 10:18:34.424"></status>
+<msg timestamp="20180528 11:27:18.333" level="INFO">Selecting options from selection list 'name:form-1-question' by value 2.</msg>
+<status status="PASS" endtime="20180528 11:27:18.396" starttime="20180528 11:27:18.332"></status>
 </kw>
 <kw name="Input Text" library="SeleniumLibrary">
 <doc>Types the given ``text`` into text field identified by ``locator``.</doc>
@@ -208,22 +208,22 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arg>${registration.form_answer2}</arg>
 <arg>${UserData.second_answer}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.488" level="INFO">Typing text '2' into text field 'name:form-1-answer'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.541" starttime="20180528 10:18:34.488"></status>
+<msg timestamp="20180528 11:27:18.397" level="INFO">Typing text '2' into text field 'name:form-1-answer'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.449" starttime="20180528 11:27:18.396"></status>
 </kw>
 <kw name="Click Element" library="SeleniumLibrary">
 <doc>Click element identified by ``locator``.</doc>
 <arguments>
 <arg>${registration_form.terms}</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.541" level="INFO">Clicking element 'name:terms'.</msg>
-<status status="PASS" endtime="20180528 10:18:34.596" starttime="20180528 10:18:34.541"></status>
+<msg timestamp="20180528 11:27:18.450" level="INFO">Clicking element 'name:terms'.</msg>
+<status status="PASS" endtime="20180528 11:27:18.502" starttime="20180528 11:27:18.449"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:34.596" starttime="20180528 10:18:33.961"></status>
+<status status="PASS" endtime="20180528 11:27:18.502" starttime="20180528 11:27:17.863"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:34.596" starttime="20180528 10:18:33.961"></status>
+<status status="PASS" endtime="20180528 11:27:18.502" starttime="20180528 11:27:17.862"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:34.597" starttime="20180528 10:18:33.960"></status>
+<status status="PASS" endtime="20180528 11:27:18.502" starttime="20180528 11:27:17.861"></status>
 </kw>
 <kw name="Submit Form" library="RegistrationPage">
 <kw name="Click Button" library="SeleniumLibrary">
@@ -231,26 +231,59 @@ var forms = document.querySelectorAll('.Form');for (var i = 0; i &lt; forms.leng
 <arguments>
 <arg>Register</arg>
 </arguments>
-<msg timestamp="20180528 10:18:34.598" level="INFO">Clicking button 'Register'.</msg>
-<status status="PASS" endtime="20180528 10:18:35.706" starttime="20180528 10:18:34.597"></status>
+<msg timestamp="20180528 11:27:18.503" level="INFO">Clicking button 'Register'.</msg>
+<status status="PASS" endtime="20180528 11:27:19.770" starttime="20180528 11:27:18.503"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:35.707" starttime="20180528 10:18:34.597"></status>
+<status status="PASS" endtime="20180528 11:27:19.771" starttime="20180528 11:27:18.503"></status>
 </kw>
-<status status="PASS" endtime="20180528 10:18:35.707" starttime="20180528 10:18:31.862"></status>
+<status status="PASS" endtime="20180528 11:27:19.771" starttime="20180528 11:27:15.368"></status>
 </kw>
-<kw name="springster.Assert Registration Errors">
-<msg timestamp="20180528 10:18:35.719" level="FAIL">No keyword with name 'springster.Assert Registration Errors' found.</msg>
-<status status="FAIL" endtime="20180528 10:18:35.719" starttime="20180528 10:18:35.719"></status>
+<kw name="Assert Registration Errors" library="springster">
+<kw name="Assert Field Errors" library="RegistrationPage">
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<doc>Verifies that element ``locator`` contains exact text ``expected``.</doc>
+<arguments>
+<arg>${registration_form.age_error}</arg>
+<arg>This field is required.</arg>
+</arguments>
+<msg timestamp="20180528 11:27:19.772" level="INFO">Verifying element 'xpath://*[@id="content"]/form/div[1]/div[1]/ul/li' contains exact text 'This field is required.'.</msg>
+<status status="PASS" endtime="20180528 11:27:19.804" starttime="20180528 11:27:19.772"></status>
+</kw>
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<doc>Verifies that element ``locator`` contains exact text ``expected``.</doc>
+<arguments>
+<arg>${registration_form.pwd_error}</arg>
+<arg>This field is required.</arg>
+</arguments>
+<msg timestamp="20180528 11:27:19.804" level="INFO">Verifying element 'xpath://*[@id="content"]/form/div[4]/div[1]/ul/li' contains exact text 'This field is required.'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180528 11:27:20.356" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180528 11:27:20.356" starttime="20180528 11:27:19.816"></status>
+</kw>
+<msg timestamp="20180528 11:27:20.359" level="FAIL">Element with locator 'xpath://*[@id="content"]/form/div[4]/div[1]/ul/li' not found.</msg>
+<status status="FAIL" endtime="20180528 11:27:20.359" starttime="20180528 11:27:19.804"></status>
+</kw>
+<status status="FAIL" endtime="20180528 11:27:20.359" starttime="20180528 11:27:19.772"></status>
+</kw>
+<status status="FAIL" endtime="20180528 11:27:20.359" starttime="20180528 11:27:19.771"></status>
+</kw>
+<kw type="teardown" name="End Web Test" library="common">
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" endtime="20180528 11:27:20.432" starttime="20180528 11:27:20.360"></status>
+</kw>
+<status status="PASS" endtime="20180528 11:27:20.433" starttime="20180528 11:27:20.360"></status>
 </kw>
 <doc>WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text</doc>
 <tags>
 <tag>copy</tag>
 <tag>end-user</tag>
 </tags>
-<status status="FAIL" endtime="20180528 10:18:35.719" critical="yes" starttime="20180528 10:18:25.724">No keyword with name 'springster.Assert Registration Errors' found.</status>
+<status status="FAIL" endtime="20180528 11:27:20.433" critical="yes" starttime="20180528 11:27:09.442">Element with locator 'xpath://*[@id="content"]/form/div[4]/div[1]/ul/li' not found.</status>
 </test>
 <doc>This is a set of tests for the Springster demo site.</doc>
-<status status="FAIL" endtime="20180528 10:18:35.721" starttime="20180528 10:18:25.430"></status>
+<status status="FAIL" endtime="20180528 11:27:20.435" starttime="20180528 11:27:09.054"></status>
 </suite>
 <statistics>
 <total>

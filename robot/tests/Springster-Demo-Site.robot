@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-#Test Teardown  End Web Test
+Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -17,7 +17,7 @@ ${BROWSER} =  chrome
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
-&{END_USER_INVALID}  type=end-user  username=invalid  pwd=password  age=${EMPTY}  gender=${EMPTY}  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 
@@ -35,6 +35,10 @@ Login as a new end-user
     springster.Login As User  ${END_USER_VALID}
     springster.Authorise Registration
     springster.Assert User Logged In
+
+Logout as end user
+    [Documentation]
+    [Tags]
 
 Delete user
     [Documentation]  Delete the end user created above.
@@ -123,6 +127,10 @@ Login as a new system user
 
     springster.Login As User  system-user  ${RND_USER}  ${RND_PWD}
 
+Logout as system user
+    [Documentation]
+    [Tags]
+
 Verify the fields shown on the system-user registration form.
     [Documentation]  Verify that the correct system user fields are shown.
     [Tags]  ready  system-user
@@ -173,6 +181,9 @@ Reset end user password with email address
     girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  user@example.com
     springster.Lost Password  end-user  ROBOT  ${RND_PWD}
 
+    #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
+    #springster.Lost Password  ${END_USER_VALID}
+
 Reset system user password without email address via security questions
     [Documentation]  
     [Tags] 
@@ -181,18 +192,21 @@ Reset system user password without email address via security questions
     girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  ${EMPTY}
     springster.Lost Password  system-user  ROBOT  ${RND_PWD}
 
+    #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
+    #springster.Lost Password  ${END_USER_VALID}
+
 Create end user profile using email address which already exists
     [Documentation]  
     [Tags]  
 
     springster.Generate User Name
-    springster.Register As User  end-user  ${RND_USER}  ${RND_PWD}
+    springster.Register As User  ${END_USER_VALID}
 
 Exceed maximum login attempts
     [Documentation]
     [Tags]
 
-    springster.Exceed Login Attempts end-user  ROBOT  ${RND_PWD}
+    springster.Exceed Login Attempts end-user  ${END_USER_VALID} 
 
 Assign system user roles view GMP
     [Documentation]
@@ -201,7 +215,16 @@ Assign system user roles view GMP
     # Probably best to do this via API and then check the FE?
 
 Assign site roles via GMP
+
     [Documentation]
     [Tags]
 
     # Probably best to do this via API and then check the FE?
+
+Site/theme de-activation.
+    [Documentation]
+    [Tags]
+
+Update questions via auth admin/gmp.
+    [Documentation]
+    [Tags]

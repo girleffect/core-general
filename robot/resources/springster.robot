@@ -20,15 +20,6 @@ Verify User Form Fields
     LandingPage.Open Registration Form  ${type}
     RegistrationPage.Verify User Fields  ${type}
 
-Register As User
-    [Arguments]  ${type}  ${RND_USER}  ${RND_PWD}
-
-    LandingPage.Load Landing Page
-    LandingPage.Open Registration Form  ${type}
-    RegistrationPage.Verify Registration Form
-    RegistrationPage.Enter User Fields  ${type}  ${RND_USER}  ${RND_PWD}
-    RegistrationPage.Submit Form
-
 Authorise Registration
     AuthPage.Verify Auth Page
     AuthPage.Authorise
@@ -112,3 +103,8 @@ Delete User Profile
     [Arguments]  ${UserData}
 
     girleffect_api.Delete User  ${UserData}
+
+Assert Registration Errors
+    RegistrationPage.Assert Field Errors
+
+    
