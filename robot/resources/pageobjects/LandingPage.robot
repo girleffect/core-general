@@ -24,6 +24,7 @@ Open Registration Form
     ...  ELSE  Log  Invalid user specified.
 
 Verify Landing Page
+    Wait Until Page Contains  Welcome to the Springster Example home page
     Wait Until Page Contains  Basic demo: Click and go
 
 Verify Admin Login Page

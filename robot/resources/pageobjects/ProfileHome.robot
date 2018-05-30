@@ -13,3 +13,6 @@ Verify User Home Page
     Wait Until Page Contains Element  ${userhome.logout_btn}
     Wait Until Page Contains Element  ${userhome.edit_btn}
 
+Logout
+    Click Element  ${userhome.logout_btn}
+

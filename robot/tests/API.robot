@@ -5,7 +5,7 @@ Resource  ../resources/API/girleffect_api.robot
 *** Variables ***
 ${auth_host} =  authentication-service.qa-hub.ie.gehosting.org
 ${host} =  access-control-service.qa-hub.ie.gehosting.org
-${api_key} =  qa_ThashaerieL2ahfa0ahy
+${API_KEY} =  qa_ThashaerieL2ahfa0ahy
 
 *** Test Cases ***
 Get access_token using password authentication
@@ -20,3 +20,9 @@ Get site roles for user
 
 Submit form with xxx details
     [Tags]
+
+test restinstance
+    [Documentation]  blah
+    [Tags]  rest
+
+    girleffect_api.rest get user id

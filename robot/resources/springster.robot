@@ -9,9 +9,13 @@ Resource  ../resources/pageobjects/ProfileHome.robot
 *** Variables ***
 
 *** Keywords ***
+
 Generate User Name
     ${RND_USER} =  Generate Random String  8  [LETTERS]
     Set Global Variable  ${RND_USER}
+
+Assert Landing Page Header
+    LandingPage.Verify Landing Page
 
 Verify User Form Fields
     [Arguments]  ${type}
@@ -35,6 +39,9 @@ Login As User
     LoginPage.Enter Auth Username  ${UserData}
     LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
+
+Logout
+    ProfileHome.Logout
 
 Login To CMS
     [Arguments]  ${AUTH_USERNAME}  ${AUTH_PASSWORD}
@@ -87,7 +94,7 @@ Exceed Login Attempts
     LoginPage.Login As User Incorrect Password
 
 Assert User Logged In
-    UserHome.Verify User Home Page
+    ProfileHome.Verify User Home Page
 
 Create New Profile
     [Arguments]  ${UserData}

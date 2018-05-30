@@ -18,19 +18,19 @@ ${BROWSER} =  chrome
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID}  type=end-user  username=robotframework1  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 
 *** Test Cases ***
 Create new end user profile
     [Documentation]  Register as an end user.
-    [Tags]  ready  end-user  create
+    [Tags]  ready  end-user  new
 
     springster.Create New Profile  ${END_USER_VALID}
 
 Login as a new end-user
     [Documentation]  Login as the end user created above.
-    [Tags]  ready  end-user  create
+    [Tags]  ready  end-user  login
 
     springster.Login As User  ${END_USER_VALID}
     springster.Authorise Registration
@@ -38,11 +38,18 @@ Login as a new end-user
 
 Logout as end user
     [Documentation]
-    [Tags]
+    [Tags]  ready  end-user  logout
+
+    springster.Login As User  ${END_USER_VALID}
+    springster.Assert User Logged In
+    springster.Logout
+
+    # If logout is successful the user will be taken to the Springster Demo Example Home Page.
+    springster.Assert Landing Page Header
 
 Delete user
     [Documentation]  Delete the end user created above.
-    [Tags]  ready  end-user  create
+    [Tags]  ready  end-user  delete
 
     springster.Delete User Profile  ${END_USER_VALID}
 
@@ -226,5 +233,6 @@ Site/theme de-activation.
     [Tags]
 
 Update questions via auth admin/gmp.
+
     [Documentation]
     [Tags]
