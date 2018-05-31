@@ -4,6 +4,7 @@ Library  SeleniumLibrary
 *** Variables ***
 ${loginpage.auth_username}  name:auth-username
 ${loginpage.auth_password}  name:auth-password
+${loginpage.lost_pwd_link}  xpath://a[@href="/en/reset-password/"]
 
 *** Keywords ***
 
@@ -25,3 +26,6 @@ Verify Login
 
 Confirm Account Blocked
     Wait Until Page Contains  Your account has been deactivated. Please contact support.
+
+Open Lost Password Page
+    Click Element  ${loginpage.lost_pwd_lnk}

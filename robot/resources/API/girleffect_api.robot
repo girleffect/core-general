@@ -67,6 +67,19 @@ Delete User
     ${resp} =  RequestsLibrary.Delete Request  delete  /api/v1/users/${User_ID}  headers=${headers}  
     Should Be Equal As Strings  ${resp.status_code}  200
 
+Put Null Email Field
+    [Documentation]  Set the user 'email' flag to null to remove it from the response body.
+    [Arguments]  ${UserData}
+
+    RequestsLibrary.Create Session  hook  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+    RequestsLibrary.Create Session  status  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+
+    # Do the PUT request:
+    ${body} =  Create Dictionary  email=${UserData.email}
+    ${headers} =  Create Dictionary  Accept=application/json  Content-Type=application/json  X-API-Key=${API_KEY}   
+    ${resp} =  RequestsLibrary.Put Request  hook  /api/v1/users/${UserData.id}  data=${body}  headers=${headers}
+    Should Be Equal As Strings  ${resp.status_code}  200
+
 Get Site Roles
     RequestsLibrary.Create Session  hook  http://${host}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email

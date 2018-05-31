@@ -5,6 +5,7 @@ Resource  ../resources/pageobjects/RegistrationPage.robot
 Resource  ../resources/pageobjects/AuthPage.robot
 Resource  ../resources/pageobjects/ManagementPortal.robot
 Resource  ../resources/pageobjects/ProfileHome.robot
+Resource  ../resources/pageobjects/PasswordReset.robot
 
 *** Variables ***
 

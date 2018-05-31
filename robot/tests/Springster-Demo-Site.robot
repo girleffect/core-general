@@ -95,7 +95,7 @@ Re-activate end user
 
 End user registration with missing fields
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
-    [Tags]  wip  end-user
+    [Tags]  ready  end-user
 
     springster.Generate User Name
     springster.Create New Profile  ${END_USER_INVALID}
@@ -179,7 +179,7 @@ OIDC consent form - system user
 Edit end user profile
     [Documentation]  
     [Tags]  
-
+    
     springster.Login As User  ${END_USER_VALID}
     springster.Login As User  ${SYS_USER_VALID} 
 
