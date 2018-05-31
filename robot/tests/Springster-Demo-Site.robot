@@ -17,9 +17,11 @@ ${BROWSER} =  chrome
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
-&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_VALID}  type=end-user  username=robotframework1  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
+&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{SYS_USER_VALID}  
+&{SYS_USER_INVALID}
 
 *** Test Cases ***
 Create new end user profile
@@ -63,7 +65,7 @@ End user password validation - length
 
 End user password validation - blank
     [Documentation]  Verify end user pwd requirement.
-    [Tags]  wip1  end-user
+    [Tags]  ready  end-user
 
     springster.Generate User Name
     springster.Register As User  end-user  ${RND_USER}  ${EMPTY}
@@ -93,7 +95,7 @@ Re-activate end user
 
 End user registration with missing fields
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
-    [Tags]  end-user  copy
+    [Tags]  wip  end-user
 
     springster.Generate User Name
     springster.Create New Profile  ${END_USER_INVALID}
@@ -104,21 +106,21 @@ Reset end user pwd via security questions
     [Tags]  end-user
 
     # Reset steps here...
-    springster.Login As User  end-user  ROBOT  ${RND_PWD}
+    springster.Login As User  ${END_USER_VALID}
     springster.Ensure Login Successful
 
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
     [Tags]  end-user
 
-    springster.Login As User  end-user  ${RND_USER}  ${RND_PWD}
+    springster.Login As User  ${END_USER_VALID}
     springster.Delete Profile
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
     [Tags]  ready  end-user
 
-    springster.Registration Questions  end-user
+    springster.Registration Questions  ${END_USER_VALID}
     #springster.registration questions  system-user
 
 Create new system user profile
@@ -126,37 +128,44 @@ Create new system user profile
     [Tags]  ready  system-user
     
     springster.Generate User Name
-    springster.Register As User  system-user  ${RND_USER}  ${RND_PWD}
+    springster.Register As User  ${SYS_USER_VALID}
 
 Login as a new system user
     [Documentation]  Login as the system user created above.
     [Tags]  ready  system-user
 
-    springster.Login As User  system-user  ${RND_USER}  ${RND_PWD}
+    springster.Login As User  ${SYS_USER_VALID}
 
 Logout as system user
     [Documentation]
-    [Tags]
+    [Tags]  ready  system-user
+
+    springster.Login As User  ${SYS_USER_VALID}
+    springster.Assert User Logged In
+    springster.Logout
+
+    # If logout is successful the user will be taken to the Springster Demo Example Home Page.
+    springster.Assert Landing Page Header
 
 Verify the fields shown on the system-user registration form.
     [Documentation]  Verify that the correct system user fields are shown.
     [Tags]  ready  system-user
 
-    springster.Verify User Form Fields  system-user
+    springster.Verify User Form Fields  ${SYS_USER_VALID}
 
 System user password validation - length
     [Documentation]  Verify system user pwd length requirement.
-    [Tags]  wip
+    [Tags]  wip1
 
     springster.Generate User Name
-    springster.Register As User  system-user  ${RND_USER}  as
+    springster.Register As User  ${SYS_USER_INVALID}
     springster.Password Length Error
 
 Password confirmation doesn't match
     [Documentation]  Verify end user pwd requirement.
     [Tags]  wip1
 
-    springster.Register As User  end-user  ${RND_USER}  ${EMPTY}
+    springster.Register As User  ${END_USER_INVALID}
     springster.Password Match Error
 
 OIDC consent form - end user
@@ -171,22 +180,22 @@ Edit end user profile
     [Documentation]  
     [Tags]  
 
-    springster.Login As User  end-user  ROBOT  ${RND_PWD}
-    springster.Login As User  system-user  ${RND_USER}  ${RND_PWD} 
+    springster.Login As User  ${END_USER_VALID}
+    springster.Login As User  ${SYS_USER_VALID} 
 
 Edit end user lost password questions
     [Documentation]
     [Tags]
 
-    springster.Login As User  end-user  ROBOT  ${RND_PWD}
+    springster.Login As User  ${END_USER_VALID}
 
 Reset end user password with email address
     [Documentation]  
     [Tags]  
 
     # Add email address via API PUT request.
-    girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  user@example.com
-    springster.Lost Password  end-user  ROBOT  ${RND_PWD}
+    girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
+    springster.Lost Password  ${END_USER_VALID}
 
     #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
     #springster.Lost Password  ${END_USER_VALID}
@@ -196,8 +205,8 @@ Reset system user password without email address via security questions
     [Tags] 
 
     # Add email address via API PUT request.
-    girleffect_api.Change User State  3f08f30e-5dc4-11e8-99a6-0242ac11000a  ${EMPTY}
-    springster.Lost Password  system-user  ROBOT  ${RND_PWD}
+    girleffect_api.Change User State  ${SYS_USER_VALID}  ${EMPTY}
+    springster.Lost Password  ${SYS_USER_VALID}
 
     #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
     #springster.Lost Password  ${END_USER_VALID}

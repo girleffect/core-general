@@ -27,8 +27,8 @@ ${registration_form.qr_code} =  xpath://*[@class="QR-image"]
 ${registration_form.terms} =  name:terms
 ${registration_form.tclink} =  xpath://a[@]
 ${registration_form.novalidate} =  var forms = document.querySelectorAll('.Form');for (var i = 0; i < forms.length; i++){forms[i].setAttribute('novalidate', false);}
-${registration_form.pwd_error} =  xpath://*[@id="content"]/form/div[4]/div[1]/ul/li
-${registration_form.age_error} =  xpath://*[@id="content"]/form/div[1]/div[1]/ul/li
+${registration_form.username_error} =  xpath://*//div[@class="Field-item"]//li[1]
+${registration_form.age_error} =  xpath://*/form/div[3]/div[1]/ul/li
 
 *** Keywords ***
 #TODO - Make granular keywords.
@@ -39,7 +39,7 @@ Set No-validate
 
 Assert Field Errors
     Element Text Should Be  ${registration_form.age_error}  This field is required.
-    Element Text Should Be  ${registration_form.pwd_error}  This field is required.
+    Element Text Should Be  ${registration_form.username_error}  This field is required.
 
 Enter Username Field
 Enter First Name Field
