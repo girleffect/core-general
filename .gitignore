@@ -108,3 +108,7 @@ prism
 
 # Diagram binaries
 diagrams/*.png
+
+.DS_Store
+robot/results/
+

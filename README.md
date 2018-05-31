@@ -1,9 +1,5 @@
 # core-general
 
-This repo will port to MkDocs: http://www.mkdocs.org/
-
-Current docs/ still uses Sphinx.
-
 ## Running the core components using `docker-compose`
 
 To be able to run the core components using `docker-compose`, all the git repositories should be available on the same level as this repository and each contain a `Dockerfile`.
@@ -62,4 +58,37 @@ http://ways-of-working.readthedocs.io/en/latest/tech/https.html#https
 curl 'http://access-control-service.qa-hub.ie.gehosting.org/api/v1/sites' \
 -H 'content-type: application/json' -H 'x-api-key: <API-KEY-ENV-VAR>' \
 --data '{"domain_id":<integer>,"client_id":<django_client_id>, "name":"site-name"}'
+
+### Spinnaker LoadBalancer-related tags
+
+For certificate generation:
+```
+MARATHON_ACME_0_DOMAIN name.of.domain
+```
+
+For redirecting to HTTPS on LB:
+```
+HAPROXY_0_REDIRECT_TO_HTTPS true
+```
+
+To expose services internally without a loadbalancer, edit the deploy stage pipeline job:
+```
+  "serviceEndpoints": [
+    {
+      "exposeToHost": false,
+      "labels": {
+        "VIP_0": "/access-control:8080"
+      },
+      "loadBalanced": true,
+      "name": "web",
+      "networkType": "BRIDGE",
+      "port": 80,
+      "protocol": "tcp"
+    }
+  ],
+```
+This will make the service available internally as:
+```
+access-control.marathon.l4lb.thisdcos.directory:8080
+```
 
