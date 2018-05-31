@@ -24,6 +24,11 @@ ${GMP_PASSWORD} =  Pae)b8So
 &{SYS_USER_INVALID}
 
 *** Test Cases ***
+Check mail
+    [Tags]  email
+
+    springster.Check Email
+
 Create new end user profile
     [Documentation]  Register as an end user.
     [Tags]  ready  end-user  new

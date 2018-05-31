@@ -115,4 +115,5 @@ Delete User Profile
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
 
-    
+Check Email
+    PasswordReset.Check Reset Email
