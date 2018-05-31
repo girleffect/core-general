@@ -45,4 +45,5 @@ Check Reset Email
     ${body}=  Get Email Body  ${LATEST}
     
     Should Contain  ${body}  Please go to the following page and choose a new password:
+    Mark All Emails As Read
     Close Mailbox
