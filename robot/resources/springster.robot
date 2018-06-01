@@ -118,6 +118,9 @@ Assert Registration Errors
 Check Password Reset Email
     PasswordReset.Check Reset Email
 
+Open Password Update Page
+    PasswordReset.Follow Reset Link
+
 Reset Password Via Email
     [Arguments]  ${UserData}
 

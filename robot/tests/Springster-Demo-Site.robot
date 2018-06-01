@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-Test Teardown  End Web Test
+#Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -112,6 +112,7 @@ Reset end user pwd via security questions
 
     springster.Reset Password Via Questions  ${END_USER_VALID}
     springster.Check Password Reset Email
+    springster.Open Password Update Page
 
 Reset end user pwd via email
     [Documentation]  End-user with no email address.

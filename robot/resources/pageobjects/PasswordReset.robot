@@ -60,7 +60,7 @@ Check Reset Email
 
     # Pass the password reset link to a variable:
     ${link} =  Get Lines Matching Pattern  ${body}  https://authentication-service.qa-hub.ie.gehosting.org*
-    Set Variable  ${link}
+    Set Global Variable  ${link}
 
-Open Password Change Page
-    Click Link  ${link}
+Follow Reset Link
+    Go To  ${link}
