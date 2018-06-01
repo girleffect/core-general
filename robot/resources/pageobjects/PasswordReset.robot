@@ -3,13 +3,14 @@ Library  SeleniumLibrary
 Library  ImapLibrary
 
 *** Variables ***
-${passwordreset.header}  id:header
+${passwordreset.header}  id:title
 ${passwordreset.back_btn}  xpath://a[@href="http://${URL.${ENVIRONMENT}}/oidc/callback/"]
 ${passwordreset.input}  name:email
 ${passwordreset.submit_btn}  xpath://*//input[@value="Submit"]
 ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
+${passwordreset.change_msg}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
 
@@ -24,7 +25,14 @@ Fill In Username
     Input Text  ${passwordreset.input}  ${UserData.username}
 
 Fill In Password
+    [Arguments]  ${UserData}
+
+    Input Text  ${passwordreset.pwd1}  ${UserData.password}
+
 Fill In Password Confirmation
+    [Arguments]  ${UserData}
+
+    Input Text  ${passwordreset.pwd2}  ${UserData.password}
 
 Click Submit
     Click Button  Submit
@@ -37,7 +45,8 @@ Verify Reset Page Header
     Element Text Should Be  ${passwordreset.header}  FORGOT YOUR PASSWORD?
 
 Verify Reset Sent
-    
+    Wait Until Page Contains  We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.
+
 Check Reset Email
     Open Mailbox  server=imap.googlemail.com  user=jasonbarr.qa@gmail.com  password=letstest
     
@@ -47,3 +56,4 @@ Check Reset Email
     Should Contain  ${body}  Please go to the following page and choose a new password:
     Mark All Emails As Read
     Close Mailbox
+

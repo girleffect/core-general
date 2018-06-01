@@ -115,5 +115,27 @@ Delete User Profile
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
 
-Check Email
+Check Password Reset Email
     PasswordReset.Check Reset Email
+
+Reset Password Via Email
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Email  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Verify Reset Sent
+
+Reset Password Via Questions
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Verify Reset Sent

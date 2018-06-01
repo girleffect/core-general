@@ -27,5 +27,6 @@ Verify Login
 Confirm Account Blocked
     Wait Until Page Contains  Your account has been deactivated. Please contact support.
 
-Open Lost Password Page
-    Click Element  ${loginpage.lost_pwd_lnk}
+Reset Password Link
+    #Click Element  ${loginpage.lost_pwd_link}
+    Click Link  Click here to reset it.

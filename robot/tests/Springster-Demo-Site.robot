@@ -19,15 +19,15 @@ ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{SYS_USER_VALID}  
 &{SYS_USER_INVALID}
 
 *** Test Cases ***
-Check mail
+Check email
     [Tags]  email
 
-    springster.Check Email
+    springster.Check Password Reset Email
 
 Create new end user profile
     [Documentation]  Register as an end user.
@@ -110,9 +110,15 @@ Reset end user pwd via security questions
     [Documentation]  End-user with no email address.
     [Tags]  end-user
 
-    # Reset steps here...
-    springster.Login As User  ${END_USER_VALID}
-    springster.Ensure Login Successful
+    springster.Reset Password Via Questions  ${END_USER_VALID}
+    springster.Check Password Reset Email
+
+Reset end user pwd via email
+    [Documentation]  End-user with no email address.
+    [Tags]  end-user  testing
+
+    springster.Reset Password Via Email  ${END_USER_VALID}
+    springster.Check Password Reset Email
 
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
