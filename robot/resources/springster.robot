@@ -19,11 +19,11 @@ Assert Landing Page Header
     LandingPage.Verify Landing Page
 
 Verify User Form Fields
-    [Arguments]  ${type}
+    [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
-    LandingPage.Open Registration Form  ${type}
-    RegistrationPage.Verify User Fields  ${type}
+    LandingPage.Open Registration Form  ${END_USER_VALID}
+    RegistrationPage.Verify User Fields  ${END_USER_VALID}
 
 Authorise Registration
     AuthPage.Verify Auth Page
@@ -54,11 +54,11 @@ Login To CMS
     LoginPage.Click Submit
 
 Registration Questions
-    [Arguments]  ${type}
+    [Arguments]  ${UserData}
     
     LandingPage.Load Landing Page
-    LandingPage.Open Registration Form  ${type}
-    RegistrationPage.Question Usage
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Question Usage  ${UserData}
 
 Password Length Error
     Set Selenium Implicit Wait  5s

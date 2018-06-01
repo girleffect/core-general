@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-#Test Teardown  End Web Test
+Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -18,7 +18,7 @@ ${BROWSER} =  chrome
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
-&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{SYS_USER_VALID}  
 &{SYS_USER_INVALID}
@@ -65,7 +65,7 @@ End user password validation - length
     [Tags]  ready  end-user
 
     springster.Generate User Name
-    springster.Register As User  ${END_USER_}
+    springster.Create New Profile  ${END_USER_INVALID_PASS}
     springster.Password Length Error
 
 End user password validation - blank
@@ -73,7 +73,7 @@ End user password validation - blank
     [Tags]  ready  end-user
 
     springster.Generate User Name
-    springster.Register As User  end-user  ${RND_USER}  ${EMPTY}
+    springster.Create New Profile  ${END_USER_NOPASS}
     springster.Password Blank Error
 
 Verify the fields shown on the end-user registration form.
@@ -129,7 +129,7 @@ End User submitting a request to delete their profile
     [Tags]  end-user
 
     springster.Login As User  ${END_USER_VALID}
-    springster.Delete Profile
+    springster.Delete User Profile
 
 Create end user profile using email address which already exists
     [Documentation]  
@@ -153,7 +153,7 @@ Edit end user lost password questions
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  bb
 
     springster.Registration Questions  ${END_USER_VALID}
     #springster.registration questions  system-user

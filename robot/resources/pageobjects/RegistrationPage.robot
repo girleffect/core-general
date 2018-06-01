@@ -63,18 +63,17 @@ Verify Registration Form
     #Wait Until Page Contains  Registration
     Wait Until Element Is Visible  ${header_txt} 
 
+Enter User Details
+    [Arguments]  ${UserData}
 
-Enter User Fields
-    [Arguments]  ${type}  ${RND_USER}  ${RND_PWD}
-
-    Run Keyword If  "${type}" == "end-user"  Enter End User Fields  ${RND_USER}  ${RND_PWD}
-    ...  ELSE IF  "${type}" == "system-user"  Enter System User Fields  ${RND_USER}  ${RND_PWD}
+    Run Keyword If  "${UserData.type}" == "end-user"  Enter End User Fields  ${UserData}
+    ...  ELSE IF  "${UserData.type}" == "system-user"  Enter System User Fields  ${UserData}
 
 Verify User Fields
-    [Arguments]  ${type}
+    [Arguments]  ${UserData}
 
-    Run Keyword If  "${type}" == "end-user"  Verify End User Fields
-    ...  ELSE IF  "${type}" == "system-user"  Verify System User Fields
+    Run Keyword If  "${UserData.type}" == "end-user"  Verify End User Fields
+    ...  ELSE IF  "${UserData.type}" == "system-user"  Verify System User Fields
 
 Enable 2FA
     Verify System User Login
@@ -86,17 +85,17 @@ Grab Code
     Log  ${qr_img}
 
 Enter End User Fields
-    [Arguments]  ${RND_USER}  ${RND_PWD}
+    [Arguments]  ${UserData}
 
-    Input Text  ${registration.form_username}  ${RND_USER}
-    Select From List By Value  ${registration.form_gender}  male
-    Input Text  ${registration.form_age}  21
-    Input Text  ${registration.form_pwd1}  ${RND_PWD}
-    Input Text  ${registration.form_pwd2}  ${RND_PWD}
-    Select From List By Value  ${registration.form_question1}  1 
-    Input Text  ${registration.form_answer1}  xxxxxx
-    Select From List By Value  ${registration.form_question2}  2
-    Input Text  ${registration.form_answer2}  xxxxxx
+    Input Text  ${registration.form_username}  ${UserData.username}
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+    Input Text  ${registration.form_age}  ${UserData.age}
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
+    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
     
     Click Element  ${registration_form.terms}
 
@@ -171,18 +170,18 @@ Verify System User Fields
     Element Should Not Be Visible  ${registration.form_nickname}
 
 Question Usage
-    [Documentation]  Each password reminder question can only be used once on the form.
+    [Arguments]  ${UserData}
     
     #TODO - Refactor to use enter end-user function.
-    Input Text  ${registration.form_username}  xxxx
-    Select From List By Value  ${registration.form_gender}  male
-    Input Text  ${registration.form_age}  21
-    Input Text  ${registration.form_pwd1}  asdf
-    Input Text  ${registration.form_pwd2}  asdf
-    Select From List By Value  ${registration.form_question1}  1 
-    Input Text  ${registration.form_answer1}  xxxxxx
-    Select From List By Value  ${registration.form_question2}  1
-    Input Text  ${registration.form_answer2}  xxxxxx
+    Input Text  ${registration.form_username}  ${UserData.username}
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+    Input Text  ${registration.form_age}  ${UserData.age}
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+    Select From List By Value  ${registration.form_question2}  ${UserData.first_question}
+    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
 
     Click Element  ${registration_form.terms}
 
@@ -190,21 +189,21 @@ Question Usage
 
     Page Should Contain  Each question can only be picked once.
 
-    Input Text  ${registration.form_pwd1}  asdf
-    Input Text  ${registration.form_pwd2}  asdf
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
 
-    Select From List By Value  ${registration.form_question1}  2 
-    Select From List By Value  ${registration.form_question2}  2
+    Select From List By Value  ${registration.form_question1}  ${UserData.second_question} 
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
 
     Submit Form
 
     Page Should Contain  Each question can only be picked once.
 
-    Input Text  ${registration.form_pwd1}  asdf
-    Input Text  ${registration.form_pwd2}  asdf
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
 
-    Select From List By Value  ${registration.form_question1}  1
-    Select From List By Value  ${registration.form_question2}  2
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
 
     Submit Form
 
@@ -218,23 +217,4 @@ Password Length Error
 
 #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
-Enter User Details
-    [Arguments]  ${UserData}
 
-    Run Keyword If  "${UserData.type}" == "end-user"  Enter End User Details  ${UserData}
-    ...  ELSE IF  "${UserData.type}" == "system-user"  Enter System User Details  ${UserData}
-
-Enter End User Details
-    [Arguments]  ${UserData}
-
-    Input Text  ${registration.form_username}  ${UserData.username} 
-    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
-    Input Text  ${registration.form_age}  ${UserData.age}
-    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
-    Select From List By Value  ${registration.form_question1}  ${UserData.first_question} 
-    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
-    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
-    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
-    
-    Click Element  ${registration_form.terms}

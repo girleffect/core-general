@@ -53,8 +53,8 @@ Delete User
     [Documentation]  Remove user via API
     [Arguments]  ${UserData}
 
-    RequestsLibrary.Create Session  hook  https://${AUTH_HOST}  verify=${True}
-    RequestsLibrary.Create Session  delete  https://${AUTH_HOST}  verify=${True}
+    RequestsLibrary.Create Session  hook  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+    RequestsLibrary.Create Session  delete  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
 
     ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}
     ${resp} =  RequestsLibrary.Get Request  hook  /api/v1/users?username=${UserData.username}  headers=${headers}  
@@ -90,7 +90,7 @@ Get Site Roles
     #Dictionary Should Contain Value  ${resp.json()}  ["permission_id"]
 
 rest get token
-   REST.POST  http://${AUTH_HOST}/openid/token  body={"grant_type":"password","client_id":"872786","client_secret":"bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058","username":"jasonb","password":"12QWas\!\@","scope":"openid%20site%20roles%20email"}  
+   REST.POST  http://${AUTH_HOST.${ENVIRONMENT}}/openid/token  body={"grant_type":"password","client_id":"872786","client_secret":"bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058","username":"jasonb","password":"12QWas\!\@","scope":"openid%20site%20roles%20email"}  
    Set Headers  {"Content-Type":"application/x-www-form-urlencoded"}
    Output  response body
    Integer  response status  200
@@ -99,7 +99,7 @@ rest get token
    #Log  ${rest_token}
 
 rest get user id
-    REST.GET  https://${AUTH_HOST}/api/v1/users?username=robot
+    REST.GET  https://${AUTH_HOST.${ENVIRONMENT}}/api/v1/users?username=robot
     Set Headers  {"Accept" : "application/json"}
     Set Headers  {"X-API-Key" : "${API_KEY}"}
     Output  response
