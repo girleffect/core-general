@@ -108,14 +108,14 @@ End user registration with missing fields
 
 Reset end user pwd via security questions
     [Documentation]  End-user with no email address.
-    [Tags]  end-user
+    [Tags]  testing  end-user
 
     springster.Reset Password Via Questions  ${END_USER_VALID}
     springster.Check Password Reset Email
 
 Reset end user pwd via email
     [Documentation]  End-user with no email address.
-    [Tags]  end-user  testing
+    [Tags]  ready  end-user
 
     springster.Reset Password Via Email  ${END_USER_VALID}
     springster.Check Password Reset Email
