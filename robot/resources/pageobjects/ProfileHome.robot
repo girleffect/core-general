@@ -16,3 +16,5 @@ Verify User Home Page
 Logout
     Click Element  ${userhome.logout_btn}
 
+Edit Profile
+    Click Element  ${userhome.edit_btn}

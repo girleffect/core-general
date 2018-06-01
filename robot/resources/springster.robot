@@ -140,5 +140,15 @@ Reset Password Via Questions
     LoginPage.Reset Password Link
     PasswordReset.Verify Reset Page Header
     PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Answer Questions  ${UserData}
     PasswordReset.Click Submit
     PasswordReset.Verify Reset Sent
+
+Complete Password Reset
+    [Arguments]  ${UserData}
+
+    PasswordReset.Generate End User Password
+    PasswordReset.Verify Password Reset Form
+    PasswordReset.Fill In Password  ${UserData}     
+    PasswordReset.Fill In Password Confirmation  ${UserData}
+    PasswordReset.Submit Password Reset

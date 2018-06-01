@@ -11,9 +11,11 @@ ${passwordreset.submit_btn}  xpath://*//input[@value="Submit"]
 ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
-${passwordreset.change_msg}  xpath://div[@id="content"]/p[1]
+${passwordreset.reset_hdr}  id:content
 
 *** Keywords ***
+Generate End User Password
+    ${UserData.pwd} =  Generate Random String  5
 
 Fill In Email
     [Arguments]  ${UserData}
@@ -28,12 +30,12 @@ Fill In Username
 Fill In Password
     [Arguments]  ${UserData}
 
-    Input Text  ${passwordreset.pwd1}  ${UserData.password}
+    Input Text  ${passwordreset.pwd1}  ${UserData.pwd}
 
 Fill In Password Confirmation
     [Arguments]  ${UserData}
 
-    Input Text  ${passwordreset.pwd2}  ${UserData.password}
+    Input Text  ${passwordreset.pwd2}  ${UserData.pwd}
 
 Click Submit
     Click Button  Submit
@@ -64,3 +66,9 @@ Check Reset Email
 
 Follow Reset Link
     Go To  ${link}
+
+Verify Password Reset Form
+    Element Text Should Be  ${passwordreset.reset_hdr}  Please enter your new password twice so we can verify you typed it in correctly.
+
+Submit Password Reset
+    Click Element  ${passwordreset.change_btn}

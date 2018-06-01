@@ -20,7 +20,7 @@ class HelloWorld:
         driver.get('https://applitools.com/helloworld')
 
         # Visual checkpoint #1.
-        eyes.check_window('Hello!');
+        eyes.check_window('Hello!')
 
         # Click the 'Click me!' button.
         driver.find_element_by_css_selector('button').click()
