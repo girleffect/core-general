@@ -1,6 +1,7 @@
 *** Settings ***
 Library  SeleniumLibrary
 Library  ImapLibrary
+Library  String
 
 *** Variables ***
 ${passwordreset.header}  id:title
@@ -52,8 +53,14 @@ Check Reset Email
     
     ${LATEST}=  Wait for Email  sender=auth@gehosting.org  timeout=120
     ${body}=  Get Email Body  ${LATEST}
-    
+
     Should Contain  ${body}  Please go to the following page and choose a new password:
     Mark All Emails As Read
     Close Mailbox
 
+    # Pass the password reset link to a variable:
+    ${link} =  Get Lines Matching Pattern  ${body}  https://authentication-service.qa-hub.ie.gehosting.org*
+    Set Variable  ${link}
+
+Open Password Change Page
+    Click Link  ${link}
