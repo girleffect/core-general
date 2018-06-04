@@ -67,11 +67,14 @@ Password Length Error
 Password Format Error
     Wait Until Page Contains  
 
-#Enable 2FA
-#    RegistrationPage.Verify System User Login
+Enable 2FA
+    [Arguments]
 
-#Grab Code
-#    ${qr} = Get Value  xpath://*[@class="QR-image"]
+    RegistrationPage.Verify System User Login
+
+    Grab Code
+        ${qr} = Get Value  xpath://*[@class="QR-image"]
+
 Open Management Portal
     ManagementPortal.Load GMP
 
@@ -110,7 +113,10 @@ Create New Profile
 Delete User Profile
     [Arguments]  ${UserData}
 
-    girleffect_api.Delete User  ${UserData}
+    #girleffect_api.Delete User  ${UserData}
+    ProfileHome.Edit Profile
+    ProfileHome.Update
+    ProfileHome.Verify Update
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
