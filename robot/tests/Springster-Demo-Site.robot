@@ -20,6 +20,7 @@ ${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID1}  username=klikl  pwd=asdf  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{SYS_USER_VALID}  
 &{SYS_USER_INVALID}
 
@@ -126,10 +127,10 @@ Reset end user pwd via email
 
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
-    [Tags]  testing  end-user
+    [Tags]  del  end-user
 
-    springster.Login As User  ${END_USER_VALID}
-    springster.Delete User Profile
+    springster.Login As User  ${END_USER_VALID1}
+    springster.Delete User Profile  ${END_USER_VALID1}
 
 Create end user profile using email address which already exists
     [Documentation]  

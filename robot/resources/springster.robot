@@ -5,7 +5,9 @@ Resource  ../resources/pageobjects/RegistrationPage.robot
 Resource  ../resources/pageobjects/AuthPage.robot
 Resource  ../resources/pageobjects/ManagementPortal.robot
 Resource  ../resources/pageobjects/ProfileHome.robot
+Resource  ../resources/pageobjects/ProfileEdit.robot
 Resource  ../resources/pageobjects/PasswordReset.robot
+
 
 *** Variables ***
 
@@ -113,10 +115,9 @@ Create New Profile
 Delete User Profile
     [Arguments]  ${UserData}
 
-    #girleffect_api.Delete User  ${UserData}
     ProfileHome.Edit Profile
-    ProfileHome.Update
-    ProfileHome.Verify Update
+    ProfileEdit.Verify Edit Page
+    ProfileEdit.Delete Profile
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
