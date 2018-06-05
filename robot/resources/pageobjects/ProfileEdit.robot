@@ -26,7 +26,7 @@ ${profileedit.back_btn} =  xpath://a[contains(text(), "Back")]
 
 Verify Edit Page
     Wait Until Page Contains Element  ${profileedit.header}
-    ELement Text Should Be  ${profileedit.header}  EDIT YOUR PROFILE
+    Element Text Should Be  ${profileedit.header}  EDIT YOUR PROFILE
 
     Element Should Be Visible  ${profileedit.sex_select}
     Element Should Be Visible  ${profileedit.age_select}
@@ -59,7 +59,7 @@ Select Gender
 
 Check Gender Field
     [Arguments]  ${sex}
-    
+
     ${edited_sex} =  Get Selected List Value  ${profileedit.sex_select}
     Should Be Equal As Strings  ${edited_sex}  ${sex}
 

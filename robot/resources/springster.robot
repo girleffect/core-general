@@ -141,11 +141,12 @@ Reset Edited Fields
     ProfileEdit.Fill In Age Field  ${age}
     ProfileEdit.Select Gender  ${sex}
     ProfileEdit.Click Update
-    
+
 Update Security Questions
     [Arguments]  ${UserData}
 
-
+    ProfileEdit.Edit Profile
+    UpdateQuestions.Verify Edit Questions Page
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors

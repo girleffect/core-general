@@ -4,72 +4,62 @@ Library  String
 
 *** Variables ***
 
-${profileedit.header} =  xpath://div[@id="title"]/h1
-${profileedit.sex_select} =  xpath://select[@name="gender"]
-${profileedit.age_select} =  xpath://input[@name="age"]
-${profileedit.edit_btn} =  xpath://input[@type="submit"]
-${profileedit.update_btn} =  xpath://input[@value="Update"]
-${profileedit.update_pwd_btn} =  xpath://a[contains(text(), "Password update")]
-${profileedit.questions_btn} =  xpath://a[contains(text(), "Security questions update")]
-${profileedit.delete_lnk} =  xpath://a[contains(text(), "Delete account")]
-${profileedit.delete_hdr} =  xpath://div[@id="title"]/h1
-${profileedit.delete_freetext}=  xpath://textarea[@name="reason"]
-${profileedit.delete_btn} =  xpath://input[@value="Delete account?"]
-${profileedit.delete_confirm_txt} =  xpath://div[@id="content"]//p[@class="Intro"]
-${profileedit.delete_confirm} =  name:confirmed_deletion
-${profileedit.delete_deny} =  xpath://a[contains(text(), "No, I've changed my mind")]
-${profileedit.delete_success} =  id:messagelist
-${profileedit.logout_btn} =  xpath://a[contains(text(), "Logout")]
-${profileedit.back_btn} =  xpath://a[contains(text(), "Back")]
+${updatequestions.header} =  xpath://div[@id="title"]/h1
+${updatequestions.question1} =  id:id_form-0-question
+${updatequestions.answer1} =  id:id_form-0-answer
+${updatequestions.question2} =  id:id_form-1-question
+${updatequestions.answer2} =  id:id_form-1-answer
+${updatequestions.update_pwd_btn} =  xpath://input[@value="Update"]
+${updatequestions.back_btn} =  xpath://a[contains(text(), "Back")]
 
 *** Keywords ***
 
-Verify Edit Page
-    Wait Until Page Contains Element  ${profileedit.header}
-    ELement Text Should Be  ${profileedit.header}  EDIT YOUR PROFILE
+Verify Edit Questions Page
+    Wait Until Page Contains Element  ${updatequestions.header}
+    Element Text Should Be  ${updatequestions.header}  UPDATE SECURITY QUESTIONS
 
-    Element Should Be Visible  ${profileedit.sex_select}
-    Element Should Be Visible  ${profileedit.age_select}
-    Element Should Be Visible  ${profileedit.edit_btn}
-    Element Should Be Visible  ${profileedit.update_pwd_btn}
-    Element Should Be Visible  ${profileedit.questions_btn}
-    Element Should Be Visible  ${profileedit.logout_btn}
+    Element Should Be Visible  ${updatequestions.question1}
+    Element Should Be Visible  ${updatequestions.answer1}
+    Element Should Be Visible  ${updatequestions.question2}
+    Element Should Be Visible  ${updatequestions.answer2}
+    Element Should Be Visible  ${updatequestions.update_pwd_btn}
+    Element Should Be Visible  ${updatequestions.back_btn}
 
 Logout
-    Click Element  ${profileedit.logout_btn}
+    Click Element  ${updatequestions.logout_btn}
 
 Edit Profile
-    Click Element  ${profileedit.edit_btn}
+    Click Element  ${updatequestions.edit_btn}
 
 Fill In Age Field
-    Input Text  ${profileedit.age_select}  edit
+    Input Text  ${updatequestions.age_select}  edit
 
 Select Gender
-    Select From List  ${profileedit.sex_select}  Female
+    Select From List  ${updatequestions.sex_select}  Female
 
 Click Update
-    Click Element  ${profileedit.update_btn}
+    Click Element  ${updatequestions.update_btn}
 
 Delete Profile
-    Click Element  ${profileedit.delete_lnk}
+    Click Element  ${updatequestions.delete_lnk}
     
-    Wait Until Page Contains Element  ${profileedit.delete_hdr}
-    Element Text Should Be  ${profileedit.delete_hdr}  DELETE YOUR ACCOUNT
-    Element Should Be Visible  ${profileedit.delete_freetext}
-    Element Should Be Visible  ${profileedit.back_btn}
+    Wait Until Page Contains Element  ${updatequestions.delete_hdr}
+    Element Text Should Be  ${updatequestions.delete_hdr}  DELETE YOUR ACCOUNT
+    Element Should Be Visible  ${updatequestions.delete_freetext}
+    Element Should Be Visible  ${updatequestions.back_btn}
 
-    Input Text  ${profileedit.delete_freetext}  robotframework
+    Input Text  ${updatequestions.delete_freetext}  robotframework
 
-    Click Element  ${profileedit.delete_btn}
+    Click Element  ${updatequestions.delete_btn}
 
-    Wait Until Page Contains Element  ${profileedit.delete_confirm_txt}
-    Element Text Should Be  ${profileedit.delete_confirm_txt}  We're sad to see you go. Are you sure you want to delete your account?  
+    Wait Until Page Contains Element  ${updatequestions.delete_confirm_txt}
+    Element Text Should Be  ${updatequestions.delete_confirm_txt}  We're sad to see you go. Are you sure you want to delete your account?  
     
-    Element Should Be Visible  ${profileedit.delete_confirm}
-    Element Should Be Visible  ${profileedit.delete_deny}
+    Element Should Be Visible  ${updatequestions.delete_confirm}
+    Element Should Be Visible  ${updatequestions.delete_deny}
 
-    Click Element  ${profileedit.delete_confirm}
+    Click Element  ${updatequestions.delete_confirm}
 
-    Wait Until Page Contains Element  ${profileedit.delete_success}
-    Element Text Should Be  ${profileedit.delete_success}  Successfully requested account deletion.
+    Wait Until Page Contains Element  ${updatequestions.delete_success}
+    Element Text Should Be  ${updatequestions.delete_success}  Successfully requested account deletion.
 
