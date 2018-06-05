@@ -7,6 +7,8 @@ Resource  ../resources/pageobjects/ManagementPortal.robot
 Resource  ../resources/pageobjects/ProfileHome.robot
 Resource  ../resources/pageobjects/ProfileEdit.robot
 Resource  ../resources/pageobjects/PasswordReset.robot
+Resource  ../resources/pageobjects/UpdatePassword.robot
+Resource  ../resources/pageobjects/UpdateQuestions.robot
 
 
 *** Variables ***
@@ -118,6 +120,32 @@ Delete User Profile
     ProfileHome.Edit Profile
     ProfileEdit.Verify Edit Page
     ProfileEdit.Delete Profile
+
+Edit User Profile   
+    [Arguments]  ${sex}  ${age}
+
+    ProfileHome.Verify User Home Page
+    ProfileHome.Edit Profile
+    ProfileEdit.Verify Edit Page
+    ProfileEdit.Fill In Age Field  ${age}
+    ProfileEdit.Select Gender  ${sex}
+    ProfileEdit.Click Update
+    ProfileHome.Verify User Home Page
+    ProfileHome.Edit Profile
+    ProfileEdit.Check Age Field  ${age}
+    ProfileEdit.Check Gender Field  ${sex}
+
+Reset Edited Fields
+    [Arguments]  ${sex}  ${age}
+
+    ProfileEdit.Fill In Age Field  ${age}
+    ProfileEdit.Select Gender  ${sex}
+    ProfileEdit.Click Update
+    
+Update Security Questions
+    [Arguments]  ${UserData}
+
+
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors

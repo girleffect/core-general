@@ -6,7 +6,7 @@ Library  String
 
 ${profileedit.header} =  xpath://div[@id="title"]/h1
 ${profileedit.sex_select} =  xpath://select[@name="gender"]
-${profileedit.age_select} =  name:age  #xpath://input[@name="age"]
+${profileedit.age_select} =  xpath://input[@name="age"]
 ${profileedit.edit_btn} =  xpath://input[@type="submit"]
 ${profileedit.update_btn} =  xpath://input[@value="Update"]
 ${profileedit.update_pwd_btn} =  xpath://a[contains(text(), "Password update")]
@@ -42,26 +42,10 @@ Edit Profile
     Click Element  ${profileedit.edit_btn}
 
 Fill In Age Field
-    [Arguments]  ${age}
-
-    Input Text  ${profileedit.age_select}  ${age}
-
-Check Age Field
-    [Arguments]  ${age}
-
-    ${edited_age} =  Get Value  ${profileedit.age_select}
-    Should Be Equal As Strings  ${edited_age}  ${age}
+    Input Text  ${profileedit.age_select}  edit
 
 Select Gender
-    [Arguments]  ${sex}
-
-    Select From List  ${profileedit.sex_select}  ${sex}
-
-Check Gender Field
-    [Arguments]  ${sex}
-    
-    ${edited_sex} =  Get Selected List Value  ${profileedit.sex_select}
-    Should Be Equal As Strings  ${edited_sex}  ${sex}
+    Select From List  ${profileedit.sex_select}  Female
 
 Click Update
     Click Element  ${profileedit.update_btn}

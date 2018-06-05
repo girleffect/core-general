@@ -127,7 +127,7 @@ Reset end user pwd via email
 
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
-    [Tags]  del  end-user
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_VALID1}
     springster.Delete User Profile  ${END_USER_VALID1}
@@ -141,14 +141,15 @@ Create end user profile using email address which already exists
 
 Age validation
     Page Should Contain  Ensure this value is less than or equal to 100.
-    
+    Page Should Contain  Error for 13 yr old validation
 
 Edit end user profile
     [Documentation]  
-    [Tags]  testing  end-user
+    [Tags]  ready  end-user
     
-    springster.Login As User  ${END_USER_VALID}
-    springster.Login As User  ${SYS_USER_VALID} 
+    springster.Login As User  ${END_USER_VALID1}
+    springster.Edit User Profile  female  25
+    springster.Reset Edited Fields  male  16
 
 Edit end user lost password questions
     [Documentation]
@@ -162,6 +163,7 @@ Each form question can only be picked once.
 
     springster.Registration Questions  ${END_USER_VALID}
     #springster.registration questions  system-user
+    # Add check from profile edit as well.
 
 Create new system user profile
     [Documentation]  Register as a system user.
