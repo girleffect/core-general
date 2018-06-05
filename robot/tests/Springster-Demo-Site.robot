@@ -153,13 +153,13 @@ Edit end user profile
 
 Edit end user lost password questions
     [Documentation]
-    [Tags]  testing  end-user
+    [Tags]  edit  end-user
 
     springster.Login As User  ${END_USER_VALID}
     springster.Update Security Questions
 
 
-    
+
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
     [Tags]  ready  end-user

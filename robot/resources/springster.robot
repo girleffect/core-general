@@ -143,10 +143,16 @@ Reset Edited Fields
     ProfileEdit.Click Update
 
 Update Security Questions
-    [Arguments]  ${UserData}
 
+    ProfileHome.Verify User Home Page
     ProfileEdit.Edit Profile
+    ProfileEdit.Goto Update Questions Page
     UpdateQuestions.Verify Edit Questions Page
+    UpdateQuestions.Select Question One
+    UpdateQuestions.Fill In Answer Field One
+    UpdateQuestions.Select Question Two
+    UpdateQuestions.Fill In Answer Field Two
+    UpdateQuestions.Click Update
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors

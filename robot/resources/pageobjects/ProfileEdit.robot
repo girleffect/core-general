@@ -7,10 +7,10 @@ Library  String
 ${profileedit.header} =  xpath://div[@id="title"]/h1
 ${profileedit.sex_select} =  xpath://select[@name="gender"]
 ${profileedit.age_select} =  name:age  #xpath://input[@name="age"]
-${profileedit.edit_btn} =  xpath://input[@type="submit"]
+${profileedit.edit_btn} =  xpath://a[contains(text(), "Edit Profile")]
 ${profileedit.update_btn} =  xpath://input[@value="Update"]
-${profileedit.update_pwd_btn} =  xpath://a[contains(text(), "Password update")]
-${profileedit.questions_btn} =  xpath://a[contains(text(), "Security questions update")]
+${profileedit.update_pwd_lnk} =  xpath://a[contains(text(), "Password update")]
+${profileedit.questions_lnk} =  xpath://a[contains(text(), "Security questions update")]
 ${profileedit.delete_lnk} =  xpath://a[contains(text(), "Delete account")]
 ${profileedit.delete_hdr} =  xpath://div[@id="title"]/h1
 ${profileedit.delete_freetext}=  xpath://textarea[@name="reason"]
@@ -55,7 +55,7 @@ Check Age Field
 Select Gender
     [Arguments]  ${sex}
 
-    Select From List  ${profileedit.sex_select}  ${sex}
+    Select From List By Value  ${profileedit.sex_select}  ${sex}
 
 Check Gender Field
     [Arguments]  ${sex}
@@ -89,3 +89,5 @@ Delete Profile
     Wait Until Page Contains Element  ${profileedit.delete_success}
     Element Text Should Be  ${profileedit.delete_success}  Successfully requested account deletion.
 
+Goto Update Questions Page
+    Click Element  ${profileedit.questions_lnk}
