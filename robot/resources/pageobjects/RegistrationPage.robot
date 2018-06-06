@@ -148,25 +148,25 @@ Enter End User Fields
     Click Element  ${registration_form.terms}
 
 Enter System User Fields
-    [Arguments]  ${RND_USER}  ${RND_PWD}
+    [Arguments]  ${UserData}
 
-    Input Text  ${registration.form_username}  ${RND_USER}
+    Input Text  ${registration.form_username}  ${UserData.username}
     Input Text  ${registration.form_first}  Robot
     Input Text  ${registration.form_last}  Framework
-    Input Text  ${registration.form_email}  ${RND_USER}@praekelt.com
-    #Input Text  ${registration.form_country} =  name:country
+    Input Text  ${registration.form_email}  ${UserData.email}
+    Select From List By Value  ${registration.form_country}  ZA
     Input Text  ${registration.form_msisdn}  0712345678
-    Select From List By Value  ${registration.form_gender}  male
-    Input Text  ${registration.form_age}  21
-    Input Text  ${registration.form_pwd1}  ${RND_PWD}
-    Input Text  ${registration.form_pwd2}  ${RND_PWD}
-    Select From List By Value  ${registration.form_question1}  1 
-    Input Text  ${registration.form_answer1}  xxxxxx
-    Select From List By Value  ${registration.form_question2}  2
-    Input Text  ${registration.form_answer2}  xxxxxx
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+    Input Text  ${registration.form_age}  ${UserData.age}
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
+    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
     
     Click Element  ${registration_form.terms}
-    #Submit Form
+    Submit Form
     #Enable 2FA
     #Grab Code
 

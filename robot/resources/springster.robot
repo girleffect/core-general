@@ -218,6 +218,9 @@ Assert Existing User Error
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
     RegistrationPage.Set No-validate
-    RegistrationPage.Enter End User Fields  ${UserData}
+
+    Run Keyword If  "${UserData.type}" == "end-user"  RegistrationPage.Enter End User Fields  ${UserData}
+    ...  ELSE IF  "${UserData.type}" == "system-user"  RegistrationPage.Enter System User Fields  ${UserData}
+    
     RegistrationPage.Submit Form
     RegistrationPage.Existing Credentials Error  ${error.field}
