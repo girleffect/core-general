@@ -18,9 +18,9 @@ ${profileedit.delete_btn} =  xpath://input[@value="Delete account?"]
 ${profileedit.delete_confirm_txt} =  xpath://div[@id="content"]//p[@class="Intro"]
 ${profileedit.delete_confirm} =  name:confirmed_deletion
 ${profileedit.delete_deny} =  xpath://a[contains(text(), "No, I've changed my mind")]
-${profileedit.delete_success} =  id:messagelist
+${profileedit.messagelist} =  id:messagelist
 ${profileedit.logout_btn} =  xpath://a[contains(text(), "Logout")]
-${profileedit.back_btn} =  xpath://a[contains(text(), "Back")]
+${profileedit.back_lnk} =  xpath://a[contains(text(), "Back")]
 
 *** Keywords ***
 
@@ -31,8 +31,8 @@ Verify Edit Page
     Element Should Be Visible  ${profileedit.sex_select}
     Element Should Be Visible  ${profileedit.age_select}
     Element Should Be Visible  ${profileedit.edit_btn}
-    Element Should Be Visible  ${profileedit.update_pwd_btn}
-    Element Should Be Visible  ${profileedit.questions_btn}
+    Element Should Be Visible  ${profileedit.update_pwd_lnk}
+    Element Should Be Visible  ${profileedit.questions_lnk}
     Element Should Be Visible  ${profileedit.logout_btn}
 
 Logout
@@ -72,7 +72,7 @@ Delete Profile
     Wait Until Page Contains Element  ${profileedit.delete_hdr}
     Element Text Should Be  ${profileedit.delete_hdr}  DELETE YOUR ACCOUNT
     Element Should Be Visible  ${profileedit.delete_freetext}
-    Element Should Be Visible  ${profileedit.back_btn}
+    Element Should Be Visible  ${profileedit.back_lnk}
 
     Input Text  ${profileedit.delete_freetext}  robotframework
 
@@ -86,8 +86,15 @@ Delete Profile
 
     Click Element  ${profileedit.delete_confirm}
 
-    Wait Until Page Contains Element  ${profileedit.delete_success}
-    Element Text Should Be  ${profileedit.delete_success}  Successfully requested account deletion.
+    Wait Until Page Contains Element  ${profileedit.messagelist}
+    Element Text Should Be  ${profileedit.messagelist}  Successfully requested account deletion.
 
 Goto Update Questions Page
     Click Element  ${profileedit.questions_lnk}
+
+Goto Update Password Page
+    Click Element  ${profileedit.update_pwd_lnk}
+
+Verify Password Update Msg
+    Wait Until Page Contains Element  ${profileedit.messagelist}
+    Element Text Should Be  ${profileedit.messagelist}  Successfully updated password.

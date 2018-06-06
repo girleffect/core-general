@@ -26,3 +26,8 @@ test restinstance
     [Tags]  rest
 
     girleffect_api.rest get user id
+
+test
+    [Tags]  test
+    
+    girleffect_api.test

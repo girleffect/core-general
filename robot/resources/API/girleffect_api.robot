@@ -12,6 +12,15 @@ ${ENVIRONMENT} =  qa
 ${API_KEY} =  qa_ThashaerieL2ahfa0ahy
 
 *** Keywords ***
+test
+    RequestsLibrary.Create Session  hook  https://auth.bench.id.aspect-cloud.net  verify=${True}
+   ${body} =  Create Dictionary  grant_type=client_credentials  username=OUTREACH_API_CLIENT  password=Ff8sSPnLLQhk1suw_2BadRZTCGd2DCYnKwjVha+TZFw\=  scope=outreachapi
+   ${headers} =  Create Dictionary  Content-Type=application/x-www-form-urlencoded
+   ${resp} =  RequestsLibrary.Post Request  hook  /oauth2/access_token?realm=heroes  data=${body}  headers=${headers}
+   Should Be Equal As Strings  ${resp.status_code}  200
+   ${accessToken} =  evaluate  $resp.json().get("access_token")
+   Set Global Variable  ${accessToken}
+
 Get Access Token
     RequestsLibrary.Create Session  hook  https://${AUTH_HOST}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email

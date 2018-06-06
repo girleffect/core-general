@@ -20,7 +20,7 @@ ${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework2  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_VALID1}  username=klikl  pwd=asdf  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID1}  username=klikl  pwd=asdfg  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{SYS_USER_VALID}  
 &{SYS_USER_INVALID}
 
@@ -153,12 +153,17 @@ Edit end user profile
 
 Edit end user lost password questions
     [Documentation]
-    [Tags]  edit  end-user
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_VALID}
     springster.Update Security Questions
 
+Update end user password via springster
+    [Documentation]
+    [Tags]  edit  end-user
 
+    springster.Login As User  ${END_USER_VALID1}
+    springster.Update User Password  ${END_USER_VALID1}
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.

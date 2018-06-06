@@ -154,6 +154,18 @@ Update Security Questions
     UpdateQuestions.Fill In Answer Field Two
     UpdateQuestions.Click Update
 
+Update User Password
+    [Arguments]  ${UserData}
+
+    ProfileHome.Verify User Home Page
+    ProfileEdit.Edit Profile
+    ProfileEdit.Goto Update Password Page
+    UpdatePassword.Verify Password Page
+    UpdatePassword.Fill In Old Password  ${UserData}
+    UpdatePassword.Fill In New Password
+    UpdatePassword.Click Update
+    ProfileEdit.Verify Password Update Msg
+
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
 
