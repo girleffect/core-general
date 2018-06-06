@@ -11,7 +11,7 @@ ${passwordreset.submit_btn}  xpath://*//input[@value="Submit"]
 ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
-${passwordreset.reset_hdr}  id:content
+${passwordreset.reset_txt}  id:content
 
 *** Keywords ***
 Generate End User Password
@@ -68,7 +68,12 @@ Follow Reset Link
     Go To  ${link}
 
 Verify Password Reset Form
-    Element Text Should Be  ${passwordreset.reset_hdr}  Please enter your new password twice so we can verify you typed it in correctly.
+    Element Text Should Be  ${passwordreset.header}  PASSWORD RESET
+    #Element Text Should Be  ${passwordreset.reset_txt}  Please enter your new password twice so we can verify you typed it in correctly.
 
+    Element Should Be Visible  ${passwordreset.pwd1}
+    Element Should Be Visible  ${passwordreset.pwd2}
+    Element Should Be Visible  ${passwordreset.change_btn}
+    
 Submit Password Reset
     Click Element  ${passwordreset.change_btn}
