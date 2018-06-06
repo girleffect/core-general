@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-Test Teardown  End Web Test
+#Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -128,15 +128,15 @@ End User submitting a request to delete their profile
     springster.Login As User  ${END_USER_RESET}
     springster.Delete User Profile  ${END_USER_RESET}
 
-Create end user profile using email address which already exists
-    [Documentation]  
-    [Tags]  testing  end-user
+Create system user profile using email address which already exists
+    [Documentation]  Register with existing email address. Only applicable to system-users (for now.) 
+    [Tags]  #max  system-user
 
-    springster.Register As User  ${END_USER_VALID}
+    springster.Register As User  ${SYS_USER_VALID}
     springster.Assert Existing User Error  email
 
 Create end user profile using username which already exists
-    [Documentation]
+    [Documentation]  Register with existing username.
     [Tags]  max  end-user
 
     springster.Assert Existing User Error  ${END_USER_VALID}  username

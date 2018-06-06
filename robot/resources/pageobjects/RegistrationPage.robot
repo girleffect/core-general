@@ -267,8 +267,8 @@ Password Length Error
 
 Existing Credentials Error
     [Arguments]  ${error.field}
-    
-    Run Keyword If  "${error.field}" == "email"  Wait Until Page Contains  Password not long enough.
+
+    Run Keyword If  "${error.field}" == "email"  Wait Until Page Contains  Core user with this Email address already exists.
     ...  ELSE IF  "${error.field}" == "username"  Wait Until Page Contains  A user with that username already exists.
 
 

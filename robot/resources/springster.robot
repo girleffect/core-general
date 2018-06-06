@@ -218,15 +218,6 @@ Assert Existing User Error
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
     RegistrationPage.Set No-validate
-    RegistrationPage.Verify Registration Form
-    RegistrationPage.Enter Username Field  ${UserData}
-    RegistrationPage.Enter Password Field  ${UserData}
-    RegistrationPage.Choose Gender From List  ${UserData}
-    RegistrationPage.Enter Age Field  ${UserData}
-    RegistrationPage.Choose Question One  ${UserData}
-    RegistrationPage.Enter Answer One  ${UserData}
-    RegistrationPage.Choose Question Two  ${UserData}
-    RegistrationPage.Enter Answer Two  ${UserData}
-    RegistrationPage.Accept Terms
+    RegistrationPage.Enter End User Fields  ${UserData}
     RegistrationPage.Submit Form
     RegistrationPage.Existing Credentials Error  ${error.field}
