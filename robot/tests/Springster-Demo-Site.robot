@@ -132,8 +132,14 @@ Create end user profile using email address which already exists
     [Documentation]  
     [Tags]  testing  end-user
 
-    springster.Generate User Name
     springster.Register As User  ${END_USER_VALID}
+    springster.Assert Existing User Error  email
+
+Create end user profile using username which already exists
+    [Documentation]
+    [Tags]  max  end-user
+
+    springster.Assert Existing User Error  ${END_USER_VALID}  username
 
 Edit end user profile
     [Documentation]  

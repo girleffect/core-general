@@ -35,25 +35,73 @@ ${registration_form.age_error} =  xpath://*/form/div[3]/div[1]/ul/li
 
 Set No-validate
     Execute Javascript  ${registration_form.novalidate}
-}
 
 Assert Field Errors
     Element Text Should Be  ${registration_form.age_error}  This field is required.
     Element Text Should Be  ${registration_form.username_error}  This field is required.
 
 Enter Username Field
+    [Arguments]  ${UserData}
+
+    Input Text  ${registration.form_username}  ${UserData.username}
+
 Enter First Name Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_first}  ${UserData.first}
+
 Enter Last Name Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_last}  ${UserData.last}
+
 Enter Email Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_email}  ${UserData.email}
+
 Enter MSISDN Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_msisdn}  ${UserData.msisdn}
+
 Enter Password Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+
 Choose Gender From List
-Choose Age From List
+    [Arguments]  ${UserData}
+    
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+
+Enter Age Field
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_age}  ${UserData.age}
+
 Choose Question One
+    [Arguments]  ${UserData}
+    
+    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+
 Choose Question Two
-Choose Answer One
-Choose Answer Two
-Accept terms
+    [Arguments]  ${UserData}
+    
+    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
+
+Enter Answer One
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+
+Enter Answer Two
+    [Arguments]  ${UserData}
+    
+    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
+
+Accept Terms
     Click Element  ${registration_form.terms}
 
 Submit Form
@@ -216,5 +264,13 @@ Password Length Error
     ...  ELSE IF  "${type}" == "system-user"  Wait Until Page Contains  This password is too short. It must contain at least 8 characters.
 
 #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
+
+Existing Credentials Error
+    [Arguments]  ${error.field}
+    
+    Run Keyword If  "${error.field}" == "email"  Wait Until Page Contains  Password not long enough.
+    ...  ELSE IF  "${error.field}" == "username"  Wait Until Page Contains  A user with that username already exists.
+
+
 
 
