@@ -98,9 +98,6 @@ Ensure Login Blocked
 Ensure Login Successful
     AuthPage.Verify Auth Page
 
-Exceed Login Attempts
-    LoginPage.Login As User Incorrect Password
-
 Assert User Logged In
     ProfileHome.Verify User Home Page
 
@@ -206,3 +203,11 @@ Complete Password Reset
     PasswordReset.Fill In Password  ${UserData}     
     PasswordReset.Fill In Password Confirmation  ${UserData}
     PasswordReset.Submit Password Reset
+
+Exceed Login Attempts
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    Repeat Keyword  6  LoginPage.Fill In Form  ${UserData}
+    LoginPage.Assert Max Login Error
