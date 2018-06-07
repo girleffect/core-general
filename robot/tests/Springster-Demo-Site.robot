@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-#Test Teardown  End Web Test
+Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -17,11 +17,12 @@ ${BROWSER} =  chrome
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
-&{API_USER}  id=3d0bd676-6246-11e8-94fc-0242ac110007  username=robot  pwd=SDF45!@
+&{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_VALID}  type=system-user  username=robotframework2  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_RESET}  username=klikl  pwd=asdfgh  reset_pwd=asdfgh  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_NOPASS}  type=end-user  username=klikl  pwd=opopop  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_NOPASS}  type=end-user  username=klikl  pwd=${EMPTY}  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{SYS_USER_VALID}  
 &{SYS_USER_INVALID}
 
@@ -51,11 +52,11 @@ Logout as end user
     # If logout is successful the user will be taken to the Springster Demo Example Home Page.
     springster.Assert Landing Page Header
 
-Delete user
-    [Documentation]  Delete the end user created above.
-    [Tags]  ready  end-user  delete
+Create end user profile using username which already exists
+    [Documentation]  Register with existing username.
+    [Tags]  ready  end-user
 
-    springster.Delete User Profile  ${END_USER_VALID}
+    springster.Assert Existing User Error  ${END_USER_VALID}  username
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement.
@@ -63,11 +64,11 @@ End user password validation - length
 
     springster.Generate User Name
     springster.Create New Profile  ${END_USER_INVALID_PASS}
-    springster.Password Length Error
+    springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
     [Documentation]  Verify end user pwd requirement.
-    [Tags]  ready  end-user
+    [Tags]  xxx  end-user
 
     springster.Generate User Name
     springster.Create New Profile  ${END_USER_NOPASS}
@@ -105,7 +106,16 @@ End user registration with missing fields
 
 Reset end user pwd via security questions
     [Documentation]  End-user with no email address.
-    [Tags]  edit  end-user
+    [Tags]  wip  end-user
+
+    springster.Reset Password Via Questions  ${END_USER_VALID}
+    springster.Check Password Reset Email
+    springster.Open Password Update Page
+    springster.Complete Password Reset  ${END_USER_VALID}
+
+Reset end user pwd via security questions
+    [Documentation]  Get questions wrong, get locked out.
+    [Tags]  wip  end-user
 
     springster.Reset Password Via Questions  ${END_USER_VALID}
     springster.Check Password Reset Email
@@ -128,18 +138,6 @@ End User submitting a request to delete their profile
     springster.Login As User  ${END_USER_RESET}
     springster.Delete User Profile  ${END_USER_RESET}
 
-Create system user profile using email address which already exists
-    [Documentation]  Register with existing email address. Only applicable to system-users (for now.) 
-    [Tags]  max  system-user
-
-    springster.Assert Existing User Error  ${END_USER_VALID}  email
-
-Create end user profile using username which already exists
-    [Documentation]  Register with existing username.
-    [Tags]  ready  end-user
-
-    springster.Assert Existing User Error  ${END_USER_VALID}  username
-
 Edit end user profile
     [Documentation]  
     [Tags]  ready  end-user
@@ -159,10 +157,13 @@ Update end user password via profile page
     [Documentation]
     [Tags]  ready  end-user
     #TODO - Add pwd reset step to match pwd in ${END_USER_VALID1}
-    springster.Login As User  ${END_USER_VALID1}
-    springster.Update User Password  ${END_USER_VALID1}
+    springster.Login As User  ${END_USER_RESET}
+    springster.Update User Password  ${END_USER_RESET}
 
 Age validation
+    [Documentation]  
+    [Tags]  wip
+
     Page Should Contain  Ensure this value is less than or equal to 100.
     Page Should Contain  Error for 13 yr old validation
 
@@ -172,7 +173,7 @@ Each form question can only be picked once.
 
     springster.Registration Questions  ${END_USER_VALID}
     #springster.registration questions  system-user
-    # Add check from profile edit as well.
+    #TODO: Add check from profile edit as well.
 
 Exceed maximum login attempts
     [Documentation]
@@ -190,9 +191,8 @@ Password confirmation doesn't match
 Create new system user profile
     [Documentation]  Register as a system user.
     [Tags]  ready  system-user
-    
-    springster.Generate User Name
-    springster.Register As User  ${SYS_USER_VALID}
+
+    springster.Create New Profile  ${SYS_USER_VALID}
 
 Login as a new system user
     [Documentation]  Login as the system user created above.
@@ -210,6 +210,18 @@ Logout as system user
 
     # If logout is successful the user will be taken to the Springster Demo Example Home Page.
     springster.Assert Landing Page Header
+
+Create system user profile using email address which already exists
+    [Documentation]  Register with existing email address. Only applicable to system-users (for now.) 
+    [Tags]  ready  system-user
+
+    springster.Assert Existing User Error  ${SYS_USER_VALID}  email
+
+Create system user profile using username which already exists
+    [Documentation]  Register with existing username. Only applicable to system-users (for now.) 
+    [Tags]  wip  system-user
+
+    springster.Assert Existing User Error  ${SYS_USER_VALID}  username
 
 Verify the fields shown on the system-user registration form.
     [Documentation]  Verify that the correct system user fields are shown.
@@ -240,11 +252,8 @@ Reset system user password via email
     [Tags]  
 
     # Add email address via API PUT request.
-    girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
-    springster.Lost Password  ${END_USER_VALID}
-
-    #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
-    #springster.Lost Password  ${END_USER_VALID}
+    girleffect_api.Change User State  ${SYS_USER_VALID}  user@example.com
+    springster.Lost Password  ${SYS_USER_VALID}
 
 Reset system user password questions
     [Documentation]  
@@ -253,9 +262,6 @@ Reset system user password questions
     # Add email address via API PUT request.
     girleffect_api.Change User State  ${SYS_USER_VALID}  ${EMPTY}
     springster.Lost Password  ${SYS_USER_VALID}
-
-    #girleffect_api.Change User State  ${END_USER_VALID}  user@example.com
-    #springster.Lost Password  ${END_USER_VALID}
 
 Assign system user roles view GMP
     [Documentation]

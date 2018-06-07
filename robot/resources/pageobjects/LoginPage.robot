@@ -30,6 +30,9 @@ Submit
 Verify Login
     Wait Until Page Contains  Login
 
+    Element Should Be Visible  ${loginpage.auth_username}
+    Element Should Be Visible  ${loginpage.auth_password}
+
 Confirm Account Blocked
     Wait Until Page Contains  Your account has been deactivated. Please contact support.
 

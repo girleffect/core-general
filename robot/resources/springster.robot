@@ -65,11 +65,15 @@ Registration Questions
     RegistrationPage.Question Usage  ${UserData}
 
 Password Length Error
-    Set Selenium Implicit Wait  5s
-    RegistrationPage.Password Length Error
+    [Arguments]  ${UserData}
+
+    RegistrationPage.Password Length Error  ${UserData}
 
 Password Format Error
     Wait Until Page Contains  
+
+Password Blank Error
+    RegistrationPage.Password Blank Error
 
 Enable 2FA
     [Arguments]

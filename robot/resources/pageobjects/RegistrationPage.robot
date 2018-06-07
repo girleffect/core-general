@@ -29,6 +29,8 @@ ${registration_form.tclink} =  xpath://a[@]
 ${registration_form.novalidate} =  var forms = document.querySelectorAll('.Form');for (var i = 0; i < forms.length; i++){forms[i].setAttribute('novalidate', false);}
 ${registration_form.username_error} =  xpath://*//div[@class="Field-item"]//li[1]
 ${registration_form.age_error} =  xpath://*/form/div[3]/div[1]/ul/li
+${registration_form.pwd1_error} =  xpath://*[@id="content"]/form/div[4]/div[1]/ul/li
+${registration_form.pwd2_error} =  xpath://*[@id="content"]/form/div[5]/div[1]/ul/li
 
 *** Keywords ***
 #TODO - Make granular keywords.
@@ -258,12 +260,18 @@ Question Usage
     Page Should Not Contain  Each question can only be picked once.
     
 Password Length Error
+    [Arguments]  ${UserData}
+
     Set Selenium Implicit Wait  5s
     
-    Run Keyword If  "${type}" == "end-user"  Wait Until Page Contains  Password not long enough.
-    ...  ELSE IF  "${type}" == "system-user"  Wait Until Page Contains  This password is too short. It must contain at least 8 characters.
+    Run Keyword If  "${UserData.type}" == "end-user"  Wait Until Page Contains  Password not long enough.
+    ...  ELSE IF  "${UserData.type}" == "system-user"  Wait Until Page Contains  This password is too short. It must contain at least 8 characters.
+    #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
-#The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
+Password Blank Error
+
+    Wait Until Element Contains  ${registration_form.pwd1_error}  This field is required.
+    Wait Until Element Contains  ${registration_form.pwd2_error}  This field is required.
 
 Existing Credentials Error
     [Arguments]  ${error.field}
