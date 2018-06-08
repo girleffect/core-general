@@ -160,18 +160,21 @@ Update Security Questions
     UpdateQuestions.Click Update
 
 Update User Password
-
     ProfileEdit.Goto Update Password Page
     UpdatePassword.Verify Password Page
 
 Enter Old Password
     [Arguments]  ${UserData}
+
     UpdatePassword.Fill In Old Password  ${UserData}
 
 Enter New Password
     [Arguments]  ${UserData}
+    
     UpdatePassword.Fill In New Password  ${UserData}
     UpdatePassword.Click Update
+
+Verify Password Reset Message
     ProfileEdit.Verify Password Update Msg  
 
 Assert Registration Errors
@@ -235,3 +238,6 @@ Assert Existing User Error
     
     RegistrationPage.Submit Form
     RegistrationPage.Existing Credentials Error  ${error.field}
+
+Assert Old Password Error
+    UpdatePassword.Incorrect Old Password

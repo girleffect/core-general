@@ -39,3 +39,6 @@ Fill In New Password
 
 Click Update
     Click Element  ${updatepassword.update_btn}
+
+Incorrect Old Password
+    Wait Until Page Contains  Your old password was entered incorrectly. Please enter it again.

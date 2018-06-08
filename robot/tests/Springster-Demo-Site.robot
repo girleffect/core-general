@@ -155,18 +155,29 @@ Edit end user lost password questions
 Update end user password via profile page
     [Documentation]
     [Tags]  xxx  end-user
-    #TODO - Add pwd reset step to match pwd in ${END_USER_VALID1}
-    # Your old password was entered incorrectly.
+
     springster.Login As User  ${END_USER_RESTORE}
     springster.Goto Edit Profile Page
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESTORE}
     springster.Enter New Password  ${END_USER_RESET} 
+    springster.Verify Password Reset Message
 
     # Reset to original password:
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESET}
     springster.Enter New Password  ${END_USER_RESTORE} 
+
+Update end user password via profile page - enter incorrect old password.
+    [Documentation]  System must throw error if user does not enter the correct old password.
+    [Tags]  ready  end-user
+
+    springster.Login As User  ${END_USER_RESTORE}
+    springster.Goto Edit Profile Page
+    springster.Update User Password
+    springster.Enter Old Password  ${END_USER_RESET}
+    springster.Enter New Password  ${END_USER_RESET}
+    springster.Assert Old Password Error
 
 Age validation
     [Documentation]  
