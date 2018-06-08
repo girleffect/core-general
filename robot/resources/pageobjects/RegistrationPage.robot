@@ -269,9 +269,11 @@ Password Length Error
     #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
 Password Blank Error
-
     Wait Until Element Contains  ${registration_form.pwd1_error}  This field is required.
     Wait Until Element Contains  ${registration_form.pwd2_error}  This field is required.
+
+Password Format Error
+    Log  This isn't ready yet...
 
 Existing Credentials Error
     [Arguments]  ${error.field}

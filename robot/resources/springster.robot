@@ -44,6 +44,7 @@ Login As User
     LoginPage.Enter Auth Username  ${UserData}
     LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
+    ProfileHome.Verify User Home Page
 
 Logout
     ProfileHome.Logout
@@ -70,7 +71,7 @@ Password Length Error
     RegistrationPage.Password Length Error  ${UserData}
 
 Password Format Error
-    Wait Until Page Contains  
+    RegistrationPage.Password Format Error  
 
 Password Blank Error
     RegistrationPage.Password Blank Error
@@ -122,6 +123,9 @@ Delete User Profile
     ProfileEdit.Verify Edit Page
     ProfileEdit.Delete Profile
 
+Goto Edit Profile Page
+    ProfileHome.Edit Profile
+
 Edit User Profile   
     [Arguments]  ${sex}  ${age}
 
@@ -156,16 +160,19 @@ Update Security Questions
     UpdateQuestions.Click Update
 
 Update User Password
-    [Arguments]  ${UserData}
 
-    ProfileHome.Verify User Home Page
-    ProfileEdit.Edit Profile
     ProfileEdit.Goto Update Password Page
     UpdatePassword.Verify Password Page
+
+Enter Old Password
+    [Arguments]  ${UserData}
     UpdatePassword.Fill In Old Password  ${UserData}
-    UpdatePassword.Fill In New Password
+
+Enter New Password
+    [Arguments]  ${UserData}
+    UpdatePassword.Fill In New Password  ${UserData}
     UpdatePassword.Click Update
-    ProfileEdit.Verify Password Update Msg
+    ProfileEdit.Verify Password Update Msg  
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors

@@ -18,13 +18,12 @@ ${BROWSER} =  chrome
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@
-&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_RESET}  username=klikl  pwd=asdfgh  reset_pwd=asdfgh  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_NOPASS}  type=end-user  username=klikl  pwd=${EMPTY}  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_RESET}  username=klikl  pwd=reset  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_RESTORE}  username=klikl  pwd=restore  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_NOPASS}  type=end-user  username=qwerty  pwd=${EMPTY}  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{SYS_USER_VALID}  
-&{SYS_USER_INVALID}
 
 *** Test Cases ***
 Create new end user profile
@@ -68,7 +67,7 @@ End user password validation - length
 
 End user password validation - blank
     [Documentation]  Verify end user pwd requirement.
-    [Tags]  xxx  end-user
+    [Tags]  ready  end-user
 
     springster.Generate User Name
     springster.Create New Profile  ${END_USER_NOPASS}
@@ -133,10 +132,10 @@ Reset end user pwd via email
 
 End User submitting a request to delete their profile
     [Documentation]  GE-472. Check msisdn and email requirement.
-    [Tags]  ready  end-user
+    [Tags]  wip  end-user
 
-    springster.Login As User  ${END_USER_RESET}
-    springster.Delete User Profile  ${END_USER_RESET}
+    springster.Login As User  ${END_USER_VALID}
+    springster.Delete User Profile  ${END_USER_VALID}
 
 Edit end user profile
     [Documentation]  
@@ -150,15 +149,24 @@ Edit end user lost password questions
     [Documentation]
     [Tags]  ready  end-user
 
-    springster.Login As User  ${END_USER_VALID}
+    springster.Login As User  ${END_USER_RESET}
     springster.Update Security Questions
 
 Update end user password via profile page
     [Documentation]
-    [Tags]  ready  end-user
+    [Tags]  xxx  end-user
     #TODO - Add pwd reset step to match pwd in ${END_USER_VALID1}
-    springster.Login As User  ${END_USER_RESET}
-    springster.Update User Password  ${END_USER_RESET}
+    # Your old password was entered incorrectly.
+    springster.Login As User  ${END_USER_RESTORE}
+    springster.Goto Edit Profile Page
+    springster.Update User Password
+    springster.Enter Old Password  ${END_USER_RESTORE}
+    springster.Enter New Password  ${END_USER_RESET} 
+
+    # Reset to original password:
+    springster.Update User Password
+    springster.Enter Old Password  ${END_USER_RESET}
+    springster.Enter New Password  ${END_USER_RESTORE} 
 
 Age validation
     [Documentation]  
@@ -284,3 +292,5 @@ Update questions via auth admin/gmp.
 
     [Documentation]
     [Tags]
+
+Logout from edit profile page 

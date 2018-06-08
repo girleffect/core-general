@@ -19,7 +19,7 @@ ${profileedit.delete_confirm_txt} =  xpath://div[@id="content"]//p[@class="Intro
 ${profileedit.delete_confirm} =  name:confirmed_deletion
 ${profileedit.delete_deny} =  xpath://a[contains(text(), "No, I've changed my mind")]
 ${profileedit.messagelist} =  id:messagelist
-${profileedit.logout_btn} =  xpath://a[contains(text(), "Logout")]
+${profileedit.logout_lnk} =  xpath://a[contains(text(), "Logout")]
 ${profileedit.back_lnk} =  xpath://a[contains(text(), "Back")]
 
 *** Keywords ***
@@ -30,13 +30,13 @@ Verify Edit Page
 
     Element Should Be Visible  ${profileedit.sex_select}
     Element Should Be Visible  ${profileedit.age_select}
-    Element Should Be Visible  ${profileedit.edit_btn}
+    Element Should Be Visible  ${profileedit.update_btn}
     Element Should Be Visible  ${profileedit.update_pwd_lnk}
     Element Should Be Visible  ${profileedit.questions_lnk}
-    Element Should Be Visible  ${profileedit.logout_btn}
+    Element Should Be Visible  ${profileedit.logout_lnk}
 
 Logout
-    Click Element  ${profileedit.logout_btn}
+    Click Element  ${profileedit.logout_lnk}
 
 Edit Profile
     Click Element  ${profileedit.edit_btn}
@@ -67,6 +67,9 @@ Click Update
     Click Element  ${profileedit.update_btn}
 
 Delete Profile
+    #TODO - add check for msg below:
+    #You require either an email or msisdn to request an account deletion.
+
     Click Element  ${profileedit.delete_lnk}
     
     Wait Until Page Contains Element  ${profileedit.delete_hdr}
