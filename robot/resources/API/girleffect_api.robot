@@ -89,6 +89,32 @@ Put Null Email Field
     ${resp} =  RequestsLibrary.Put Request  hook  /api/v1/users/${UserData.id}  data=${body}  headers=${headers}
     Should Be Equal As Strings  ${resp.status_code}  200
 
+Put MSISDN
+    [Documentation]  Add an msisdn to a user's profile.
+    [Arguments]  ${UserData}  ${msisdn}
+
+    RequestsLibrary.Create Session  hook  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+    RequestsLibrary.Create Session  status  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+
+    # Do the PUT request:
+    ${body} =  Create Dictionary  msisdn=${msisdn}
+    ${headers} =  Create Dictionary  Accept=application/json  Content-Type=application/json  X-API-Key=${API_KEY}   
+    ${resp} =  RequestsLibrary.Put Request  hook  /api/v1/users/${User_ID}  data=${body}  headers=${headers}
+    Should Be Equal As Strings  ${resp.status_code}  200
+
+Get User ID
+    [Documentation]  GET existing user ID.
+    [Arguments]  ${UserData}
+
+    RequestsLibrary.Create Session  hook  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+
+    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}
+    ${resp} =  RequestsLibrary.Get Request  hook  /api/v1/users?username=${UserData.username}  headers=${headers}  
+    Should Be Equal As Strings  ${resp.status_code}  200
+    ${resp.id} =  Get Json Value  ${resp.content}  /0/id
+    ${User_ID} =  Remove String  ${resp.id}  "
+    Set Global Variable  ${User_ID}
+
 Get Site Roles
     RequestsLibrary.Create Session  hook  http://${host}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email

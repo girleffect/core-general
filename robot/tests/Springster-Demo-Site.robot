@@ -131,19 +131,29 @@ Reset end user pwd via lost password email
     springster.Open Password Update Page
     springster.Complete Password Reset  ${END_USER_VALID}
 
-End User submitting a request to delete their profile - with email
-    [Documentation]  GE-472. Check msisdn and email requirement.
+End User submitting a request to delete their profile - valid email
+    [Documentation]  GE-472. User can only request a profile removal if they have an msisdn or email listed for their account.
     [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_RESTORE}
     springster.Delete User Profile  ${END_USER_RESTORE}
 
-End User submitting a request to delete their profile - no email
+End User submitting a request to delete their profile - no email or msisdn
     [Documentation]  GE-472. Check msisdn and email requirement.
     [Tags]  ready  end-user
 
     springster.Login As User  ${API_USER}
     springster.Delete User Profile  ${API_USER}
+
+End User submitting a request to delete their profile - valid msisdn
+    [Documentation]  GE-472. Check msisdn and email requirement.
+    [Tags]  ready  end-user
+
+    girleffect_api.Get User ID  ${END_USER_VALID}
+    girleffect_api.Put MSISDN  ${END_USER_VALID}  0712345678
+    springster.Login As User  ${END_USER_VALID}
+    springster.Delete User Profile  ${END_USER_VALID}
+    girleffect_api.Put MSISDN  ${END_USER_VALID}  ${EMPTY}
 
 Edit end user profile
     [Documentation]  
