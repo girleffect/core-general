@@ -44,7 +44,7 @@ Login As User
     LoginPage.Enter Auth Username  ${UserData}
     LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
-    ProfileHome.Verify User Home Page
+    #ProfileHome.Verify User Home Page
 
 Logout
     ProfileHome.Logout
@@ -121,7 +121,8 @@ Delete User Profile
 
     ProfileHome.Edit Profile
     ProfileEdit.Verify Edit Page
-    ProfileEdit.Delete Profile
+    Run Keyword If  "${UserData.username}" == "robotapiuser"  ProfileEdit.Delete Profile Missing Email
+    ...  ELSE  ProfileEdit.Delete Profile
 
 Goto Edit Profile Page
     ProfileHome.Edit Profile

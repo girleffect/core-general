@@ -5,6 +5,7 @@ Library  SeleniumLibrary
 ${loginpage.auth_username}  name:auth-username
 ${loginpage.auth_password}  name:auth-password
 ${loginpage.lost_pwd_link}  xpath://a[@href="/en/reset-password/"]
+${loginpage.content}  id:content
 
 *** Keywords ***
 Fill In Form
@@ -42,5 +43,5 @@ Reset Password Link
 
 Assert Max Login Error
     Wait Until Page Contains  Oh no! You've been locked out
-    Element Text Should Be  You have exceeded the maximum number of allowed incorrect login attempts (5). Please wait 10 minutes before trying again.
+    Element Text Should Be  ${loginpage.content}  You have exceeded the maximum number of allowed incorrect login attempts (5). Please wait 10 minutes before trying again.
     Element Should Be Visible  xpath://a[@href="/en/login/"]

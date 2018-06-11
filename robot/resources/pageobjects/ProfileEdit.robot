@@ -67,9 +67,6 @@ Click Update
     Click Element  ${profileedit.update_btn}
 
 Delete Profile
-    #TODO - add check for msg below:
-    #You require either an email or msisdn to request an account deletion.
-
     Click Element  ${profileedit.delete_lnk}
     
     Wait Until Page Contains Element  ${profileedit.delete_hdr}
@@ -91,6 +88,13 @@ Delete Profile
 
     Wait Until Page Contains Element  ${profileedit.messagelist}
     Element Text Should Be  ${profileedit.messagelist}  Successfully requested account deletion.
+
+Delete Profile Missing Email
+    Click Element  ${profileedit.delete_lnk}
+    
+    Wait Until Page Contains Element  ${profileedit.delete_hdr}
+    Element Text Should Be  ${profileedit.delete_hdr}  Edit Your Profile
+    Element Text Should Be  ${profileedit.messagelist}  You require either an email or msisdn to request an account deletion
 
 Goto Update Questions Page
     Click Element  ${profileedit.questions_lnk}

@@ -93,6 +93,7 @@ Re-activate end user
 
     girleffect_api.Change User State  ${API_USER}  ${true}
     springster.Login As User  ${API_USER}
+    #springster.Authorise Registration
     springster.Assert User Logged In
 
 End user registration with missing fields
@@ -121,27 +122,34 @@ Reset end user pwd via security questions
     springster.Open Password Update Page
     springster.Complete Password Reset  ${END_USER_VALID}
 
-Reset end user pwd via email
+Reset end user pwd via lost password email
     [Documentation]  End-user with no email address.
-    [Tags]  reset  end-user
+    [Tags]  ready  end-user
 
     springster.Reset Password Via Email  ${END_USER_VALID}
     springster.Check Password Reset Email
     springster.Open Password Update Page
     springster.Complete Password Reset  ${END_USER_VALID}
 
-End User submitting a request to delete their profile
+End User submitting a request to delete their profile - with email
     [Documentation]  GE-472. Check msisdn and email requirement.
-    [Tags]  wip  end-user
+    [Tags]  ready  end-user
 
-    springster.Login As User  ${END_USER_VALID}
-    springster.Delete User Profile  ${END_USER_VALID}
+    springster.Login As User  ${END_USER_RESTORE}
+    springster.Delete User Profile  ${END_USER_RESTORE}
+
+End User submitting a request to delete their profile - no email
+    [Documentation]  GE-472. Check msisdn and email requirement.
+    [Tags]  ready  end-user
+
+    springster.Login As User  ${API_USER}
+    springster.Delete User Profile  ${API_USER}
 
 Edit end user profile
     [Documentation]  
     [Tags]  ready  end-user
     
-    springster.Login As User  ${END_USER_RESET}
+    springster.Login As User  ${END_USER_RESTORE}
     springster.Edit User Profile  female  25
     springster.Reset Edited Fields  male  16
 
@@ -149,12 +157,12 @@ Edit end user lost password questions
     [Documentation]
     [Tags]  ready  end-user
 
-    springster.Login As User  ${END_USER_RESET}
+    springster.Login As User  ${END_USER_RESTORE}
     springster.Update Security Questions
 
 Update end user password via profile page
     [Documentation]
-    [Tags]  xxx  end-user
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_RESTORE}
     springster.Goto Edit Profile Page
@@ -198,7 +206,7 @@ Exceed maximum login attempts
     [Documentation]
     [Tags]  ready  end-user
 
-    springster.Exceed Login Attempts  ${END_USER_NOPASS}
+    springster.Exceed Login Attempts  ${END_USER_RESET}
 
 Password confirmation doesn't match
     [Documentation]  Verify end user pwd requirement.
@@ -206,6 +214,12 @@ Password confirmation doesn't match
 
     springster.Register As User  ${END_USER_INVALID}
     springster.Password Match Error
+
+Remove end user record
+    [Documentation]  
+    [Tags]  del  end-user
+
+    girleffect_api.Delete User  ${END_USER_VALID}
 
 Create new system user profile
     [Documentation]  Register as a system user.
