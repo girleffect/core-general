@@ -105,15 +105,14 @@ End user registration with missing fields
     springster.Assert Registration Errors
 
 Reset end user pwd via security questions
-    [Documentation]  End-user with no email address.
-    [Tags]  wip  end-user
+    [Documentation]  Reset password by answering security questions. End-user with no email address.
+    [Tags]  wip1  end-user
 
-    springster.Reset Password Via Questions  ${END_USER_VALID}
-    springster.Check Password Reset Email
-    springster.Open Password Update Page
-    springster.Complete Password Reset  ${END_USER_VALID}
+    springster.Reset Password Via Questions  ${API_USER}
+    springster.Login As User  ${API_USER}
+    springster.Assert User Logged In
 
-Reset end user pwd via security questions
+Reset end user pwd via security questions - lockout
     [Documentation]  Get questions wrong, get locked out.
     [Tags]  wip  end-user
 
@@ -197,7 +196,7 @@ Update end user password via profile page - enter incorrect old password.
     springster.Enter New Password  ${END_USER_RESET}
     springster.Assert Old Password Error
 
-Age validation
+End user age validation
     [Documentation]  
     [Tags]  wip
 
@@ -220,10 +219,18 @@ Exceed maximum login attempts
 
 Password confirmation doesn't match
     [Documentation]  Verify end user pwd requirement.
-    [Tags]  wip1
+    [Tags]  wip
 
     springster.Register As User  ${END_USER_INVALID}
     springster.Password Match Error
+
+Logout from edit profile page 
+    [Documentation]
+    [Tags]
+
+OIDC consent form - end user
+    [Documentation]
+    [Tags]
 
 Remove end user record
     [Documentation]  Remove the ${END_USER_VALID} record added in the first test. 
@@ -231,101 +238,3 @@ Remove end user record
 
     girleffect_api.Delete User  ${END_USER_VALID}
 
-Create new system user profile
-    [Documentation]  Register as a system user.
-    [Tags]  ready  system-user
-
-    springster.Create New Profile  ${SYS_USER_VALID}
-
-Login as a new system user
-    [Documentation]  Login as the system user created above.
-    [Tags]  ready  system-user
-
-    springster.Login As User  ${SYS_USER_VALID}
-
-Logout as system user
-    [Documentation]
-    [Tags]  ready  system-user
-
-    springster.Login As User  ${SYS_USER_VALID}
-    springster.Assert User Logged In
-    springster.Logout
-
-    # If logout is successful the user will be taken to the Springster Demo Example Home Page.
-    springster.Assert Landing Page Header
-
-Create system user profile using email address which already exists
-    [Documentation]  Register with existing email address. Only applicable to system-users (for now.) 
-    [Tags]  ready  system-user
-
-    springster.Assert Existing User Error  ${SYS_USER_VALID}  email
-
-Create system user profile using username which already exists
-    [Documentation]  Register with existing username. Only applicable to system-users (for now.) 
-    [Tags]  wip  system-user
-
-    springster.Assert Existing User Error  ${SYS_USER_VALID}  username
-
-Verify the fields shown on the system-user registration form.
-    [Documentation]  Verify that the correct system user fields are shown.
-    [Tags]  ready  system-user
-
-    springster.Verify User Form Fields  ${SYS_USER_VALID}
-
-System user password validation - length
-    [Documentation]  Verify system user pwd length requirement.
-    [Tags]  wip1
-
-    springster.Generate User Name
-    springster.Register As User  ${SYS_USER_INVALID}
-    springster.Password Length Error
-
-
-
-OIDC consent form - end user
-    [Documentation]
-    [Tags]
-
-OIDC consent form - system user
-    [Documentation]
-    [Tags]
-
-Reset system user password via email
-    [Documentation]  
-    [Tags]  
-
-    # Add email address via API PUT request.
-    girleffect_api.Change User State  ${SYS_USER_VALID}  user@example.com
-    springster.Lost Password  ${SYS_USER_VALID}
-
-Reset system user password questions
-    [Documentation]  
-    [Tags] 
-
-    # Add email address via API PUT request.
-    girleffect_api.Change User State  ${SYS_USER_VALID}  ${EMPTY}
-    springster.Lost Password  ${SYS_USER_VALID}
-
-Assign system user roles view GMP
-    [Documentation]
-    [Tags]
-
-    # Probably best to do this via API and then check the FE?
-
-Assign site roles via GMP
-
-    [Documentation]
-    [Tags]
-
-    # Probably best to do this via API and then check the FE?
-
-Site/theme de-activation.
-    [Documentation]
-    [Tags]
-
-Update questions via auth admin/gmp.
-
-    [Documentation]
-    [Tags]
-
-Logout from edit profile page 

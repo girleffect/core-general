@@ -12,6 +12,8 @@ ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
 ${passwordreset.reset_txt}  id:content
+${passwordreset.answer1}  xpath://*[@id="id_question_413"]
+${passwordreset.answer2}  xpath://*[@id="id_question_414"]
 
 *** Keywords ***
 Generate End User Password
@@ -36,6 +38,16 @@ Fill In Password Confirmation
     [Arguments]  ${UserData}
 
     Input Text  ${passwordreset.pwd2}  ${UserData.pwd}
+
+Fill In Answer One
+    [Documentation]  Using the answer provided for ${API_USER}
+
+    Input Text  ${passwordreset.answer1}  blue
+
+Fill In Answer Two
+    [Documentation]  Using the answer provided for ${API_USER}
+
+    Input Text  ${passwordreset.answer2}  blue
 
 Click Submit
     Click Button  Submit
@@ -77,3 +89,7 @@ Verify Password Reset Form
     
 Submit Password Reset
     Click Element  ${passwordreset.change_btn}
+
+Verify Django Page
+    Wait Until Page Contains  Password reset complete
+    Element Text Should Be  xpath://div[@id="content"]/p[1]  Your password has been set. You may go ahead and log in now.

@@ -44,7 +44,6 @@ Login As User
     LoginPage.Enter Auth Username  ${UserData}
     LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
-    #ProfileHome.Verify User Home Page
 
 Logout
     ProfileHome.Logout
@@ -206,9 +205,14 @@ Reset Password Via Questions
     LoginPage.Reset Password Link
     PasswordReset.Verify Reset Page Header
     PasswordReset.Fill In Username  ${UserData}
-    PasswordReset.Answer Questions  ${UserData}
     PasswordReset.Click Submit
-    PasswordReset.Verify Reset Sent
+    PasswordReset.Fill In Answer One
+    PasswordReset.Fill In Answer Two
+    PasswordReset.Click Submit
+    PasswordReset.Fill In Password  ${UserData}
+    PasswordReset.Fill In Password Confirmation  ${UserData}
+    PasswordReset.Submit Password Reset
+    PasswordReset.Verify Django Page
 
 Complete Password Reset
     [Arguments]  ${UserData}
