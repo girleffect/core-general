@@ -226,8 +226,8 @@ Password confirmation doesn't match
     springster.Password Match Error
 
 Remove end user record
-    [Documentation]  
-    [Tags]  del  end-user
+    [Documentation]  Remove the ${END_USER_VALID} record added in the first test. 
+    [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
 

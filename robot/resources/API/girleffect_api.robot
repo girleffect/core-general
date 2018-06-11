@@ -62,16 +62,9 @@ Delete User
     [Documentation]  Remove user via API
     [Arguments]  ${UserData}
 
-    RequestsLibrary.Create Session  hook  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
+    Get User ID  ${UserData}
+    
     RequestsLibrary.Create Session  delete  https://${AUTH_HOST.${ENVIRONMENT}}  verify=${True}
-
-    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}
-    ${resp} =  RequestsLibrary.Get Request  hook  /api/v1/users?username=${UserData.username}  headers=${headers}  
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${resp.id} =  Get Json Value  ${resp.content}  /0/id
-    ${User_ID} =  Remove String  ${resp.id}  "
-    Set Global Variable  ${User_ID}
-
     ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${API_KEY}
     ${resp} =  RequestsLibrary.Delete Request  delete  /api/v1/users/${User_ID}  headers=${headers}  
     Should Be Equal As Strings  ${resp.status_code}  200

@@ -5,7 +5,7 @@ Library  SeleniumLibrary
 ${loginpage.auth_username}  name:auth-username
 ${loginpage.auth_password}  name:auth-password
 ${loginpage.lost_pwd_link}  xpath://a[@href="/en/reset-password/"]
-${loginpage.content}  id:content
+${loginpage.content}  xpath://div[@id="content"]/p[1]/
 
 *** Keywords ***
 Fill In Form
