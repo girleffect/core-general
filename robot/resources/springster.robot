@@ -227,6 +227,26 @@ Reset Password Wrong Answers
     PasswordReset.Click Submit
     PasswordReset.Assert Incorrect Answer Message
 
+Reset Password Invalid Username
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+
+Reset Password Invalid Email
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Email  ${UserData}
+    PasswordReset.Click Submit
+
 Verify Django Success Page
     PasswordReset.Verify Django Page
 
@@ -291,3 +311,6 @@ Password Match Error
 
 Ensure User Locked Out
     LoginPage.Assert Max Login Error
+
+Show Reset Sent Message
+        PasswordReset.Verify Reset Sent

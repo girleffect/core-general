@@ -6,7 +6,7 @@ Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Run Keywords  Begin Web Test
-Test Teardown  End Web Test
+#Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -23,7 +23,7 @@ ${GMP_PASSWORD} =  Pae)b8So
 &{END_USER_RESET}  username=klikl  pwd=reset  pwd_conf=reset  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_RESTORE}  username=klikl  pwd=restore  pwd_conf=restore  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  pwd_conf=as  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@gmail.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
+&{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@ge.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
 &{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue
 &{END_USER_WRONG_ANSWERS}  username=robotapiuser  first_answer=blue  second_answer=black
 
@@ -252,24 +252,33 @@ OIDC consent form - end user
     [Documentation]
     [Tags]
 
+Reset password for username which does not exist.
+    [Documentation]  Form will still show message saying that the password reset mail has been sent.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Invalid Username  ${END_USER_BLANK_PASS}
+    springster.Show Reset Sent Message
+
+Reset password for email address which does not exist.
+    [Documentation]  Form will still show message saying that the password reset mail has been sent.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Invalid Username  ${END_USER_BLANK_PASS}
+    springster.Show Reset Sent Message
+
+Password validation on reset pages. Must enforce rules for end/system users.
+    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
+    [Tags]  xxx  end-user
+
+Password validation on password update page. Must enforce rules for end/system users.
+    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
+    [Tags]  xxx  end-user
+
+  
+Verify Home Link On Lockout Page
+
 Remove end user record
     [Documentation]  Remove the user record added in the first test. 
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
-
-Reset password for username which does not exist.
-    [Documentation]  Form must throw appropriate error if non-existent username entered.
-    [Tags]  ready  end-user
-
-    springster.Reset Password Via Questions  ${END_USER_BLANK_PASS}
-
-Reset password for email address which does not exist.
-    [Documentation]  Form must throw appropriate error if non-existent email address entered.
-    [Tags]  end-user
-
-    springster.Reset Password Via Questions  ${END_USER_BLANK_PASS}
-
-Password validation on reset pages. Must enforce rules for end/system users.
-    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
-    [Tags]  end-user
