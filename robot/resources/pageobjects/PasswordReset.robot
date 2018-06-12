@@ -14,6 +14,7 @@ ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
 ${passwordreset.reset_txt}  id:content
 ${passwordreset.answer1}  xpath://*[@id="id_question_413"]
 ${passwordreset.answer2}  xpath://*[@id="id_question_414"]
+${passwordreset.django_txt}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
 Generate End User Password
@@ -37,17 +38,17 @@ Fill In Password
 Fill In Password Confirmation
     [Arguments]  ${UserData}
 
-    Input Text  ${passwordreset.pwd2}  ${UserData.pwd}
+    Input Text  ${passwordreset.pwd2}  ${UserData.pwd_conf}
 
 Fill In Answer One
-    [Documentation]  Using the answer provided for ${API_USER}
+    [Arguments]  ${UserData}
 
-    Input Text  ${passwordreset.answer1}  blue
+    Input Text  ${passwordreset.answer1}  ${UserData.first_answer}
 
 Fill In Answer Two
-    [Documentation]  Using the answer provided for ${API_USER}
-
-    Input Text  ${passwordreset.answer2}  blue
+    [Arguments]  ${UserData}
+    
+    Input Text  ${passwordreset.answer2}  ${UserData.second_answer}
 
 Click Submit
     Click Button  Submit
@@ -92,4 +93,27 @@ Submit Password Reset
 
 Verify Django Page
     Wait Until Page Contains  Password reset complete
-    Element Text Should Be  xpath://div[@id="content"]/p[1]  Your password has been set. You may go ahead and log in now.
+    Element Text Should Be  ${passwordreset.django_txt}  Your password has been set. You may go ahead and log in now.
+
+Mismatch Error
+    Wait Until Page Contains  The two password fields didn't match.
+    Element Should Be Visible  ${passwordreset.pwd1}
+    Element Should Be Visible  ${passwordreset.pwd2}  
+
+Supply Passwords
+    [Documentation]  Created this to help with testing the reset lockout feature.
+    [Arguments]  ${UserData}
+
+    Fill In Password  ${UserData}
+    Fill In Password Confirmation  ${UserData}
+    Submit Password Reset  
+
+Assert Lockout Message
+    Wait Until Page Contains  You have exceeded the maximum number of allowed incorrect login attempts (5). Please wait 10 minutes before trying again.
+    Element Should Be Visible  ${passwordreset.pwd1}
+    Element Should Be Visible  ${passwordreset.pwd2}
+
+Assert Incorrect Answer Message
+    Wait Until Page Contains  One or more answers are incorrect
+    Element Should Be Visible  ${passwordreset.answer1}
+    Element Should Be Visible  ${passwordreset.answer2}

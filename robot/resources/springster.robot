@@ -206,13 +206,46 @@ Reset Password Via Questions
     PasswordReset.Verify Reset Page Header
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
-    PasswordReset.Fill In Answer One
-    PasswordReset.Fill In Answer Two
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
     PasswordReset.Click Submit
     PasswordReset.Fill In Password  ${UserData}
     PasswordReset.Fill In Password Confirmation  ${UserData}
     PasswordReset.Submit Password Reset
+
+Reset Password Wrong Answers
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
+Verify Django Success Page
     PasswordReset.Verify Django Page
+
+Reset Password Lockout
+    [Arguments]  ${UserData}
+    
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+
+    Repeat Keyword  6  PasswordReset.Supply Passwords  ${UserData}
+
+    PasswordReset.Assert Lockout Message
 
 Complete Password Reset
     [Arguments]  ${UserData}
@@ -246,3 +279,12 @@ Assert Existing User Error
 
 Assert Old Password Error
     UpdatePassword.Incorrect Old Password
+
+Verify Password Mismatch
+    PasswordReset.Mismatch Error
+
+Verify Incorrect Answer Error
+    PasswordReset.Assert Incorrect Answer Message
+
+Password Match Error
+    RegistrationPage.Password Match Error

@@ -17,24 +17,26 @@ ${BROWSER} =  chrome
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
-&{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@
-&{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_RESET}  username=klikl  pwd=reset  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_RESTORE}  username=klikl  pwd=restore  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_NOPASS}  type=end-user  username=qwerty  pwd=${EMPTY}  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@  pwd_conf=SDF45!@  first_answer=blue  second_answer=blue
+&{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  pwd_conf=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  pwd_conf=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=black
+&{END_USER_RESET}  username=klikl  pwd=reset  pwd_conf=reset  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_RESTORE}  username=klikl  pwd=restore  pwd_conf=restore  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  pwd_conf=as  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
+&{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
+&{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue
+&{END_USER_WRONG_ANSWERS}  username=robotapiuser  first_answer=blue  second_answer=black
 
 *** Test Cases ***
 Create new end user profile
     [Documentation]  Register as an end user.
-    [Tags]  ready  end-user  new
+    [Tags]  ready  end-user
 
     springster.Create New Profile  ${END_USER_VALID}
 
 Login as a new end-user
     [Documentation]  Login as the end user created above.
-    [Tags]  ready  end-user  login
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_VALID}
     springster.Authorise Registration
@@ -42,7 +44,7 @@ Login as a new end-user
 
 Logout as end user
     [Documentation]
-    [Tags]  ready  end-user  logout
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_VALID}
     springster.Assert User Logged In
@@ -58,7 +60,7 @@ Create end user profile using username which already exists
     springster.Assert Existing User Error  ${END_USER_VALID}  username
 
 End user password validation - length
-    [Documentation]  Verify end user pwd length requirement.
+    [Documentation]  Verify end user pwd length requirement. Submit two char password.
     [Tags]  ready  end-user
 
     springster.Generate User Name
@@ -66,11 +68,11 @@ End user password validation - length
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
-    [Documentation]  Verify end user pwd requirement.
+    [Documentation]  Form must show appropriate error if password field is not entered.
     [Tags]  ready  end-user
 
     springster.Generate User Name
-    springster.Create New Profile  ${END_USER_NOPASS}
+    springster.Create New Profile  ${END_USER_BLANK_PASS}
     springster.Password Blank Error
 
 Verify the fields shown on the end-user registration form.
@@ -81,7 +83,7 @@ Verify the fields shown on the end-user registration form.
 
 De-activate end user
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
-    [Tags]  ready  end-user  de-activate
+    [Tags]  ready  end-user
 
     girleffect_api.Change User State  ${API_USER}  ${false}
     springster.Login As User  ${API_USER}
@@ -89,7 +91,7 @@ De-activate end user
 
 Re-activate end user
     [Documentation]  Re-activate a previously blocked user and ensure they can login.
-    [Tags]  ready  end-user  re-activate
+    [Tags]  ready  end-user
 
     girleffect_api.Change User State  ${API_USER}  ${true}
     springster.Login As User  ${API_USER}
@@ -104,25 +106,43 @@ End user registration with missing fields
     springster.Create New Profile  ${END_USER_INVALID}
     springster.Assert Registration Errors
 
+Password confirmation doesn't match
+    [Documentation]  Password and password confirmation must match.
+    [Tags]  ready  end-user
+
+    springster.Create New Profile  ${END_USER_MIS_PASS}
+    springster.Password Match Error
+
 Reset end user pwd via security questions
     [Documentation]  Reset password by answering security questions. End-user with no email address.
-    [Tags]  wip1  end-user
+    [Tags]  ready  end-user
 
     springster.Reset Password Via Questions  ${API_USER}
+    springster.Verify Django Success Page
     springster.Login As User  ${API_USER}
     springster.Assert User Logged In
 
-Reset end user pwd via security questions - lockout
-    [Documentation]  Get questions wrong, get locked out.
-    [Tags]  wip  end-user
+Reset end user pwd via security questions and enter mismatched passwords.
+    [Documentation]  Check that form throws appropriate error if passwords don't match.
+    [Tags]  ready  end-user
 
-    springster.Reset Password Via Questions  ${END_USER_VALID}
-    springster.Check Password Reset Email
-    springster.Open Password Update Page
-    springster.Complete Password Reset  ${END_USER_VALID}
+    springster.Reset Password Via Questions  ${END_USER_MIS_PASS}
+    springster.Verify Password Mismatch
+
+Reset end user pwd via security questions and answer security questions incorrectly.
+    [Documentation]  Check that form throws appropriate error if the security question answers are incorrect.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Wrong Answers  ${END_USER_WRONG_ANSWERS}
+
+Reset end user pwd via security questions - lockout
+    [Documentation]  User must be locked out if the user enters incorrect credentials during the reset flow.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Lockout  ${END_USER_MIS_PASS}
 
 Reset end user pwd via lost password email
-    [Documentation]  End-user with no email address.
+    [Documentation]  End-user with valid email address.
     [Tags]  ready  end-user
 
     springster.Reset Password Via Email  ${END_USER_VALID}
@@ -138,7 +158,7 @@ End User submitting a request to delete their profile - valid email
     springster.Delete User Profile  ${END_USER_RESTORE}
 
 End User submitting a request to delete their profile - no email or msisdn
-    [Documentation]  GE-472. Check msisdn and email requirement.
+    [Documentation]  GE-472. Check msisdn and email requirement. User must have valid values for both.
     [Tags]  ready  end-user
 
     springster.Login As User  ${API_USER}
@@ -212,17 +232,10 @@ Each form question can only be picked once.
     #TODO: Add check from profile edit as well.
 
 Exceed maximum login attempts
-    [Documentation]
+    [Documentation]  Form must show error after five failed login attempts.
     [Tags]  ready  end-user
 
     springster.Exceed Login Attempts  ${END_USER_RESET}
-
-Password confirmation doesn't match
-    [Documentation]  Verify end user pwd requirement.
-    [Tags]  wip
-
-    springster.Register As User  ${END_USER_INVALID}
-    springster.Password Match Error
 
 Logout from edit profile page 
     [Documentation]
@@ -233,8 +246,25 @@ OIDC consent form - end user
     [Tags]
 
 Remove end user record
-    [Documentation]  Remove the ${END_USER_VALID} record added in the first test. 
+    [Documentation]  Remove the user record added in the first test. 
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
+
+Reset password for username address which does not exist.
+    [Documentation]
+    [Tags]  
+  
+
+Reset password for email address which does not exist.
+    [Documentation]
+    [Tags]  
+
+
+
+Password validation on reset pages. Must enforce rules for end/system users.
+    [Documentation]
+    [Tags]
+
+Attempt to login after user locked out.
 

@@ -33,7 +33,6 @@ ${registration_form.pwd1_error} =  xpath://*[@id="content"]/form/div[4]/div[1]/u
 ${registration_form.pwd2_error} =  xpath://*[@id="content"]/form/div[5]/div[1]/ul/li
 
 *** Keywords ***
-#TODO - Make granular keywords.
 
 Set No-validate
     Execute Javascript  ${registration_form.novalidate}
@@ -71,7 +70,7 @@ Enter Password Field
     [Arguments]  ${UserData}
     
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
 
 Choose Gender From List
     [Arguments]  ${UserData}
@@ -141,7 +140,7 @@ Enter End User Fields
     Select From List By Value  ${registration.form_gender}  ${UserData.gender}
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
     Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
@@ -161,7 +160,7 @@ Enter System User Fields
     Select From List By Value  ${registration.form_gender}  ${UserData.gender}
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
     Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
@@ -258,7 +257,10 @@ Question Usage
     Submit Form
 
     Page Should Not Contain  Each question can only be picked once.
-    
+
+Password Match Error
+    Wait Until Element Contains  ${registration_form.pwd2_error}  The two password fields didn't match.
+
 Password Length Error
     [Arguments]  ${UserData}
 
