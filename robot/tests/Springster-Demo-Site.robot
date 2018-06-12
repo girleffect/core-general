@@ -23,7 +23,7 @@ ${GMP_PASSWORD} =  Pae)b8So
 &{END_USER_RESET}  username=klikl  pwd=reset  pwd_conf=reset  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_RESTORE}  username=klikl  pwd=restore  pwd_conf=restore  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  pwd_conf=as  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
-&{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
+&{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@gmail.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
 &{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue
 &{END_USER_WRONG_ANSWERS}  username=robotapiuser  first_answer=blue  second_answer=black
 
@@ -52,6 +52,10 @@ Logout as end user
 
     # If logout is successful the user will be taken to the Springster Demo Example Home Page.
     springster.Assert Landing Page Header
+
+Logout from edit profile page 
+    [Documentation]
+    [Tags]
 
 Create end user profile using username which already exists
     [Documentation]  Register with existing username.
@@ -237,9 +241,12 @@ Exceed maximum login attempts
 
     springster.Exceed Login Attempts  ${END_USER_RESET}
 
-Logout from edit profile page 
+Attempt to login after user locked out.
     [Documentation]
-    [Tags]
+    [Tags]  ready  end-user
+
+    springster.Login As User  ${END_USER_RESET}
+    springster.Ensure User Locked Out
 
 OIDC consent form - end user
     [Documentation]
@@ -251,20 +258,18 @@ Remove end user record
 
     girleffect_api.Delete User  ${END_USER_VALID}
 
-Reset password for username address which does not exist.
-    [Documentation]
-    [Tags]  
-  
+Reset password for username which does not exist.
+    [Documentation]  Form must throw appropriate error if non-existent username entered.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Via Questions  ${END_USER_BLANK_PASS}
 
 Reset password for email address which does not exist.
-    [Documentation]
-    [Tags]  
+    [Documentation]  Form must throw appropriate error if non-existent email address entered.
+    [Tags]  end-user
 
-
+    springster.Reset Password Via Questions  ${END_USER_BLANK_PASS}
 
 Password validation on reset pages. Must enforce rules for end/system users.
-    [Documentation]
-    [Tags]
-
-Attempt to login after user locked out.
-
+    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
+    [Tags]  end-user

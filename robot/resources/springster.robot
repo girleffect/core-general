@@ -288,3 +288,6 @@ Verify Incorrect Answer Error
 
 Password Match Error
     RegistrationPage.Password Match Error
+
+Ensure User Locked Out
+    LoginPage.Assert Max Login Error
