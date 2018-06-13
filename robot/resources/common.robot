@@ -1,11 +1,13 @@
 *** Settings ***
 Library  SeleniumLibrary
 Library  OperatingSystem
+Library  XvfbRobot
 
 *** Variables ***
 
 *** Keywords ***
 Begin Web Test
+    Start Virtual Display  1920  1080
     Open Browser  ${URL.${ENVIRONMENT}}  ${BROWSER}
 
 End Web Test
