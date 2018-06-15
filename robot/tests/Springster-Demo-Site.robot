@@ -53,7 +53,7 @@ Logout as end user
     # If logout is successful the user will be taken to the Springster Demo Example Home Page.
     springster.Assert Landing Page Header
 
-Logout from edit profile page 
+Logout from edit profile page
     [Documentation]
     [Tags]
 
@@ -143,7 +143,7 @@ Reset end user pwd via security questions - lockout
     [Documentation]  User must be locked out if the user enters incorrect credentials during the reset flow.
     [Tags]  ready  end-user
 
-    springster.Reset Password Lockout  ${END_USER_MIS_PASS}
+    springster.Reset Password Lockout  ${END_USER_WRONG_ANSWERS}
 
 Reset end user pwd via lost password email
     [Documentation]  End-user with valid email address.
@@ -179,9 +179,9 @@ End User submitting a request to delete their profile - valid msisdn
     girleffect_api.Put MSISDN  ${END_USER_VALID}  ${EMPTY}
 
 Edit end user profile
-    [Documentation]  
+    [Documentation]
     [Tags]  ready  end-user
-    
+
     springster.Login As User  ${END_USER_RESTORE}
     springster.Edit User Profile  female  25
     springster.Reset Edited Fields  male  16
@@ -201,13 +201,13 @@ Update end user password via profile page
     springster.Goto Edit Profile Page
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESTORE}
-    springster.Enter New Password  ${END_USER_RESET} 
+    springster.Enter New Password  ${END_USER_RESET}
     springster.Verify Password Reset Message
 
     # Reset to original password:
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESET}
-    springster.Enter New Password  ${END_USER_RESTORE} 
+    springster.Enter New Password  ${END_USER_RESTORE}
 
 Update end user password via profile page - enter incorrect old password.
     [Documentation]  System must throw error if user does not enter the correct old password.
@@ -221,7 +221,7 @@ Update end user password via profile page - enter incorrect old password.
     springster.Assert Old Password Error
 
 End user age validation
-    [Documentation]  
+    [Documentation]
     [Tags]  wip
 
     Page Should Contain  Ensure this value is less than or equal to 100.
@@ -274,11 +274,11 @@ Password validation on password update page. Must enforce rules for end/system u
     [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
     [Tags]  xxx  end-user
 
-  
+
 Verify Home Link On Lockout Page
 
 Remove end user record
-    [Documentation]  Remove the user record added in the first test. 
+    [Documentation]  Remove the user record added in the first test.
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}

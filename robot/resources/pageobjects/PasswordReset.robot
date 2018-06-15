@@ -47,7 +47,7 @@ Fill In Answer One
 
 Fill In Answer Two
     [Arguments]  ${UserData}
-    
+
     Input Text  ${passwordreset.answer2}  ${UserData.second_answer}
 
 Click Submit
@@ -65,7 +65,7 @@ Verify Reset Sent
 
 Check Reset Email
     Open Mailbox  server=imap.googlemail.com  user=jasonbarr.qa@gmail.com  password=letstest
-    
+
     ${LATEST}=  Wait for Email  sender=auth@gehosting.org  timeout=120
     ${body}=  Get Email Body  ${LATEST}
 
@@ -87,7 +87,7 @@ Verify Password Reset Form
     Element Should Be Visible  ${passwordreset.pwd1}
     Element Should Be Visible  ${passwordreset.pwd2}
     Element Should Be Visible  ${passwordreset.change_btn}
-    
+
 Submit Password Reset
     Click Element  ${passwordreset.change_btn}
 
@@ -98,7 +98,7 @@ Verify Django Page
 Mismatch Error
     Wait Until Page Contains  The two password fields didn't match.
     Element Should Be Visible  ${passwordreset.pwd1}
-    Element Should Be Visible  ${passwordreset.pwd2}  
+    Element Should Be Visible  ${passwordreset.pwd2}
 
 Supply Passwords
     [Documentation]  Created this to help with testing the reset lockout feature.
@@ -106,12 +106,13 @@ Supply Passwords
 
     Fill In Password  ${UserData}
     Fill In Password Confirmation  ${UserData}
-    Submit Password Reset  
+    Submit Password Reset
 
-Assert Lockout Message
-    Wait Until Page Contains  You have exceeded the maximum number of allowed incorrect login attempts (5). Please wait 10 minutes before trying again.
-    Element Should Be Visible  ${passwordreset.pwd1}
-    Element Should Be Visible  ${passwordreset.pwd2}
+Assert Lockout Message For Login
+    Wait Until Page Contains  You have exceeded the maximum number of allowed incorrect login attempts
+
+Assert Lockout Message For Password Reset
+    Wait Until Page Contains  You have exceeded the maximum number of allowed incorrect reset attempts
 
 Assert Incorrect Answer Message
     Wait Until Page Contains  One or more answers are incorrect
