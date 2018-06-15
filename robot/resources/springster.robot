@@ -50,7 +50,7 @@ Logout
 
 Login To CMS
     [Arguments]  ${AUTH_USERNAME}  ${AUTH_PASSWORD}
-    
+
     LandingPage.Load CMS
     LandingPage.Verify Admin Login Page
     LoginPage.Enter Auth Username  ${AUTH_USERNAME}
@@ -59,7 +59,7 @@ Login To CMS
 
 Registration Questions
     [Arguments]  ${UserData}
-    
+
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
     RegistrationPage.Question Usage  ${UserData}
@@ -70,7 +70,7 @@ Password Length Error
     RegistrationPage.Password Length Error  ${UserData}
 
 Password Format Error
-    RegistrationPage.Password Format Error  
+    RegistrationPage.Password Format Error
 
 Password Blank Error
     RegistrationPage.Password Blank Error
@@ -88,7 +88,7 @@ Open Management Portal
 
 Search For User
     [Arguments]  ${user}
-    
+
     ManagementPortal.Find User  ${user}
 
 Set User To Inactive
@@ -126,7 +126,7 @@ Delete User Profile
 Goto Edit Profile Page
     ProfileHome.Edit Profile
 
-Edit User Profile   
+Edit User Profile
     [Arguments]  ${sex}  ${age}
 
     ProfileHome.Verify User Home Page
@@ -170,12 +170,12 @@ Enter Old Password
 
 Enter New Password
     [Arguments]  ${UserData}
-    
+
     UpdatePassword.Fill In New Password  ${UserData}
     UpdatePassword.Click Update
 
 Verify Password Reset Message
-    ProfileEdit.Verify Password Update Msg  
+    ProfileEdit.Verify Password Update Msg
 
 Assert Registration Errors
     RegistrationPage.Assert Field Errors
@@ -252,27 +252,60 @@ Verify Django Success Page
 
 Reset Password Lockout
     [Arguments]  ${UserData}
-    
+
     LandingPage.Load Landing Page
     LandingPage.Login
     LoginPage.Reset Password Link
     PasswordReset.Verify Reset Page Header
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
+
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Assert Incorrect Answer Message
+
     PasswordReset.Fill In Answer One  ${UserData}
     PasswordReset.Fill In Answer Two  ${UserData}
     PasswordReset.Click Submit
 
-    Repeat Keyword  6  PasswordReset.Supply Passwords  ${UserData}
+    PasswordReset.Assert Lockout Message For Password Reset
 
-    PasswordReset.Assert Lockout Message
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Reset Password Link
+    PasswordReset.Verify Reset Page Header
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+
+    PasswordReset.Assert Lockout Message For Login
 
 Complete Password Reset
     [Arguments]  ${UserData}
 
     PasswordReset.Generate End User Password
     PasswordReset.Verify Password Reset Form
-    PasswordReset.Fill In Password  ${UserData}     
+    PasswordReset.Fill In Password  ${UserData}
     PasswordReset.Fill In Password Confirmation  ${UserData}
     PasswordReset.Submit Password Reset
 
@@ -293,7 +326,7 @@ Assert Existing User Error
 
     Run Keyword If  "${UserData.type}" == "end-user"  RegistrationPage.Enter End User Fields  ${UserData}
     ...  ELSE IF  "${UserData.type}" == "system-user"  RegistrationPage.Enter System User Fields  ${UserData}
-    
+
     RegistrationPage.Submit Form
     RegistrationPage.Existing Credentials Error  ${error.field}
 
