@@ -23,7 +23,7 @@ help:
 
 $(VENV):
 	@echo "$(CYAN)Initialise base ve...$(CLEAR)"
-	virtualenv $(VENV) -p python3.5
+	virtualenv $(VENV) -p python2.7
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 # Creates the virtual environment.
@@ -83,3 +83,14 @@ docker-remove-image:
 list-services:
 	# Requires libghc-yaml-dev and jq packages to be installed
 	@yaml2json docker-compose.yml | jq '.services | to_entries[] | .key'
+
+chromedriver:
+	curl https://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip -o chromedriver_linux64.zip
+	unzip chromedriver_linux64.zip
+	rm chromedriver_linux64.zip
+
+test: $(VENV) chromedriver
+	$(PIP) install -r requirements-robotframework.txt selenium eyes-selenium
+	PATH=${PATH}:. $(VENV)/bin/robot -d robot/results/ -i ready -v BROWSER:chrome -v ENVIRONMENT:qa robot/tests/Springster-Demo-Site.robot
+
+

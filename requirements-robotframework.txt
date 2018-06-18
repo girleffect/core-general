@@ -1,0 +1,8 @@
+robotframework
+robotframework-appiumlibrary
+robotframework-httplibrary
+robotframework-requests
+robotframework-seleniumlibrary
+robotframework-xvfb
+robotframework-imaplibrary
+RESTinstance
