@@ -19,7 +19,6 @@ services:
          soft: 20000
          hard: 40000
     restart: on-failure
-    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/user_data_store.yml -p 5000
     command: scripts/waitFor.sh scripts/startApp.sh
     depends_on:
       - db
@@ -36,7 +35,6 @@ services:
     volumes:
       - ../core-access-control/:/app/
     restart: on-failure
-    # command: /code/prism run --validate --debug --list --mockDynamic -s /code/swagger/access_control.yml -p 5000
     command: scripts/waitFor.sh scripts/startApp.sh
     depends_on:
       - db
@@ -267,6 +265,34 @@ services:
       context: apps/proxy/
     ports:
       - "${PACSERVER_PORT}:8000"
+    networks:
+      - oidcnetwork
+
+  # The name "core-robot" was chosen so that this container is accessible via
+  # the squid proxy, which are configured to service URLs starting with "core-".
+  core-robot:
+    build:
+      context: .
+    ports:
+      - "${ROBOT_PORT}:8000"
+    environment:
+      - ENVIRONMENT=docker
+    volumes:
+      - ./robot:/app/
+    restart: on-failure
+    command: test_runner.sh
+    depends_on:
+      - db
+      - memcache
+      - redis
+      - smtp
+      - core-access-control
+      - core-authentication-service
+      - core-user-data-store
+      - core-management-layer
+      - core-management-portal
+      - wagtail-demo-1
+      - wagtail-demo-2
     networks:
       - oidcnetwork
 
