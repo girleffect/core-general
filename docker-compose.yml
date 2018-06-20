@@ -277,6 +277,7 @@ services:
       - "${ROBOT_PORT}:8000"
     environment:
       - ENVIRONMENT=docker
+      - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
     volumes:
       - ./robot:/app/
     restart: on-failure

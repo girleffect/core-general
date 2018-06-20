@@ -8,9 +8,8 @@ trap stop_signal_received SIGINT
 
 mkdir -p results
 
-if [ "${ENVIRONMENT}" == "docker" ]; then
-    cd results && python -m SimpleHTTPServer &
-fi
+# Run the HTTP daemon in all environments
+cd results && python -m SimpleHTTPServer &
 
 while true; do
     when=$(date -Iminute -u)
