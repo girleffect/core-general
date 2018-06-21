@@ -15,8 +15,6 @@ ${ENVIRONMENT} =  qa
 ${BROWSER} =  chrome
 &{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/  docker=http://wagtail-demo-1-site-1:8000/
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
-${GMP_USERNAME} =  admin
-${GMP_PASSWORD} =  Pae)b8So
 &{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@  pwd_conf=SDF45!@  first_answer=blue  second_answer=blue
 &{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  pwd_conf=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_INVALID}  type=end-user  username=${EMPTY}  pwd=password  pwd_conf=password  email=jasonbarr.qa@gmail.com  age=${EMPTY}  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=black
