@@ -3,7 +3,7 @@ Documentation  API tests
 Resource  ../resources/API/girleffect_api.robot
 
 *** Variables ***
-${AUTHENTICATION_SERVICE_API_KEY} =  setme
+${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable AUTHENTICATION_SERVICE_API_KEY
 ${auth_host} =  authentication-service.qa-hub.ie.gehosting.org
 ${host} =  access-control-service.qa-hub.ie.gehosting.org
 

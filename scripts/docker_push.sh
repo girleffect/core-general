@@ -10,4 +10,4 @@ TAG=test
 
 docker build -t ${REPO}:${TAG} .
 docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-docker push ${REPO}
+docker -D push ${REPO}

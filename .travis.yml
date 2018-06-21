@@ -2,28 +2,22 @@ sudo: required
 cache: pip
 language: python
 python:
-  - '2.7'  # For robotframework
-
+- '2.7'
 env:
   global:
-  - secure: FU2Cf4pO7ypcbNQd5sTMIs+juHpWVQCjPC5eWmyi+n1wPklB7aYABQkccIog553T1Sn23/A6A1Lmmp4KKmlUKxyJY7vNJXHIcxZYWC/+4PIjrnx0gg3s4NMcInOJz6IsJb4nTmJVHezfByTKTP9S5uyfj5bgHo9j+2wgNYQ7ESTyjRC1NnPRbQUSLyhqXya4zC+0VqpJD2Xl7jLPqSC08e7k2GplraSCUcUs3jH11kzhC0sFDqKcjcmAwEDYyrqCeSriH4g7ZWbPBhUpynnNdDhsgbyU3ndkr+7Ky1WUHLIL0sWl4Jdjr97zWr7UaQoJE/LWhhchA39/U6xE8QQR2R87GrHjvVKXxwMib/Xezf2V+COSpLKZm76wWSQlbGqH/WP9fZWOspICLHkZwZhleztGaZfr/vaF6eznabL6GToQhxn6mJEKvH9Eas41j/TYKdBkww3OKkuo2wpvbI2QLxBJ8FLQFcDdNeX/O7hDRsafoddc4XIFvTxT72GHW6f/Y9yF72lLxdk9mAVaqSEAA97yLha165fARdm2t5F1BB7heMl0iENiHxMUr+n2RTZczP55XKF9s3EanxxPSWYz7w4iGxe6MdpWhinNsSJrq5SoC3AGIdKCyG2nZrSSPpZL+mKVThaozY2QO+Lo2e3mzU1fMLLvlAFnzVNP888o5OI=
-  - secure: eL/dsTucyv5LuxT0SCMsZ8THjJqkGJ9DQkVT4cer1V4R5L/Rt+2DvTlDRfEImCvYgwfAlQz2NjRCVME+U1pCjvdOcoI1Hv5r3XD4g7ADl9uDAmjkFpNz8J5fzNdnZecJbeWQuJYqa+zeYRZUo5ghCnDO1+yMb1D/+GMJG66zW6ccrSS/DdvdkIb9K7+Iu9LcXXKtr4wV78j3lQfCqivm33bWam++nc6YbECywes1a43FvIUG2LlYd2aTaAq5YmZ1gyOQohLfB5okWJ9p9epR99hK5dfn5eJWVz4I7RstynvZwrXHbhuU53ofJ7zRa7IYm1WlnFzPZ42auw7XqdKB4mD5w/iZ5/4Fy0zlAscKfofIOyY9FT8BZ7tQu+jpPvndB04bTDSsGEGjn2guTngeMFYD+Fe11VUi9m0DrBn9Lgnx3H5AVdlOOrQ8tnA3SUh3IOijlfllnMwfW9OYv2QK/zCsYjbaZV41erxfdBAN4LFirG15WMVZ7i2KkUEi95Q5EMeiCiBFk2sSgwaYOSbTQlH8e86EyToC5mFljq3IiGuPSAlCa2iqHXmClQkRICsnB+TOxm9jwsHLuSMOfjflze5HRGq32buhv5dlfsXHwkR1jM9WYjPm6241Xo58DCNLpaQbuGCrQ6tacZB7idkFeCEThTvdDRPDiNXBzUacvUY=
-
+  - secure: HijFiaxLo1b7gzqbLWxIRkkP8iomGA/iYHLIkraj1sH4pTIjZ6gLFYrl7s5bfXEgv2O3x1Q7jMsr8OvK6CABjx+SNZTANBEaTof8vzv+ydaB+HfAPpA0ojWYYgcZF+ScMvAhkCWE/I+tKHhzH5Z+VpBjJmiR5ltMa+UeuWlJ6YjqmIgrcKzqyl2s3CLYnrWxExtTQsUITf6MZg2nkaqQumXKOeO7iefVlM0D2fQbFo/RjeIPV5NU8oFaPavekbi4Vcj7wfd0M1zRII1l6xK3ux1aajZLZLC2tgQ43p4X8GtTCy1ymNeAfEc3gsrNkhz4rHXp/+asFWooBQeYMfsP8ZlUGmGAbvL19rtFHKVswHMq7tSnEKZsHEXZA4Q7qZl918/mkfXVEQ8v89wvBzk5wGrCkTDoLSQW7siZ5HRLCHiOsHlpVg7uy9X0BQ8XuIX6g6dafcsNOurAIvHLQiwg1nB3/N6mrYtICLojT2G8fV+9XCCU13iyJKQ7RGQuyzV/mW5U4/XVQzs6iN4ClwmE/0Oh50Bj1UVooqcKxZcSL8ydJM0WliH0f3qK1/5HILrQl3xX/0RqCqdZK/FnHjs0HLwONhKEd1+6zWnmGndxh/3oc8fX1SvwqNf52SuaPXFVWb48/a++fExv55WEpJxSKMFgiC0Bck36PZfIb8/oYsc=
+  - secure: FdS+PfF/VxqT0g2AxYMBui/HJIRYkRCENdHaJ3tSmp6CPPSoyISbyk+TVBrpTtwdRwrp0u2VfieQhOAjgPoc1RoxuzdFMO0od/ezDMCiGNoj+/0y4arXPuwHnQT17IhxD+bY6vSgLdvLqfWYVLFws7pMiactjgsD/MDBDvJcO1Cnzf5skRJlQ/q71t6I8K5nSgDyUCmz9LCeqVo2hluGfBlSPG9JKG34oCLWcs98hnlsCtEIvJyrOZOrkX0SB7kFtvv2bo7A80i4zm5c+kE2+F6F8efbF5wI/77HxTeEokjgbt6Cc3kPgFKR/xRYaQWPcZFT/5TTWT+GBJAaIOWnKK2Ts5otcpKelg9t/875wKoNsarmBSQZ1rs+uwajxsYgoCasn3VEgqacNy47wuTegXNekr1lZeu5TbGBqCVy9zp1kvQRtLbu1NWZmFTQsuGHQez5hrEA2JRKeNn9jU8YkvWBwK6LWE+jMmPKq5Hz9wgaf4Th5Pqhr4mKEBm8hNmidqvW7CdMsVFDMwiKBqr6X9m/lqfaOT8CWnE5KTMwdyyBSqNdcAaW89iPyUNZpLwKKJ7RPasBUmGEEkaQMM6EQrD6wiF1vHgo88JmEo01um3OT2XbCnY1ODphKCh6V/WtXTQObx5S8dWoefMkUS/kJEhFbfI0JbJjvu8AlKNpASk=
 services:
-  - docker
-
+- docker
 script: true
-
 install:
-  - pip install -r requirements-robotframework.txt
-
+- pip install -r requirements-robotframework.txt
 deploy:
-  # Only build development branch
-  - provider: script
-    script: bash ./scripts/docker_push.sh
-    on:
-      branch: develop
-  - provider: script
-    script: bash ./scripts/docker_push.sh
-    on:
-      branch: cobusc-test-mods
+- provider: script
+  script: bash ./scripts/docker_push.sh
+  on:
+    branch: develop
+- provider: script
+  script: bash ./scripts/docker_push.sh
+  on:
+    branch: cobusc-test-mods

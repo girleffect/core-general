@@ -91,6 +91,6 @@ chromedriver:
 
 test: $(VENV) chromedriver
 	$(PIP) install -r requirements-robotframework.txt selenium eyes-selenium
-	PATH=${PATH}:. $(VENV)/bin/robot -d robot/results/ -i ready -v BROWSER:chrome -v ENVIRONMENT:docker robot/tests/Springster-Demo-Site.robot
+	PATH=${PATH}:. $(VENV)/bin/robot -d robot/results/ -i ready -v BROWSER:chrome -v ENVIRONMENT:qa robot/tests/Springster-Demo-Site.robot
 
 
