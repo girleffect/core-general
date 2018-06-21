@@ -185,13 +185,17 @@ Check Password Reset Email
 Open Password Update Page
     PasswordReset.Follow Reset Link
 
-Reset Password Via Email
-    [Arguments]  ${UserData}
+Goto Password Reset Page
 
     LandingPage.Load Landing Page
     LandingPage.Login
     LoginPage.Reset Password Link
     PasswordReset.Verify Reset Page Header
+
+Reset Password Via Email
+    [Arguments]  ${UserData}
+
+    Goto Password Reset Page
     PasswordReset.Fill In Email  ${UserData}
     PasswordReset.Click Submit
     PasswordReset.Verify Reset Sent
@@ -199,10 +203,7 @@ Reset Password Via Email
 Reset Password Via Questions
     [Arguments]  ${UserData}
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
     PasswordReset.Fill In Answer One  ${UserData}
@@ -215,10 +216,7 @@ Reset Password Via Questions
 Reset Password Wrong Answers
     [Arguments]  ${UserData}
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
     PasswordReset.Fill In Answer One  ${UserData}
@@ -229,20 +227,14 @@ Reset Password Wrong Answers
 Reset Password Invalid Username
     [Arguments]  ${UserData}
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
 
 Reset Password Invalid Email
     [Arguments]  ${UserData}
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
     PasswordReset.Fill In Email  ${UserData}
     PasswordReset.Click Submit
 
@@ -252,48 +244,17 @@ Verify Django Success Page
 Reset Password Lockout
     [Arguments]  ${UserData}
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
+
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
 
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-    PasswordReset.Assert Incorrect Answer Message
+    Repeat Keyword  5  PasswordReset.Reset Lockout Error Steps  ${UserData}
 
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-    PasswordReset.Assert Incorrect Answer Message
-
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-    PasswordReset.Assert Incorrect Answer Message
-
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-    PasswordReset.Assert Incorrect Answer Message
-
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-    PasswordReset.Assert Incorrect Answer Message
-
-    PasswordReset.Fill In Answer One  ${UserData}
-    PasswordReset.Fill In Answer Two  ${UserData}
-    PasswordReset.Click Submit
-
+    PasswordReset.Submit Answers  ${UserData}
     PasswordReset.Assert Lockout Message For Password Reset
 
-    LandingPage.Load Landing Page
-    LandingPage.Login
-    LoginPage.Reset Password Link
-    PasswordReset.Verify Reset Page Header
+    Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
 

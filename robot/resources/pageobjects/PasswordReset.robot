@@ -118,3 +118,20 @@ Assert Incorrect Answer Message
     Wait Until Page Contains  One or more answers are incorrect
     Element Should Be Visible  ${passwordreset.answer1}
     Element Should Be Visible  ${passwordreset.answer2}
+
+Reset Lockout Error Steps
+    [Arguments]  ${UserData}
+
+    Fill In Answer One  ${UserData}
+    Fill In Answer Two  ${UserData}
+    Click Submit
+    Assert Incorrect Answer Message
+
+Submit Answers
+    [Arguments]  ${UserData}
+
+    Fill In Answer One  ${UserData}
+    Fill In Answer Two  ${UserData}
+    Click Submit
+
+

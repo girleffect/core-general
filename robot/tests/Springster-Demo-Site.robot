@@ -141,7 +141,7 @@ Reset end user pwd via security questions and answer security questions incorrec
 
 Reset end user pwd via security questions - lockout
     [Documentation]  User must be locked out if the user enters incorrect credentials during the reset flow.
-    [Tags]  ready  end-user
+    [Tags]  xxx  ready  end-user
 
     springster.Reset Password Lockout  ${END_USER_WRONG_ANSWERS}
 
@@ -268,11 +268,11 @@ Reset password for email address which does not exist.
 
 Password validation on reset pages. Must enforce rules for end/system users.
     [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
-    [Tags]  xxx  end-user
+    [Tags]  wip  end-user
 
 Password validation on password update page. Must enforce rules for end/system users.
     [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
-    [Tags]  xxx  end-user
+    [Tags]  wip  end-user
 
 
 Verify Home Link On Lockout Page
