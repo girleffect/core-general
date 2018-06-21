@@ -282,3 +282,7 @@ Remove end user record
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
+
+Login to non-English site
+    [Documentation]
+    [Tags]

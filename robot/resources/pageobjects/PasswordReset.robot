@@ -93,7 +93,7 @@ Submit Password Reset
 
 Verify Django Page
     Wait Until Page Contains  Password reset complete
-    Element Text Should Be  ${passwordreset.django_txt}  Your password has been set. You may go ahead and log in now.
+    Element Text Should Be  ${passwordreset.django_txt}  Your new password has been set.
 
 Mismatch Error
     Wait Until Page Contains  The two password fields didn't match.

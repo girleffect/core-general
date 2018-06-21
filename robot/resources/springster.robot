@@ -10,7 +10,6 @@ Resource  ../resources/pageobjects/PasswordReset.robot
 Resource  ../resources/pageobjects/UpdatePassword.robot
 Resource  ../resources/pageobjects/UpdateQuestions.robot
 
-
 *** Variables ***
 
 *** Keywords ***
