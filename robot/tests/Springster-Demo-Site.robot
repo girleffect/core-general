@@ -11,7 +11,7 @@ Test Teardown  End Web Test
 
 *** Variables ***
 
-${ENVIRONMENT} =  qa
+${ENVIRONMENT} =  Get Environment Variable ENVIRONMENT docker
 ${BROWSER} =  chrome
 &{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/  docker=http://wagtail-demo-1-site-1:8000/
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login

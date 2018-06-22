@@ -13,7 +13,7 @@ Test Teardown  End Web Test
 
 ${ENVIRONMENT} =  qa
 ${BROWSER} =  chrome
-&{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/
+&{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/  docker=wagtail-demo-1-site-1:8000
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 ${GMP_USERNAME} =  admin
 ${GMP_PASSWORD} =  Pae)b8So
@@ -156,9 +156,9 @@ End User submitting a request to delete their profile - valid msisdn
     girleffect_api.Put MSISDN  ${END_USER_VALID}  ${EMPTY}
 
 Edit end user profile
-    [Documentation]  
+    [Documentation]
     [Tags]  ready  end-user
-    
+
     springster.Login As User  ${END_USER_RESTORE}
     springster.Edit User Profile  female  25
     springster.Reset Edited Fields  male  16
@@ -178,13 +178,13 @@ Update end user password via profile page
     springster.Goto Edit Profile Page
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESTORE}
-    springster.Enter New Password  ${END_USER_RESET} 
+    springster.Enter New Password  ${END_USER_RESET}
     springster.Verify Password Reset Message
 
     # Reset to original password:
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESET}
-    springster.Enter New Password  ${END_USER_RESTORE} 
+    springster.Enter New Password  ${END_USER_RESTORE}
 
 Update end user password via profile page - enter incorrect old password.
     [Documentation]  System must throw error if user does not enter the correct old password.
@@ -198,7 +198,7 @@ Update end user password via profile page - enter incorrect old password.
     springster.Assert Old Password Error
 
 Age validation
-    [Documentation]  
+    [Documentation]
     [Tags]  wip
 
     Page Should Contain  Ensure this value is less than or equal to 100.
@@ -226,7 +226,7 @@ Password confirmation doesn't match
     springster.Password Match Error
 
 Remove end user record
-    [Documentation]  Remove the ${END_USER_VALID} record added in the first test. 
+    [Documentation]  Remove the ${END_USER_VALID} record added in the first test.
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
@@ -255,13 +255,13 @@ Logout as system user
     springster.Assert Landing Page Header
 
 Create system user profile using email address which already exists
-    [Documentation]  Register with existing email address. Only applicable to system-users (for now.) 
+    [Documentation]  Register with existing email address. Only applicable to system-users (for now.)
     [Tags]  ready  system-user
 
     springster.Assert Existing User Error  ${SYS_USER_VALID}  email
 
 Create system user profile using username which already exists
-    [Documentation]  Register with existing username. Only applicable to system-users (for now.) 
+    [Documentation]  Register with existing username. Only applicable to system-users (for now.)
     [Tags]  wip  system-user
 
     springster.Assert Existing User Error  ${SYS_USER_VALID}  username
@@ -291,16 +291,16 @@ OIDC consent form - system user
     [Tags]
 
 Reset system user password via email
-    [Documentation]  
-    [Tags]  
+    [Documentation]
+    [Tags]
 
     # Add email address via API PUT request.
     girleffect_api.Change User State  ${SYS_USER_VALID}  user@example.com
     springster.Lost Password  ${SYS_USER_VALID}
 
 Reset system user password questions
-    [Documentation]  
-    [Tags] 
+    [Documentation]
+    [Tags]
 
     # Add email address via API PUT request.
     girleffect_api.Change User State  ${SYS_USER_VALID}  ${EMPTY}
@@ -328,4 +328,4 @@ Update questions via auth admin/gmp.
     [Documentation]
     [Tags]
 
-Logout from edit profile page 
+Logout from edit profile page
