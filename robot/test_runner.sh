@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SLEEP_SECONDS=3600  # An hour
 stop_signal_received() {
     exit
 }
@@ -15,5 +16,5 @@ while true; do
     when=$(date -Iminute -u)
     mkdir -p results/${when}
     robot -d results/${when} -i ready -v BROWSER:chrome -v ENVIRONMENT:${ENVIRONMENT} tests/Springster-Demo-Site.robot
-    sleep 120
+    sleep ${SLEEP_SECONDS}
 done
