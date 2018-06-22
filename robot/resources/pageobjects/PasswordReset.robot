@@ -12,8 +12,6 @@ ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
 ${passwordreset.reset_txt}  id:content
-#${passwordreset.answer1}  id:id_question_583  # Need to make these more intelligent...
-#${passwordreset.answer2}  id:id_question_584
 ${passwordreset.django_txt}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
