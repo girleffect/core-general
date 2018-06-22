@@ -206,6 +206,7 @@ Reset Password Via Questions
     Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
+    PasswordReset.Get Answer Field ID
     PasswordReset.Fill In Answer One  ${UserData}
     PasswordReset.Fill In Answer Two  ${UserData}
     PasswordReset.Click Submit
@@ -219,6 +220,7 @@ Reset Password Wrong Answers
     Goto Password Reset Page
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
+    PasswordReset.Get Answer Field ID
     PasswordReset.Fill In Answer One  ${UserData}
     PasswordReset.Fill In Answer Two  ${UserData}
     PasswordReset.Click Submit
@@ -249,6 +251,8 @@ Reset Password Lockout
     PasswordReset.Fill In Username  ${UserData}
     PasswordReset.Click Submit
 
+    PasswordReset.Get Answer Field ID
+    
     Repeat Keyword  5  PasswordReset.Reset Lockout Error Steps  ${UserData}
 
     PasswordReset.Submit Answers  ${UserData}

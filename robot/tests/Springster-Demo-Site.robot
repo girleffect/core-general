@@ -132,8 +132,8 @@ Reset end user pwd via security questions and enter mismatched passwords.
     springster.Verify Password Mismatch
 
 Reset end user pwd via security questions and answer security questions incorrectly.
-    [Documentation]  Check that form throws appropriate error if the security question answers are incorrect.
-    [Tags]  ready  end-user
+    [Documentation]  Check that form throws appropriate error if the security question answers are incorrect. Test below checks this anyway.
+    [Tags]  deprecated  end-user
 
     springster.Reset Password Wrong Answers  ${END_USER_WRONG_ANSWERS}
 
@@ -274,7 +274,6 @@ Password validation on password update page. Must enforce rules for end/system u
 
 
 Verify Home Link On Lockout Page
-
 Remove end user record
     [Documentation]  Remove the user record added in the first test.
     [Tags]  ready  end-user

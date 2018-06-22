@@ -12,8 +12,8 @@ ${passwordreset.pwd1}  id:id_new_password1
 ${passwordreset.pwd2}  id:id_new_password2
 ${passwordreset.change_btn}  xpath://*//input[@value="Change my password"]
 ${passwordreset.reset_txt}  id:content
-${passwordreset.answer1}  xpath://*[@id="id_question_583"]  # Need to make these more intelligent...
-${passwordreset.answer2}  xpath://*[@id="id_question_584"]
+#${passwordreset.answer1}  id:id_question_583  # Need to make these more intelligent...
+#${passwordreset.answer2}  id:id_question_584
 ${passwordreset.django_txt}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
@@ -116,6 +116,7 @@ Assert Lockout Message For Password Reset
 
 Assert Incorrect Answer Message
     Wait Until Page Contains  One or more answers are incorrect
+
     Element Should Be Visible  ${passwordreset.answer1}
     Element Should Be Visible  ${passwordreset.answer2}
 
@@ -134,4 +135,11 @@ Submit Answers
     Fill In Answer Two  ${UserData}
     Click Submit
 
+Get Answer Field ID
+
+    ${passwordreset.answer1} =  Get Element Attribute  xpath://*[@id="content"]/form/div[1]/div[1]/input  id
+    Set Global Variable  ${passwordreset.answer1}
+
+    ${passwordreset.answer2} =  Get Element Attribute  xpath://*[@id="content"]/form/div[2]/div[1]/input  id
+    Set Global Variable  ${passwordreset.answer2}
 
