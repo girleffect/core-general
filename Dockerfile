@@ -5,6 +5,10 @@
 # FROM praekeltfoundation/python-base:2.7-stretch
 FROM joyzoursky/python-chromedriver:2.7-xvfb-selenium
 
+ENV ENVIRONMENT=qa
+
+EXPOSE 8000
+
 WORKDIR /app
 
 COPY requirements-robotframework.txt /app/
@@ -12,9 +16,7 @@ RUN pip install -r requirements-robotframework.txt
 
 RUN apt-get update && apt-get -y dist-upgrade
 
-
-COPY apps/robotframework/test_runner.sh /app/
-COPY . /app/
+COPY robot /app/
 
 ENV PATH="/app/:${PATH}"
 

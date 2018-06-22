@@ -111,4 +111,4 @@ diagrams/*.png
 
 .DS_Store
 robot/results/
-
+chromedriver

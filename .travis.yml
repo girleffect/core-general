@@ -1,0 +1,23 @@
+sudo: required
+cache: pip
+language: python
+python:
+- '2.7'
+env:
+  global:
+  - secure: EvSTU5GbHUiiaJmE6JyBSS2o7kWBbpi54wYVXxirK0birS9bzVsljK64aTnr20x85HoRL+47qI1pFsxBX7yukvfAiJFUgGwGvhx/OqSaKnwDR5mKBj/eEKqwZWnMqw5hmYB1iuAqCddpljugsEwWWk85E5Hka1VEB80Orh5eL4f6IsfIpLt7tqP2m8DW14n9hBJAYjIsjtUUYfWxAyVSKD/hh6c1qsqFOZPSSfxb/Nf/OSBC5iXZopbTZXVFcFSeqUk2IYHknt7sgOVz/0v22faKve7bZD09Pryt6OvSsxJfzWXEcOdQfcp9edNv2/90MzstO8F/+R7euEcDtDAFlbNoQi4ZiZhDH8Oh+UPitYnIj1oH89yIRdjn9XgTfSXpZI8otz0AD4qpoYJBDi/GpgTGFTDQYqKq63uJmCqfdy0h+3PzQRLns7swSi10S2GT92WVaWApR+2sXrZliSdPAAoGhBswFoJz6i652CogU8pOIU4Kib2EYxdi4s5SZmo9Xru5w1dMQHb2fB063T0bQKa/NHmB8BFprgQnOoyn92YzdJHDdA5ZMZ2qwhV8TRPVju+zfxKP1XiN+k3O7qQ1wvXZ0oTksseijny/yLOv0R4G0TLmBxK4OE2YJSbLjTMP9VjGa2pkHkvlvxMotN0JVQxf24zUkDxEMqufeDNzldU=
+  - secure: Vcg3a5WT3BeF24AgSd+uIecs77peNYi7NL4x6WVFXu/AmBFL2Ulp9ZYMHeouWv/MB6IR2d6I5iga4AqXGjWo2WvjGdacPu2otpc6uOkWYjaDcyd0WxYPLhqIZzxunXSQjuEIUzBf1nsh+3dIWgvCcOrO+TKvq5b2Dt5Dk4UictYoBnxn8v4dWFR+Hg7BmWR9HAOlDRO9uMHszxkpQl5OGBq/C1xNENefX/vQBln9DBGA8wHqMt5Bgpv7O9fnIS2lo6LUtYc0IJL9C8sNrtXTmzZLz3ry0VfebcsEtj91/aPZxfWz/1g8fXTG8+npENNvhAYC8Gt4JZDDQb6LKYYb9abC0Q82IHLftTWxbAm9SS3cTRK2KD4MPubOvvQYSC90q/MXpBaBR3JhYECj+qlj6h2VnTjykXLZy6cAIEkRZapBlYMsvD8qhgdYx/9Cm3uonxMkITt9lAn1GbJfSUbAZqmHTkEdsHY/N+z6LcAx+yGCkWMgdQL5fPg9WPH1y0maUcFX8UkFx1QeKVsEz5SMy2uhXnBVH7FaeO0MAA5mHtMCCvOSNWpyaBguZR+58fivpU5NP0vsPboGuATGlGJBYcV3RNj++kq/7cEZla3lA5Js+M/eZW8VjZncGJUKsBOIG6VBVjl2fcaKief5V42V4zPp46xqkiecg9kXbxc0LAY=
+services:
+- docker
+script: true
+install:
+- pip install -r requirements-robotframework.txt
+deploy:
+- provider: script
+  script: bash ./scripts/docker_push.sh
+  on:
+    branch: develop
+- provider: script
+  script: bash ./scripts/docker_push.sh
+  on:
+    branch: cobusc-test-mods

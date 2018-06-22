@@ -66,18 +66,18 @@ docs-build:  $(VENV)
 docker-network:
 	docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.1 oidcnetwork
 
-run: build-virtualenv docker-build-image
+run: build-virtualenv
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
 
 docker-build-image:
 	@echo "$(CYAN)Building local image (version:$(DOCKER-VERSION))...$(CLEAR)"
-	docker build -t girleffect:$(DOCKER-VERSION) .
+	docker build -t robotframework:$(DOCKER-VERSION) .
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 docker-remove-image:
 	@echo "$(CYAN)Removing docker image...$(CLEAR)"
-	docker rmi girleffect:$(DOCKER-VERSION)
+	docker rmi robotframework:$(DOCKER-VERSION)
 	@echo "$(GREEN)DONE$(CLEAR)"
 
 list-services:
@@ -91,6 +91,6 @@ chromedriver:
 
 test: $(VENV) chromedriver
 	$(PIP) install -r requirements-robotframework.txt selenium eyes-selenium
-	PATH=${PATH}:. $(VENV)/bin/robot -d robot/results/ -i ready -v BROWSER:chrome -v ENVIRONMENT:docker robot/tests/Springster-Demo-Site.robot
+	PATH=${PATH}:. $(VENV)/bin/robot -d robot/results/ -i ready -v BROWSER:chrome -v ENVIRONMENT:qa robot/tests/Springster-Demo-Site.robot
 
 
