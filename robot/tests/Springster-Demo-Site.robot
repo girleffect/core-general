@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation  This is a set of tests for the Springster demo site.
+Documentation  This is a suite of tests for the Springster demo site.
 Resource  ../resources/common.robot  # used for setup and teardown
 Resource  ../resources/springster.robot  # stores lower level keywords used by test.
 Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
-Test Setup  Run Keywords  Begin Web Test
+Test Setup  Begin Web Test
 Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
@@ -23,7 +23,7 @@ ${BROWSER} =  chrome
 &{END_USER_INVALID_PASS}  type=end-user  username=qwerty  pwd=as  pwd_conf=as  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
 &{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@ge.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
 &{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue
-&{END_USER_WRONG_ANSWERS}  username=robotapiuser  first_answer=blue  second_answer=black
+&{END_USER_WRONG_ANSWERS}  username=robotanswers  first_answer=blue  second_answer=black
 
 *** Test Cases ***
 Create new end user profile
@@ -138,8 +138,8 @@ Reset end user pwd via security questions and answer security questions incorrec
     springster.Reset Password Wrong Answers  ${END_USER_WRONG_ANSWERS}
 
 Reset end user pwd via security questions - lockout
-    [Documentation]  User must be locked out if the user enters incorrect credentials during the reset flow.
-    [Tags]  xxx  ready  end-user
+    [Documentation]  User must be locked out if the user enters incorrect security question answers during the reset flow.
+    [Tags]  ready  end-user
 
     springster.Reset Password Lockout  ${END_USER_WRONG_ANSWERS}
 
