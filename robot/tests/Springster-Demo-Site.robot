@@ -26,7 +26,7 @@ ${BROWSER} =  chrome
 &{END_USER_WRONG_ANSWERS}  username=robotanswers  first_answer=blue  second_answer=black
 
 *** Test Cases ***
-Create new end user profile
+Create a new end user profile
     [Documentation]  Register as an end user.
     [Tags]  ready  end-user
 
@@ -51,7 +51,7 @@ Logout as end user
     # If logout is successful the user will be taken to the Springster Demo Example Home Page.
     springster.Assert Landing Page Header
 
-Logout from edit profile page
+Logout from user's edit profile page
     [Documentation]
     [Tags]
 
@@ -83,7 +83,7 @@ Verify the fields shown on the end-user registration form.
 
     springster.Verify User Form Fields  end-user
 
-De-activate end user
+Site must not allow de-activated user to login.
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
     [Tags]  ready  end-user
 
@@ -91,7 +91,7 @@ De-activate end user
     springster.Login As User  ${API_USER}
     springster.Ensure Login Blocked
 
-Re-activate end user
+Site must allow re-activated user to login.
     [Documentation]  Re-activate a previously blocked user and ensure they can login.
     [Tags]  ready  end-user
 
@@ -100,7 +100,7 @@ Re-activate end user
     #springster.Authorise Registration
     springster.Assert User Logged In
 
-End user registration with missing fields
+Check that site displays errors if empty fields submitted on registration.
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
     [Tags]  ready  end-user
 
