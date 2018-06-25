@@ -131,6 +131,13 @@ Reset end user pwd via security questions and enter mismatched passwords.
     springster.Reset Password Via Questions  ${END_USER_MIS_PASS}
     springster.Verify Password Mismatch
 
+Reset end user password and enter invalid password length.
+    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
+    [Tags]  wip  end-user
+
+    springster.Reset Password Via Questions  ${END_USER_INVALID_PASS}
+    springster.Verify Password Mismatch
+
 Reset end user pwd via security questions and answer security questions incorrectly.
     [Documentation]  Check that form throws appropriate error if the security question answers are incorrect. Test below checks this anyway.
     [Tags]  deprecated  end-user
@@ -218,6 +225,17 @@ Update end user password via profile page - enter incorrect old password.
     springster.Enter New Password  ${END_USER_RESET}
     springster.Assert Old Password Error
 
+Update end user password via profile page - enter invalid password length.
+    [Documentation]  System must throw error if user enters invalid password length.
+    [Tags]  ready  end-user
+
+    springster.Login As User  ${END_USER_RESTORE}
+    springster.Goto Edit User Profile Page
+    springster.Update User Password
+    springster.Enter Old Password  ${END_USER_RESTORE}
+    springster.Enter New Password  ${END_USER_INVALID_PASS}
+    springster.Password Length Error  ${END_USER_INVALID_PASS}
+
 End user age validation
     [Documentation]
     [Tags]  wip
@@ -264,29 +282,27 @@ Reset password for email address which does not exist.
     springster.Reset Password Invalid Username  ${END_USER_BLANK_PASS}
     springster.Show Reset Sent Message
 
-Password validation on reset pages. Must enforce rules for end/system users.
-    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
+Password validation on password update page.
+    [Documentation]  Ensure that the validation rules applied on registration form are used on the update form.
     [Tags]  wip  end-user
-
-Password validation on password update page. Must enforce rules for end/system users.
-    [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
-    [Tags]  wip  end-user
-
-
-Verify Home Link On Lockout Page
-Remove end user record
-    [Documentation]  Remove the user record added in the first test.
-    [Tags]  ready  end-user
-
-    girleffect_api.Delete User  ${END_USER_VALID}
 
 Login to non-English site
     [Documentation]  Make sure the translated sites load.
     [Tags]  ready  end-user
 
-    springster.Login As User  ${END_USER_RESTORE}
+    springster.Login As User  ${API_USER}
     springster.Load Localised Sites
+
+Verify Home Link On Lockout Page
+    [Documentation]  Home link should appear on lockout page.
+    [Tags]  wip  end-user
 
 Password reset link invalid/old/expired
     [Documentation]  Make sure the translated sites load.
     [Tags]  wip  end-user
+
+Remove end user record
+    [Documentation]  Remove the user record added in the first test.
+    [Tags]  ready  end-user
+
+    girleffect_api.Delete User  ${END_USER_VALID}

@@ -42,3 +42,6 @@ Click Update
 
 Incorrect Old Password
     Wait Until Page Contains  Your old password was entered incorrectly. Please enter it again.
+
+Assert Password Length Error
+    Wait Until Page Contains  Password not long enough.
