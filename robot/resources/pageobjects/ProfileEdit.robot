@@ -105,3 +105,13 @@ Goto Update Password Page
 Verify Password Update Msg
     Wait Until Page Contains Element  ${profileedit.messagelist}
     Element Text Should Be  ${profileedit.messagelist}  Successfully updated password.
+
+Verify Afrikaans Text
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[1]/a  Opdateer wagwoord
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[2]/a  Veiligheidsvraagopdatering
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[3]/a  Skrap rekening
+
+Verify German Text
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[1]/a  Passwort aktualisieren
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[2]/a  Sicherheitsfragen aktualisieren
+    Element Text Should Be  xpath://*[@id="content"]/form/div[4]/ul/li[3]/a  Konto löschen

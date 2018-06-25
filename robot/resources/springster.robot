@@ -313,4 +313,8 @@ Show Reset Sent Message
     PasswordReset.Verify Reset Sent
 
 Load Localised Sites
-    
+    ProfileHome.Goto Afrikaans Site
+    ProfileEdit.Verify Afrikaans Text
+    Go Back
+    ProfileHome.Goto German Site
+    ProfileEdit.Verify German Text

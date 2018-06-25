@@ -160,8 +160,8 @@ End User submitting a request to delete their profile - valid email
     springster.Delete User Profile  ${END_USER_RESTORE}
 
 End User submitting a request to delete their profile - no email or msisdn
-    [Documentation]  GE-472. Check msisdn and email requirement. User must have valid values for both.
-    [Tags]  xxx  ready  end-user
+    [Documentation]  GE-472. Check that user account without email/msisdn can be deleted.
+    [Tags]  ready  end-user
 
     springster.Login As User  ${API_USER}
     springster.Delete User Profile  ${API_USER}
@@ -282,11 +282,11 @@ Remove end user record
 
 Login to non-English site
     [Documentation]  Make sure the translated sites load.
-    [Tags]  xxx  end-user
+    [Tags]  ready  end-user
 
-    springster.Login As User  ${END_USER_VALID}
+    springster.Login As User  ${END_USER_RESTORE}
     springster.Load Localised Sites
 
 Password reset link invalid/old/expired
     [Documentation]  Make sure the translated sites load.
-    [Tags]  xxx  end-user
+    [Tags]  wip  end-user
