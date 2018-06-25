@@ -240,6 +240,24 @@ Reset Password Invalid Email
     PasswordReset.Fill In Email  ${UserData}
     PasswordReset.Click Submit
 
+Reset Password Submit Answers
+    [Arguments]  ${UserData}
+
+    Goto Password Reset Page
+    PasswordReset.Fill In Username  ${UserData}
+    PasswordReset.Click Submit
+    PasswordReset.Get Answer Field ID
+    PasswordReset.Fill In Answer One  ${UserData}
+    PasswordReset.Fill In Answer Two  ${UserData}
+    PasswordReset.Click Submit
+
+Reset Password Submit Invalid Password
+    [Arguments]  ${UserData}
+    
+    PasswordReset.Fill In Password  ${UserData}
+    PasswordReset.Fill In Password Confirmation  ${UserData}
+    PasswordReset.Submit Password Reset
+
 Verify Django Success Page
     PasswordReset.Verify Django Page
 

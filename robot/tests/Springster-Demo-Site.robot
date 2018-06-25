@@ -133,10 +133,12 @@ Reset end user pwd via security questions and enter mismatched passwords.
 
 Reset end user password and enter invalid password length.
     [Documentation]  Ensure that the validation rules applied on registration form are used on the reset form.
-    [Tags]  wip  end-user
+    [Tags]  ready  end-user
 
-    springster.Reset Password Via Questions  ${END_USER_INVALID_PASS}
-    springster.Verify Password Mismatch
+    #springster.Reset Password Via Email  ${API_USER}
+    springster.Reset Password Submit Answers  ${API_USER}
+    springster.Reset Password Submit Invalid Password  ${END_USER_INVALID_PASS}
+    springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 Reset end user pwd via security questions and answer security questions incorrectly.
     [Documentation]  Check that form throws appropriate error if the security question answers are incorrect. Test below checks this anyway.
