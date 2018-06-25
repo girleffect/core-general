@@ -161,7 +161,7 @@ End User submitting a request to delete their profile - valid email
 
 End User submitting a request to delete their profile - no email or msisdn
     [Documentation]  GE-472. Check msisdn and email requirement. User must have valid values for both.
-    [Tags]  ready  end-user
+    [Tags]  xxx  ready  end-user
 
     springster.Login As User  ${API_USER}
     springster.Delete User Profile  ${API_USER}
@@ -196,7 +196,7 @@ Update end user password via profile page
     [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_RESTORE}
-    springster.Goto Edit Profile Page
+    springster.Goto Edit User Profile Page
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESTORE}
     springster.Enter New Password  ${END_USER_RESET}
@@ -212,7 +212,7 @@ Update end user password via profile page - enter incorrect old password.
     [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_RESTORE}
-    springster.Goto Edit Profile Page
+    springster.Goto Edit User Profile Page
     springster.Update User Password
     springster.Enter Old Password  ${END_USER_RESET}
     springster.Enter New Password  ${END_USER_RESET}
@@ -281,5 +281,12 @@ Remove end user record
     girleffect_api.Delete User  ${END_USER_VALID}
 
 Login to non-English site
-    [Documentation]
-    [Tags]
+    [Documentation]  Make sure the translated sites load.
+    [Tags]  xxx  end-user
+
+    springster.Login As User  ${END_USER_VALID}
+    springster.Load Localised Sites
+
+Password reset link invalid/old/expired
+    [Documentation]  Make sure the translated sites load.
+    [Tags]  xxx  end-user

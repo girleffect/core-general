@@ -6,9 +6,7 @@ Library  REST
 
 *** Variables ***
 ${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable AUTHENTICATION_SERVICE_API_KEY
-#&{SCHEMA}  ssl=https  nossl=http
 &{AUTH_HOST}  local=localhost:8000  docker=core-authentication-service:8000  qa=authentication-service.qa-hub.ie.gehosting.org
-#${MGMT_HOST} =  access-control-service.qa-hub.ie.gehosting.org
 
 *** Keywords ***
 test

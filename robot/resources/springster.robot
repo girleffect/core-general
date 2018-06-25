@@ -117,25 +117,25 @@ Create New Profile
 Delete User Profile
     [Arguments]  ${UserData}
 
-    ProfileHome.Edit Profile
+    ProfileHome.Edit User Profile
     ProfileEdit.Verify Edit Page
-    Run Keyword If  "${UserData.username}" == "robotapiuser"  ProfileEdit.Delete Profile Missing Email
-    ...  ELSE  ProfileEdit.Delete Profile
+    Run Keyword If  "${UserData.username}" == "robotapiuser"  ProfileEdit.Delete Profile With Missing Email
+    ...  ELSE  ProfileEdit.Delete User Profile
 
-Goto Edit Profile Page
-    ProfileHome.Edit Profile
+Goto Edit User Profile Page
+    ProfileHome.Edit User Profile
 
 Edit User Profile
     [Arguments]  ${sex}  ${age}
 
     ProfileHome.Verify User Home Page
-    ProfileHome.Edit Profile
+    ProfileHome.Edit User Profile
     ProfileEdit.Verify Edit Page
     ProfileEdit.Fill In Age Field  ${age}
     ProfileEdit.Select Gender  ${sex}
     ProfileEdit.Click Update
     ProfileHome.Verify User Home Page
-    ProfileHome.Edit Profile
+    ProfileHome.Edit User Profile
     ProfileEdit.Check Age Field  ${age}
     ProfileEdit.Check Gender Field  ${sex}
 
@@ -149,7 +149,7 @@ Reset Edited Fields
 Update Security Questions
 
     ProfileHome.Verify User Home Page
-    ProfileEdit.Edit Profile
+    ProfileEdit.Edit User Profile
     ProfileEdit.Goto Update Questions Page
     UpdateQuestions.Verify Edit Questions Page
     UpdateQuestions.Select Question One
@@ -252,7 +252,7 @@ Reset Password Lockout
     PasswordReset.Click Submit
 
     PasswordReset.Get Answer Field ID
-    
+
     Repeat Keyword  5  PasswordReset.Reset Lockout Error Steps  ${UserData}
 
     PasswordReset.Submit Answers  ${UserData}
@@ -310,4 +310,7 @@ Ensure User Locked Out
     LoginPage.Assert Max Login Error
 
 Show Reset Sent Message
-        PasswordReset.Verify Reset Sent
+    PasswordReset.Verify Reset Sent
+
+Load Localised Sites
+    
