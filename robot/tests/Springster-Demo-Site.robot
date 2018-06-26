@@ -2,7 +2,7 @@
 Documentation  This is a suite of tests for the Springster demo site.
 Resource  ../resources/common.robot  # used for setup and teardown
 Resource  ../resources/springster.robot  # stores lower level keywords used by test.
-Resource  ../resources/API/girleffect_api.robot  # stores API level keywords.
+Resource  ../resources/api/girleffect_api.robot  # stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Begin Web Test

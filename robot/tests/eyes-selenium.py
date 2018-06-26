@@ -1,7 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.common import keys
 from applitools.eyes import Eyes
 
-class HelloWorld:
+class springster:
 
     eyes = Eyes()
 
@@ -23,40 +24,46 @@ class HelloWorld:
         # Visual checkpoint #1. Check landing page.
         eyes.check_window('Springster Example - Sign in')
 
-        # Click the 'Click me!' button.
+        # Click the 'Login' button.
         driver.find_element_by_css_selector('a.button:nth-child(4)').click()
 
         # Visual checkpoint #2. Check login page.
         eyes.check_window('Login')
 
         # Login to user profile.
-        driver.enter_username
-        driver.enter_password
-        driver.click_login
+        username = driver.find_element_by_css_selector('#id_auth-username');
+        password = driver.find_element_by_css_selector('#id_auth-password');
+
+        username.send_keys("klikl");
+        password.send_keys("restore");
+
+        driver.find_element_by_css_selector('#content > form > div.Form-buttons > input').click()
 
         # Visual checkpoint #3. Check profile home page.
         eyes.check_window('Springster Example - Home page')
 
         # Click the 'Edit profile' button.
-        driver.find_element_by_css_selector('a.button:nth-child(4)').click()
+        driver.find_element_by_css_selector('#wagtail > div > div > div > div:nth-child(2) > a').click()
 
-        # Visual checkpoint #4. Check edit profile page.
+        # Visual checkpoint #4. Check 'Edit profile' page.
         eyes.check_window('Edit Your Profile')
 
         # Click the 'Home' link.
-        driver.find_element_by_css_selector('a.button:nth-child(4)').click()
+        #driver.find_element_by_css_selector('#footer > div.Menu > ul.Menu-list.Menu-list--left > li > a').click()
+        driver.execute_script("window.history.go(-1)")
 
         # Goto 'Afrikaans' site:
-        driver.find_element_by_css_selector('a.button:nth-child(4)').click()
+        driver.find_element_by_css_selector('#wagtail > div > div > div > div:nth-child(5)').click()
 
         # Visual checkpoint #5. Check 'Afrikaans' page.
         eyes.check_window('Wysig jou profiel')
 
         # Click the 'Home' link.
-        driver.find_element_by_css_selector('a.button:nth-child(4)').click()
-
+        #driver.find_element_by_css_selector('#footer > div.Menu > ul.Menu-list.Menu-list--left > li > a').click()
+        driver.execute_script("window.history.go(-1)")
+        
         # Goto 'German' site:
-        driver.find_element_by_css_selector('a.button:nth-child(4)').click()
+        driver.find_element_by_css_selector('#wagtail > div > div > div > div:nth-child(6)').click()
 
         # Visual checkpoint #6. Check 'German' page.
         eyes.check_window('Bearbeite dein Profil')
