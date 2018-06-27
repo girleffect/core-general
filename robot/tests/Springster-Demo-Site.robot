@@ -8,7 +8,7 @@ Resource  ../resources/api/girleffect_api.robot  #stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Begin Web Test
-#Test Teardown  End Web Test
+Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***

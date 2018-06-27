@@ -8,13 +8,18 @@ Library  OperatingSystem
 *** Keywords ***
 Begin Web Test
     #Start Virtual Display  1920  1080
-    #${chrome_options} =     Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    #Call Method    ${chrome_options}   add_argument    headless
-    #Call Method    ${chrome_options}   add_argument    disable-gpu
-    #Call Method    ${chrome_options}   add_argument    no-sandbox
-    #${options}=     Call Method     ${chrome_options}    to_capabilities
-    
-    Open Browser  ${URL.${ENVIRONMENT}}  ${BROWSER}  #desired_capabilities=${options}
+    Go Headless
+    Open Browser  ${URL.${ENVIRONMENT}}  ${BROWSER}  desired_capabilities=${GC_OPTIONS}
+
+Go Headless
+
+    ${chrome_options} =     Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${chrome_options}   add_argument    headless
+    Call Method    ${chrome_options}   add_argument    disable-gpu
+    Call Method    ${chrome_options}   add_argument    no-sandbox
+
+    ${GC_OPTIONS} =     Call Method     ${chrome_options}    to_capabilities    
+    Set Global Variable  ${GC_OPTIONS}
 
 End Web Test
     Close All Browsers
