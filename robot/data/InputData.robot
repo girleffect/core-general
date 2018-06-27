@@ -13,3 +13,5 @@ ${BROWSER} =  chrome
 &{END_USER_BLANK_PASS}  type=end-user  username=qwerty  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@ge.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue
 &{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue
 &{END_USER_WRONG_ANSWERS}  username=robotanswers  first_answer=blue  second_answer=black
+
+&{SYS_USER_VALID}  type=system-user  username=robotsystem  pwd=sDf45Y7!@  pwd_conf=sDf45Y7!@  fname=Robot  lname=Framework  email=jasonbarr.qa+sys@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2  msisdn=0213456789  country=ZA

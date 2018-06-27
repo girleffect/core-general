@@ -14,7 +14,7 @@ ${registration.form_question1} =  name:form-0-question
 ${registration.form_answer1} =  name:form-0-answer
 ${registration.form_question2} =  name:form-1-question
 ${registration.form_answer2} =  name:form-1-answer
-
+## System User Fields ##
 ${registration.form_first} =  name:first_name
 ${registration.form_last} =  name:last_name
 ${registration.form_dob} =  name:dob
@@ -24,6 +24,7 @@ ${registration.form_email} =  name:email
 ${registration.form_country} =  name:country
 ${registration.form_msisdn} =  name:msisdn
 ${registration_form.qr_code} =  xpath://*[@class="QR-image"]
+##
 ${registration_form.terms} =  name:terms
 ${registration_form.tclink} =  xpath://a[@]
 ${registration_form.novalidate} =  var forms = document.querySelectorAll('.Form');for (var i = 0; i < forms.length; i++){forms[i].setAttribute('novalidate', false);}
@@ -31,6 +32,8 @@ ${registration_form.username_error} =  xpath://*//div[@class="Field-item"]//li[1
 ${registration_form.age_error} =  xpath://*/form/div[3]/div[1]/ul/li
 ${registration_form.pwd1_error} =  xpath://*[@id="content"]/form/div[4]/div[1]/ul/li
 ${registration_form.pwd2_error} =  xpath://*[@id="content"]/form/div[5]/div[1]/ul/li
+${registration_form.success} =  id:title
+${registration_form.success_msg} =  id:content
 
 *** Keywords ***
 
@@ -106,7 +109,7 @@ Accept Terms
     Click Element  ${registration_form.terms}
 
 Submit Form
-    Click Button  Register  
+    Click Button  Register
 
 Verify Registration Form
     #Wait Until Page Contains  Registration
@@ -152,11 +155,11 @@ Enter System User Fields
     [Arguments]  ${UserData}
 
     Input Text  ${registration.form_username}  ${UserData.username}
-    Input Text  ${registration.form_first}  Robot
-    Input Text  ${registration.form_last}  Framework
+    Input Text  ${registration.form_first}  ${UserData.fname}
+    Input Text  ${registration.form_last}  ${UserData.lname}
     Input Text  ${registration.form_email}  ${UserData.email}
-    Select From List By Value  ${registration.form_country}  ZA
-    Input Text  ${registration.form_msisdn}  0712345678
+    Select From List By Value  ${registration.form_country}  ${UserData.country}
+    Input Text  ${registration.form_msisdn}  ${UserData.msisdn}
     Select From List By Value  ${registration.form_gender}  ${UserData.gender}
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
@@ -167,7 +170,6 @@ Enter System User Fields
     Input Text  ${registration.form_answer2}  ${UserData.second_answer}
     
     Click Element  ${registration_form.terms}
-    Submit Form
     #Enable 2FA
     #Grab Code
 
@@ -283,6 +285,8 @@ Existing Credentials Error
     Run Keyword If  "${error.field}" == "email"  Wait Until Page Contains  Core user with this Email address already exists.
     ...  ELSE IF  "${error.field}" == "username"  Wait Until Page Contains  A user with that username already exists.
 
-
+Verify Registration Successful
+    Element Text Should Be  ${registration_form.success}  REGISTRATION SUCCESS
+    Element Text Should Be  ${registration_form.success_msg}  Congratulations, you have successfully registered for a Girl Effect account.
 
 

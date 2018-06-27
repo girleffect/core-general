@@ -8,7 +8,7 @@ Resource  ../resources/api/girleffect_api.robot  #stores API level keywords.
 
 #Suite Setup  Start Docker Container
 Test Setup  Begin Web Test
-Test Teardown  End Web Test
+#Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
@@ -19,6 +19,7 @@ Create a new end user profile
     [Tags]  ready  end-user
 
     springster.Create New Profile  ${END_USER_VALID}
+    springster.Check Registration Passed
 
 Login as a new end-user
     [Documentation]  Login as the end user created above.
@@ -71,7 +72,7 @@ Verify the fields shown on the end-user registration form.
 
     springster.Verify User Form Fields  end-user
 
-Site must not allow de-activated user to login.
+Site must not allow de-activated user to login. 
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
     [Tags]  ready  end-user
 
@@ -296,3 +297,36 @@ Remove end user record
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
+
+## Do some system-user checks here:
+
+Create a new system user profile
+    [Documentation]  Register as a system user.
+    [Tags]  ready  system-user
+
+    springster.Create New Profile  ${SYS_USER_VALID}
+    springster.Check Registration Passed
+
+Login as new system user
+    [Documentation]  Login as the end user created above.
+    [Tags]  ready  system-user
+
+    springster.Login As User  ${SYS_USER_VALID}
+    springster.Authorise Registration
+    springster.Assert User Logged In
+
+Remove system user record
+    [Documentation]  Remove the user record added in the first test.
+    [Tags]  ready  system-user
+
+    girleffect_api.Delete User  ${SYS_USER_VALID}
+
+System user password validation
+    [Template]  System user password checks
+
+    username  password  registered
+    valid       blank   not registered
+    blank       too short     not registered
+    blank       blank       not registered
+    valid       valid       already registered
+    valid       no uppercase etc.   not registered

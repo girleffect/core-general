@@ -21,6 +21,19 @@ Generate User Name
 Assert Landing Page Header
     LandingPage.Verify Landing Page
 
+Create New Profile
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Set No-validate
+    RegistrationPage.Verify Registration Form
+    RegistrationPage.Enter User Details  ${UserData}
+    RegistrationPage.Submit Form
+
+Check Registration Passed
+    RegistrationPage.Verify Registration Successful
+
 Verify User Form Fields
     [Arguments]  ${UserData}
 
@@ -103,16 +116,6 @@ Ensure Login Successful
 
 Assert User Logged In
     ProfileHome.Verify User Home Page
-
-Create New Profile
-    [Arguments]  ${UserData}
-
-    LandingPage.Load Landing Page
-    LandingPage.Open Registration Form  ${UserData}
-    RegistrationPage.Set No-validate
-    RegistrationPage.Verify Registration Form
-    RegistrationPage.Enter User Details  ${UserData}
-    RegistrationPage.Submit Form
 
 Delete User Profile
     [Arguments]  ${UserData}
