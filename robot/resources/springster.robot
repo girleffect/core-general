@@ -339,3 +339,9 @@ Load Localised Sites
     Go Back
     ProfileHome.Goto German Site
     ProfileEdit.Verify German Text
+
+Check Preselected Security Questions
+    ${form_url} =  Catenate  ${AUTH_SERVICE_URL.${ENVIRONMENT}}/en/registration/?theme=springster&hide=end-user&question_ids=2&question_ids=4
+    Go To  ${form_url}
+
+    RegistrationPage.Verify Preselected Question Values And Text

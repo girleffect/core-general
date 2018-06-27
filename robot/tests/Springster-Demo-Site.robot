@@ -292,6 +292,12 @@ Password reset link invalid/old/expired
     [Documentation]  Make sure the translated sites load.
     [Tags]  wip  end-user
 
+Show preselected security questions on form.
+    [Documentation]  GE-1086: User can specify which questions are shown in the form using url params.
+    [Tags]  xxx
+
+    springster.Check Preselected Security Questions
+
 Remove end user record
     [Documentation]  Remove the user record added in the first test.
     [Tags]  ready  end-user

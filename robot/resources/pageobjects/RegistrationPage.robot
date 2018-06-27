@@ -289,4 +289,6 @@ Verify Registration Successful
     Element Text Should Be  ${registration_form.success}  REGISTRATION SUCCESS
     Element Text Should Be  ${registration_form.success_msg}  Congratulations, you have successfully registered for a Girl Effect account.
 
-
+Verify Preselected Question Values And Text
+    List Selection Should Be  id:id_form-0-question  2
+    List Selection Should Be  id:id_form-1-question  4

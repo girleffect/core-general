@@ -3,6 +3,7 @@
 ${ENVIRONMENT} =  Get Environment Variable ENVIRONMENT docker
 ${BROWSER} =  chrome
 &{URL}  local=http://localhost:8000  qa=http://springster-example.qa-hub.ie.gehosting.org/  docker=http://wagtail-demo-1-site-1:8000/
+&{AUTH_SERVICE_URL}  qa=https://authentication-service.qa-hub.ie.gehosting.org
 &{GMP_URL}  local=http://localhost:8000  qa=http://management-portal.qa-hub.ie.gehosting.org/#/login
 &{API_USER}  id=568a2114-6a3b-11e8-aa86-0242ac11000f  username=robotapiuser  pwd=SDF45!@  pwd_conf=SDF45!@  first_answer=blue  second_answer=blue
 &{END_USER_VALID}  type=end-user  username=robotframework  pwd=SDF45!@  pwd_conf=SDF45!@  email=jasonbarr.qa@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2
