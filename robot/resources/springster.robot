@@ -343,9 +343,20 @@ Load Localised Sites
 Check Preselected Security Questions
     ${form_url} =  Catenate  ${AUTH_SERVICE_URL.${ENVIRONMENT}}/en/registration/?theme=springster&hide=end-user&question_ids=2&question_ids=4
     Go To  ${form_url}
-    RegistrationPage.Verify Preselected Question Defaults
+    RegistrationPage.Verify Preselected Question Values And Text
 
 Check Security Question Defaults
     ${form_url} =  Catenate  ${AUTH_SERVICE_URL.${ENVIRONMENT}}/en/registration/?theme=springster&hide=end-user
     Go To  ${form_url}
     RegistrationPage.Verify Preselected Question Defaults
+
+User Credential Validation
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    RegistrationPage.Set No-validate
+    LoginPage.Enter Auth Username  ${UserData}
+    LoginPage.Enter Auth Password  ${UserData}
+    LoginPage.Submit
+    LoginPage.Verify Login Error  ${UserData}

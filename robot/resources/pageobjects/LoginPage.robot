@@ -45,3 +45,8 @@ Assert Max Login Error
     Wait Until Page Contains  Oh no! You've been locked out
     Element Text Should Be  ${loginpage.content}  You have exceeded the maximum number of allowed incorrect login attempts (5). Please wait 10 minutes before trying again.
     #Element Should Be Visible  xpath://a[@href="/en/login/"]
+
+Verify Login Error
+    [Arguments]  ${UserData}
+
+    Wait Until Page Contains  ${UserData.error}

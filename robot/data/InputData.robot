@@ -16,3 +16,6 @@ ${BROWSER} =  chrome
 &{END_USER_WRONG_ANSWERS}  username=robotanswers  first_answer=blue  second_answer=black
 
 &{SYS_USER_VALID}  type=system-user  username=robotsystem  pwd=sDf45Y7!@  pwd_conf=sDf45Y7!@  fname=Robot  lname=Framework  email=jasonbarr.qa+sys@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2  msisdn=0213456789  country=ZA
+&{SYS_UNREGISTERED_USER}  type=system-user  username=robotnoreg  pwd=sDf45Y7!@  error=Please enter a correct username and password. Note that both fields may be case-sensitive.
+&{SYS_BLANK_USERNAME_USER}  type=system-user  username=${EMPTY}  pwd=sDf45Y7!@  pwd_conf=sDf45Y7!@  error=This field is required.
+&{SYS_INVALID_PASSWORD_USER}  type=system-user  username=robotsystem  pwd=wrongpass  error=Please enter a correct username and password. Note that both fields may be case-sensitive.

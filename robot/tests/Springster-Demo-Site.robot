@@ -327,18 +327,18 @@ Login as new system user
     springster.Authorise Registration
     springster.Assert User Logged In
 
+System user login credential validation
+    [Documentation]  Test multiple login scenarios.
+    [Tags]  ready  system-user
+    [Template]  User Credential Validation
+
+    ${SYS_UNREGISTERED_USER}
+    ${SYS_BLANK_USERNAME_USER}
+    ${SYS_INVALID_PASSWORD_USER}
+
 Remove system user record
     [Documentation]  Remove the user record added in the first test.
     [Tags]  ready  system-user
 
     girleffect_api.Delete User  ${SYS_USER_VALID}
 
-System user password validation
-    [Template]  System user password checks
-
-    username  password  registered
-    valid       blank   not registered
-    blank       too short     not registered
-    blank       blank       not registered
-    valid       valid       already registered
-    valid       no uppercase etc.   not registered
