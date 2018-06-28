@@ -294,9 +294,15 @@ Password reset link invalid/old/expired
 
 Show preselected security questions on form.
     [Documentation]  GE-1086: User can specify which questions are shown in the form using url params.
-    [Tags]  xxx
+    [Tags]  end-user  ready
 
     springster.Check Preselected Security Questions
+
+Check security question default values
+    [Documentation]  GE-1086: Ensure default values are in place if no question_id is specified.
+    [Tags]  end-user  ready
+
+    springster.Check Security Question Defaults
 
 Remove end user record
     [Documentation]  Remove the user record added in the first test.

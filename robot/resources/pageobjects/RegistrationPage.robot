@@ -292,3 +292,7 @@ Verify Registration Successful
 Verify Preselected Question Values And Text
     List Selection Should Be  id:id_form-0-question  2
     List Selection Should Be  id:id_form-1-question  4
+
+Verify Preselected Question Defaults
+    List Selection Should Be  id:id_form-0-question  ${EMPTY}
+    List Selection Should Be  id:id_form-1-question  ${EMPTY}
