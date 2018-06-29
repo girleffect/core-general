@@ -261,6 +261,8 @@ Question Usage
     Page Should Not Contain  Each question can only be picked once.
 
 Password Match Error
+    [Arguments]  ${UserData}
+
     Wait Until Element Contains  ${registration_form.pwd2_error}  ${UserData.error}
 
 Password Length Error
@@ -273,6 +275,8 @@ Password Length Error
     #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
 Password Blank Error
+    [Arguments]  ${UserData}
+
     Wait Until Element Contains  ${registration_form.pwd1_error}  ${UserData.error}
     Wait Until Element Contains  ${registration_form.pwd2_error}  ${UserData.error}
 

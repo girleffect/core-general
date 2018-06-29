@@ -52,22 +52,22 @@ Create end user profile using username which already exists
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  ready  end-user  deprecate
+    [Tags]  ready  end-user
 
     springster.Create New Profile  ${END_USER_INVALID_PASS}
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
     [Documentation]  Form must show appropriate error if password field is not entered.
-    [Tags]  ready  end-user  deprecate
+    [Tags]  ready  end-user  xxx
 
     springster.Create New Profile  ${END_USER_BLANK_PASS}
-    springster.Password Blank Error
+    springster.Password Blank Error  ${END_USER_BLANK_PASS}
 
 End user credential validation
-    [Documentation]
-    [Tags]  xxx
-    [Template]  Create New Profile
+    [Documentation]  Test end user credential validation.
+    [Tags]  wip  end-user
+    [Template]  Create New Profile With Errors
 
     ${END_USER_INVALID_PASS}
     ${END_USER_BLANK_PASS}
@@ -106,10 +106,10 @@ Check that site displays errors if empty fields submitted on registration.
 
 Password confirmation doesn't match
     [Documentation]  Password and password confirmation must match.
-    [Tags]  ready  end-user  deprecate
+    [Tags]  ready  end-user  xxx
 
     springster.Create New Profile  ${END_USER_MIS_PASS}
-    springster.Password Match Error
+    springster.Password Match Error  ${END_USER_MIS_PASS}
 
 Reset end user pwd via security questions
     [Documentation]  Reset password by answering security questions. End-user with no email address.

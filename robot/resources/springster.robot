@@ -82,10 +82,14 @@ Password Length Error
     RegistrationPage.Password Length Error  ${UserData}
 
 Password Format Error
+    [Arguments]  ${UserData}
+
     RegistrationPage.Password Format Error
 
 Password Blank Error
-    RegistrationPage.Password Blank Error
+    [Arguments]  ${UserData}
+
+    RegistrationPage.Password Blank Error  ${UserData}
 
 Enable 2FA
     [Arguments]
@@ -325,7 +329,9 @@ Verify Incorrect Answer Error
     PasswordReset.Assert Incorrect Answer Message
 
 Password Match Error
-    RegistrationPage.Password Match Error
+    [Arguments]  ${UserData}
+    
+    RegistrationPage.Password Match Error  ${UserData}
 
 Ensure User Locked Out
     LoginPage.Assert Max Login Error
@@ -366,4 +372,3 @@ Registration Form Credential Validation
 
     Create New Profile  ${UserData}
     Verify Registration Error  ${UserData}
-
