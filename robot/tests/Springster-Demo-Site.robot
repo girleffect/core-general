@@ -52,19 +52,26 @@ Create end user profile using username which already exists
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  deprecate
 
-    springster.Generate User Name
     springster.Create New Profile  ${END_USER_INVALID_PASS}
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
     [Documentation]  Form must show appropriate error if password field is not entered.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  deprecate
 
-    springster.Generate User Name
     springster.Create New Profile  ${END_USER_BLANK_PASS}
     springster.Password Blank Error
+
+End user credential validation
+    [Documentation]
+    [Tags]  xxx
+    [Template]  Create New Profile
+
+    ${END_USER_INVALID_PASS}
+    ${END_USER_BLANK_PASS}
+    ${END_USER_MIS_PASS}
 
 Verify the fields shown on the end-user registration form.
     [Documentation]  The end user form should have different visible fields to the system user form.
@@ -99,7 +106,7 @@ Check that site displays errors if empty fields submitted on registration.
 
 Password confirmation doesn't match
     [Documentation]  Password and password confirmation must match.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  deprecate
 
     springster.Create New Profile  ${END_USER_MIS_PASS}
     springster.Password Match Error
@@ -330,11 +337,17 @@ Login as new system user
 System user login credential validation
     [Documentation]  Test multiple login scenarios.
     [Tags]  ready  system-user
-    [Template]  User Credential Validation
+    [Template]  Login Form Credential Validation
 
     ${SYS_UNREGISTERED_USER}
     ${SYS_BLANK_USERNAME_USER}
     ${SYS_INVALID_PASSWORD_USER}
+
+System user registration form validation
+    [Documentation]
+    [Tags]
+    [Template]  Registration Form Credential Validation
+
 
 Remove system user record
     [Documentation]  Remove the user record added in the first test.

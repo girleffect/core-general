@@ -261,20 +261,20 @@ Question Usage
     Page Should Not Contain  Each question can only be picked once.
 
 Password Match Error
-    Wait Until Element Contains  ${registration_form.pwd2_error}  The two password fields didn't match.
+    Wait Until Element Contains  ${registration_form.pwd2_error}  ${UserData.error}
 
 Password Length Error
     [Arguments]  ${UserData}
 
     Set Selenium Implicit Wait  5s
     
-    Run Keyword If  "${UserData.type}" == "end-user"  Wait Until Page Contains  Password not long enough.
+    Run Keyword If  "${UserData.type}" == "end-user"  Wait Until Page Contains  ${UserData.error}
     ...  ELSE IF  "${UserData.type}" == "system-user"  Wait Until Page Contains  This password is too short. It must contain at least 8 characters.
     #The password must contain at least one uppercase letter, one lowercase one, a digit and special character.
 
 Password Blank Error
-    Wait Until Element Contains  ${registration_form.pwd1_error}  This field is required.
-    Wait Until Element Contains  ${registration_form.pwd2_error}  This field is required.
+    Wait Until Element Contains  ${registration_form.pwd1_error}  ${UserData.error}
+    Wait Until Element Contains  ${registration_form.pwd2_error}  ${UserData.error}
 
 Password Format Error
     Log  This isn't ready yet...

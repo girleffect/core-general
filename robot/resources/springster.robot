@@ -350,7 +350,7 @@ Check Security Question Defaults
     Go To  ${form_url}
     RegistrationPage.Verify Preselected Question Defaults
 
-User Credential Validation
+Login Form Credential Validation
     [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
@@ -360,3 +360,10 @@ User Credential Validation
     LoginPage.Enter Auth Password  ${UserData}
     LoginPage.Submit
     LoginPage.Verify Login Error  ${UserData}
+
+Registration Form Credential Validation
+    [Arguments]  ${UserData}
+
+    Create New Profile  ${UserData}
+    Verify Registration Error  ${UserData}
+
