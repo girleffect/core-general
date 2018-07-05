@@ -35,6 +35,7 @@ ${registration_form.pwd2_error} =  xpath://*[@id="content"]/form/div[5]/div[1]/u
 ${registration_form.success} =  id:title
 ${registration_form.success_msg} =  id:content
 ${registration_form.submit} =  name:submit
+${registration_form.back_btn} =  name:wizard_goto_step
 
 *** Keywords ***
 
@@ -154,7 +155,9 @@ Enter End User Fields
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
     Input Text  ${registration.form_answer2}  ${UserData.second_answer}
-    
+
+    Element Should Be Visible  ${registration_form.back_btn}
+
     Click Element  ${registration_form.terms}
 
 Enter System User Fields
@@ -305,3 +308,6 @@ Verify Preselected Question Values And Text
 Verify Preselected Question Defaults
     List Selection Should Be  id:id_form-0-question  ${EMPTY}
     List Selection Should Be  id:id_form-1-question  ${EMPTY}
+
+Go Back To First Step
+    Click Element  ${registration_form.back_btn}

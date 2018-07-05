@@ -311,6 +311,10 @@ Check security question default values
 
     springster.Check Security Question Defaults
 
+Back button on end user form should take user to first step.
+    [Documentation]  Back button should take user to first step and keep fields filled in.
+    [Tags]  end-user  wip
+
 Remove end user record
     [Documentation]  Remove the user record added in the first test.
     [Tags]  ready  end-user
