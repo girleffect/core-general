@@ -21,6 +21,7 @@ ${profileedit.delete_deny} =  xpath://a[contains(text(), "No, I've changed my mi
 ${profileedit.messagelist} =  id:messagelist
 ${profileedit.logout_lnk} =  xpath://a[contains(text(), "Logout")]
 ${profileedit.back_lnk} =  xpath://a[contains(text(), "Back")]
+${profileedit.avatar} =  xpath://label[@for="id_avatar"]
 
 *** Keywords ***
 
@@ -31,6 +32,7 @@ Verify Edit Page
     Element Should Be Visible  ${profileedit.sex_select}
     Element Should Be Visible  ${profileedit.age_select}
     Element Should Be Visible  ${profileedit.update_btn}
+    Element Should Be Visible  ${profileedit.avatar}
     Element Should Be Visible  ${profileedit.update_pwd_lnk}
     Element Should Be Visible  ${profileedit.questions_lnk}
     Element Should Be Visible  ${profileedit.logout_lnk}

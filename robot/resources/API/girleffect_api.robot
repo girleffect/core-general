@@ -9,15 +9,6 @@ ${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable AUTHENTICATION_SER
 &{AUTH_HOST}  local=localhost:8000  docker=core-authentication-service:8000  qa=authentication-service.qa-hub.ie.gehosting.org
 
 *** Keywords ***
-test
-    RequestsLibrary.Create Session  hook  https://auth.bench.id.aspect-cloud.net  verify=${True}
-   ${body} =  Create Dictionary  grant_type=client_credentials  username=OUTREACH_API_CLIENT  password=Ff8sSPnLLQhk1suw_2BadRZTCGd2DCYnKwjVha+TZFw\=  scope=outreachapi
-   ${headers} =  Create Dictionary  Content-Type=application/x-www-form-urlencoded
-   ${resp} =  RequestsLibrary.Post Request  hook  /oauth2/access_token?realm=heroes  data=${body}  headers=${headers}
-   Should Be Equal As Strings  ${resp.status_code}  200
-   ${accessToken} =  evaluate  $resp.json().get("access_token")
-   Set Global Variable  ${accessToken}
-
 Get Access Token
     RequestsLibrary.Create Session  hook  https://${AUTH_HOST}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email
@@ -108,20 +99,20 @@ Get User ID
 Get Site Roles
     RequestsLibrary.Create Session  hook  http://${host}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email
-    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${AUTHENTICATION_SERVICE_API_KEY
+    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${AUTHENTICATION_SERVICE_API_KEY}
     ${resp} =  RequestsLibrary.Get Request  hook  /api/v1/ops/tech_admin_resource_permissions  headers=${headers}
     Should Be Equal As Strings  ${resp.status_code}  200
     Log  ${resp.content}
     #Dictionary Should Contain Value  ${resp.json()}  ["permission_id"]
 
 rest get token
-   REST.POST  http://${AUTH_HOST.${ENVIRONMENT}}/openid/token  body={"grant_type":"password","client_id":"872786","client_secret":"bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058","username":"jasonb","password":"12QWas\!\@","scope":"openid%20site%20roles%20email"}
+   REST.POST  https://${AUTH_HOST.${ENVIRONMENT}}/openid/token  body={"grant_type":"password","client_id":"872786","client_secret":"bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058","username":"jasonb","password":"12QWas\!\@","scope":"openid%20site%20roles%20email"}
    Set Headers  {"Content-Type":"application/x-www-form-urlencoded"}
-   Output  response body
+   #Output  response body
    Integer  response status  200
-   #${rest_token} =  String  response body access_token
+   ${rest_token} =  String  response body access_token
    #Set Headers   {"Authorization":"JWT ${jwt_token}"}
-   #Log  ${rest_token}
+   Log  ${rest_token}
 
 rest get user id
     REST.GET  https://${AUTH_HOST.${ENVIRONMENT}}/api/v1/users?username=robot
@@ -130,6 +121,7 @@ rest get user id
     Output  response
     Integer  response status  200
     #Array       response body
-    #Object      response body 0
+    ${something} =  response body 0 id
+    Log  ${something}
     #Integer     response body 0 id        1
     #[Teardown]  Output  response body 0

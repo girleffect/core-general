@@ -4,8 +4,6 @@ Resource  ../resources/API/girleffect_api.robot
 
 *** Variables ***
 ${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable AUTHENTICATION_SERVICE_API_KEY
-${auth_host} =  authentication-service.qa-hub.ie.gehosting.org
-${host} =  access-control-service.qa-hub.ie.gehosting.org
 
 *** Test Cases ***
 Get access_token using password authentication
@@ -25,6 +23,7 @@ test restinstance
     [Documentation]  blah
     [Tags]  rest
 
+    #girleffect_api.rest get token  
     girleffect_api.rest get user id
 
 test

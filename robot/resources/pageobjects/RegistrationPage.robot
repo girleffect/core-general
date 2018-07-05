@@ -34,6 +34,7 @@ ${registration_form.pwd1_error} =  xpath://*[@id="content"]/form/div[4]/div[1]/u
 ${registration_form.pwd2_error} =  xpath://*[@id="content"]/form/div[5]/div[1]/ul/li
 ${registration_form.success} =  id:title
 ${registration_form.success_msg} =  id:content
+${registration_form.submit} =  name:submit
 
 *** Keywords ***
 
@@ -108,6 +109,9 @@ Enter Answer Two
 Accept Terms
     Click Element  ${registration_form.terms}
 
+Submit First Form
+    Click Element  ${registration_form.submit}
+
 Submit Form
     Click Button  Register
 
@@ -144,6 +148,8 @@ Enter End User Fields
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
     Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
+    # Click Submit To Go To Second Step
+    Click Element  ${registration_form.submit}
     Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
@@ -178,7 +184,6 @@ Verify System User Login
     Click Button  Next
 
 Verify End User Fields
-    # TODO - figure out a way to reduce this to a line of code.
     Element Should Be Visible  ${registration.form_username}
     Element Should Be Visible  ${registration.form_gender}
     Element Should Be Visible  ${registration.form_age}

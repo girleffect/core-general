@@ -59,7 +59,7 @@ End user password validation - length
 
 End user password validation - blank
     [Documentation]  Form must show appropriate error if password field is not entered.
-    [Tags]  ready  end-user  xxx
+    [Tags]  ready  end-user
 
     springster.Create New Profile  ${END_USER_BLANK_PASS}
     springster.Password Blank Error  ${END_USER_BLANK_PASS}
@@ -106,7 +106,7 @@ Check that site displays errors if empty fields submitted on registration.
 
 Password confirmation doesn't match
     [Documentation]  Password and password confirmation must match.
-    [Tags]  ready  end-user  xxx
+    [Tags]  ready  end-user
 
     springster.Create New Profile  ${END_USER_MIS_PASS}
     springster.Password Match Error  ${END_USER_MIS_PASS}
