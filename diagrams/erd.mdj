@@ -4696,7 +4696,7 @@
 									"font": "Arial;13;1",
 									"left": 192,
 									"top": 1541,
-									"width": 281.1259765625,
+									"width": 291.00927734375,
 									"height": 13,
 									"text": "Invitation"
 								},
@@ -4722,7 +4722,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1564,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4737,7 +4737,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1579,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4752,7 +4752,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1594,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4767,7 +4767,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1609,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4782,7 +4782,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1624,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4797,7 +4797,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1639,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4812,7 +4812,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1654,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4827,7 +4827,7 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1669,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										},
 										{
@@ -4842,22 +4842,22 @@
 											"font": "Arial;13;0",
 											"left": 197,
 											"top": 1684,
-											"width": 271.1259765625,
+											"width": 281.00927734375,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 192,
 									"top": 1559,
-									"width": 281.1259765625,
+									"width": 291.00927734375,
 									"height": 143
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 192,
 							"top": 1536,
-							"width": 281.1259765625,
-							"height": 166,
+							"width": 291.00927734375,
+							"height": 169,
 							"nameLabel": {
 								"$ref": "AAAAAAFf47GcA0eLUmw="
 							},
@@ -6645,7 +6645,7 @@
 									"top": 1141,
 									"width": 212.5078125,
 									"height": 13,
-									"text": "Organisational Unit"
+									"text": "Organisation"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -7201,7 +7201,7 @@
 										"$ref": "AAAAAAFkX2peaCxyxJM="
 									},
 									"font": "Arial;13;0",
-									"left": 487,
+									"left": 497,
 									"top": 1631,
 									"width": 126.4833984375,
 									"height": 13,
@@ -7220,7 +7220,7 @@
 							"tail": {
 								"$ref": "AAAAAAFhVrNfHl9uFSE="
 							},
-							"points": "1513:1241;1513:1616;472:1616",
+							"points": "1513:1241;1513:1616;482:1616",
 							"nameLabel": {
 								"$ref": "AAAAAAFkX2peaCxzCS4="
 							},
@@ -7285,7 +7285,7 @@
 										"$ref": "AAAAAAFkX8noBSyPFgI="
 									},
 									"font": "Arial;13;0",
-									"left": 503,
+									"left": 513,
 									"top": 1568,
 									"width": 52.025390625,
 									"height": 13,
@@ -7304,7 +7304,7 @@
 							"tail": {
 								"$ref": "AAAAAAFfCeOfnsXIQBs="
 							},
-							"points": "1400:696;1400:1592;472:1592",
+							"points": "1400:696;1400:1592;482:1592",
 							"nameLabel": {
 								"$ref": "AAAAAAFkX8noBSyQ9xk="
 							},
@@ -7957,7 +7957,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFfCeOfncXGQRA="
 							},
-							"name": "organsational_unit_id",
+							"name": "organisation_id",
 							"type": "INTEGER",
 							"length": 0,
 							"foreignKey": true
@@ -10877,7 +10877,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFfCeNqV8XBzKs="
 					},
-					"name": "Organisational Unit",
+					"name": "Organisation",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
