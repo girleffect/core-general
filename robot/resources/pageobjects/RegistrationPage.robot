@@ -124,12 +124,6 @@ Enter User Details
     Run Keyword If  "${UserData.type}" == "end-user"  Enter End User Fields  ${UserData}
     ...  ELSE IF  "${UserData.type}" == "system-user"  Enter System User Fields  ${UserData}
 
-Verify User Fields
-    [Arguments]  ${UserData}
-
-    Run Keyword If  "${UserData.type}" == "end-user"  Verify End User Fields
-    ...  ELSE IF  "${UserData.type}" == "system-user"  Verify System User Fields
-
 Enable 2FA
     Verify System User Login
 
@@ -184,63 +178,15 @@ Enter System User Fields
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
     Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
-    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
-    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
-    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
-    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
-    
+
     Click Element  ${registration_form.terms}
-    #Enable 2FA
-    #Grab Code
+    #Click Button  Submit
 
-Verify System User Login
-    Wait Until Page Contains  Enable Two-Factor Authentication
-    Click Button  Next
-
-Verify End User Fields
-    Element Should Be Visible  ${registration.form_username}
-    Element Should Be Visible  ${registration.form_gender}
-    Element Should Be Visible  ${registration.form_age}
-    Element Should Be Visible  ${registration.form_pwd1}
-    Element Should Be Visible  ${registration.form_pwd2}
-    Element Should Be Visible  ${registration_form.terms}
-
-    Click Element  ${registration_form.submit}
-
-    Element Should Be Visible  ${registration.form_question1}
-    Element Should Be Visible  ${registration.form_answer1}
-    Element Should Be Visible  ${registration.form_question2}
-    Element Should Be Visible  ${registration.form_answer2}
-
-    Element Should Not Be Visible  ${registration.form_first}
-    Element Should Not Be Visible  ${registration.form_last}
-    Element Should Not Be Visible  ${registration.form_dob}
-    Element Should Not Be Visible  ${registration.form_nickname}
-    Element Should Not Be Visible  ${registration.form_avatar}
-    Element Should Not Be Visible  ${registration.form_email}
-    Element Should Not Be Visible  ${registration.form_country}
-    Element Should Not Be Visible  ${registration.form_msisdn}
-
-Verify System User Fields
-    Element Should Be Visible  ${registration.form_username}
-    Element Should Be Visible  ${registration.form_gender}
-    Element Should Be Visible  ${registration.form_age}
-    Element Should Be Visible  ${registration.form_pwd1}
-    Element Should Be Visible  ${registration.form_pwd2}
-    Element Should Be Visible  ${registration.form_question1}
-    Element Should Be Visible  ${registration.form_answer1}
-    Element Should Be Visible  ${registration.form_question2}
-    Element Should Be Visible  ${registration.form_answer2}
-    Element Should Be Visible  ${registration_form.terms}
-    Element Should Be Visible  ${registration.form_first}
-    Element Should Be Visible  ${registration.form_last}
-    #Element Should Be Visible  ${registration.form_dob}
-    #Element Should Be Visible  ${registration.form_avatar}
-    Element Should Be Visible  ${registration.form_email}
-    Element Should Be Visible  ${registration.form_country}
-    Element Should Be Visible  ${registration.form_msisdn}
-
-    Element Should Not Be Visible  ${registration.form_nickname}
+    # Only ask for security questions
+    #Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
+    #Input Text  ${registration.form_answer1}  ${UserData.first_answer}
+    #Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
+    #Input Text  ${registration.form_answer2}  ${UserData.second_answer}
 
 Password Match Error
     [Arguments]  ${UserData}

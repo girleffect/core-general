@@ -43,13 +43,6 @@ Submit First End User Form
 Check Registration Passed
     RegistrationPage.Verify Registration Successful
 
-Verify User Form Fields
-    [Arguments]  ${UserData}
-
-    LandingPage.Load Landing Page
-    LandingPage.Open Registration Form  ${END_USER_VALID}
-    RegistrationPage.Verify User Fields  ${END_USER_VALID}
-
 Authorise Registration
     AuthPage.Verify Auth Page
     AuthPage.Authorise

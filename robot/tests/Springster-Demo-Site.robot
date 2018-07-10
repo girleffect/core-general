@@ -73,13 +73,6 @@ End user credential validation
     ${END_USER_BLANK_PASS}
     ${END_USER_MIS_PASS}
 
-Verify the fields shown on the end-user registration form.
-    [Documentation]  The end user form should have different visible fields to the system user form. 
-    ...  Not using anymore, if new profile works, this is ok.
-    [Tags]  deprecated  end-user
-
-    springster.Verify User Form Fields  end-user
-
 Site must not allow de-activated user to login. 
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
     [Tags]  ready  end-user
@@ -303,9 +296,10 @@ Remove end user record
 
 Each form question can only be picked once.
     [Documentation]  Ensure that users are not able to select a pwd question multiple times.
-    [Tags]  ready  end-user  xxx
+    [Tags]  ready  end-user
 
     springster.Registration Question Selection Validation  ${END_USER_VALID}
+    girleffect_api.Delete User  ${END_USER_VALID}
     #springster.registration questions  system-user
     #TODO: Add check from profile edit as well.
 
