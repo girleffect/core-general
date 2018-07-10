@@ -52,9 +52,8 @@ Create end user profile using username which already exists
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  ready  end-user  wip
+    [Tags]  ready  end-user
 
-    #springster.Create New Profile  ${END_USER_INVALID_PASS}
     springster.Submit First End User Form  ${END_USER_INVALID_PASS}
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
@@ -62,7 +61,7 @@ End user password validation - blank
     [Documentation]  Form must show appropriate error if password field is not entered.
     [Tags]  ready  end-user
 
-    springster.Create New Profile  ${END_USER_BLANK_PASS}
+    springster.Submit First End User Form  ${END_USER_BLANK_PASS}
     springster.Password Blank Error  ${END_USER_BLANK_PASS}
 
 End user credential validation
@@ -75,8 +74,9 @@ End user credential validation
     ${END_USER_MIS_PASS}
 
 Verify the fields shown on the end-user registration form.
-    [Documentation]  The end user form should have different visible fields to the system user form.
-    [Tags]  ready  end-user
+    [Documentation]  The end user form should have different visible fields to the system user form. 
+    ...  Not using anymore, if new profile works, this is ok.
+    [Tags]  deprecated  end-user
 
     springster.Verify User Form Fields  end-user
 
@@ -101,15 +101,14 @@ Check that site displays errors if empty fields submitted on registration.
     [Documentation]  WHEN a user does not complete the mandatory fields THEN the system should display an error message in red text
     [Tags]  ready  end-user
 
-    springster.Generate User Name
-    springster.Create New Profile  ${END_USER_INVALID}
+    springster.Submit First End User Form  ${END_USER_INVALID}
     springster.Assert Registration Errors
 
 Password confirmation doesn't match
     [Documentation]  Password and password confirmation must match.
     [Tags]  ready  end-user
 
-    springster.Create New Profile  ${END_USER_MIS_PASS}
+    springster.Submit First End User Form  ${END_USER_MIS_PASS}
     springster.Password Match Error  ${END_USER_MIS_PASS}
 
 Reset end user pwd via security questions
@@ -242,14 +241,6 @@ End user age validation
     Page Should Contain  Ensure this value is less than or equal to 100.
     Page Should Contain  Error for 13 yr old validation
 
-Each form question can only be picked once.
-    [Documentation]  Ensure that users are not able to select a pwd question multiple times.
-    [Tags]  ready  end-user
-
-    springster.Registration Questions  ${END_USER_VALID}
-    #springster.registration questions  system-user
-    #TODO: Add check from profile edit as well.
-
 Exceed maximum login attempts
     [Documentation]  Form must show error after five failed login attempts.
     [Tags]  ready  end-user
@@ -262,10 +253,6 @@ Attempt to login after user locked out.
 
     springster.Login As User  ${END_USER_RESET}
     springster.Ensure User Locked Out
-
-OIDC consent form - end user
-    [Documentation]
-    [Tags]
 
 Reset password for username which does not exist.
     [Documentation]  Form will still show message saying that the password reset mail has been sent.
@@ -297,20 +284,8 @@ Verify Home Link On Lockout Page
     [Tags]  wip  end-user
 
 Password reset link invalid/old/expired
-    [Documentation]  Make sure the translated sites load.
+    [Documentation]  Make sure invalid link is not accepted.
     [Tags]  wip  end-user
-
-Show preselected security questions on form.
-    [Documentation]  GE-1086: User can specify which questions are shown in the form using url params.
-    [Tags]  end-user  ready
-
-    springster.Check Preselected Security Questions
-
-Check security question default values
-    [Documentation]  GE-1086: Ensure default values are in place if no question_id is specified.
-    [Tags]  end-user  ready
-
-    springster.Check Security Question Defaults
 
 Back button on end user form should take user to first step.
     [Documentation]  Back button should take user to first step and keep fields filled in.
@@ -325,6 +300,26 @@ Remove end user record
     [Tags]  ready  end-user
 
     girleffect_api.Delete User  ${END_USER_VALID}
+
+Each form question can only be picked once.
+    [Documentation]  Ensure that users are not able to select a pwd question multiple times.
+    [Tags]  ready  end-user  xxx
+
+    springster.Registration Question Selection Validation  ${END_USER_VALID}
+    #springster.registration questions  system-user
+    #TODO: Add check from profile edit as well.
+
+Show preselected security questions on form.
+    [Documentation]  GE-1086: User can specify which questions are shown in the form using url params.
+    [Tags]  end-user  ready
+
+    springster.Check Preselected Security Questions  ${END_USER_VALID}
+
+Check security question default values
+    [Documentation]  GE-1086: Ensure default values are in place if no question_id is specified.
+    [Tags]  end-user  ready
+
+    springster.Check Security Question Defaults  ${END_USER_VALID}
 
 ## Do some system-user checks here:
 

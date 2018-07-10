@@ -78,12 +78,40 @@ Login To CMS
     LoginPage.Enter Auth Password  ${AUTH_PASSWORD}
     LoginPage.Click Submit
 
-Registration Questions
+Registration Question Selection Validation
     [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
-    RegistrationPage.Question Usage  ${UserData}
+    RegistrationPage.Enter Username Field  ${UserData}
+    RegistrationPage.Choose Gender From List  ${UserData}
+    RegistrationPage.Enter Age Field  ${UserData}
+    RegistrationPage.Enter Password Fields  ${UserData}
+    RegistrationPage.Accept Terms
+    RegistrationPage.Submit Form
+
+    RegistrationPage.Select Specific Question  ${registration.form_question1}  ${UserData.first_question}
+    RegistrationPage.Enter Answer One  ${UserData}
+    RegistrationPage.Select Specific Question  ${registration.form_question2}  ${UserData.first_question}
+    RegistrationPage.Enter Answer Two  ${UserData}
+
+    RegistrationPage.Submit Form
+
+    RegistrationPage.Security Question Error
+
+    RegistrationPage.Select Specific Question  ${registration.form_question1}  ${UserData.second_question} 
+    RegistrationPage.Select Specific Question  ${registration.form_question2}  ${UserData.second_question}
+
+    RegistrationPage.Submit Form
+
+    RegistrationPage.Security Question Error
+
+    RegistrationPage.Choose Question One  ${UserData}
+    RegistrationPage.Choose Question Two  ${UserData}
+
+    RegistrationPage.Submit Form
+
+    RegistrationPage.No Security Question Error
 
 Password Length Error
     [Arguments]  ${UserData}
@@ -322,7 +350,7 @@ Assert Existing User Error
     LandingPage.Open Registration Form  ${UserData}
     RegistrationPage.Set No-validate
 
-    Run Keyword If  "${UserData.type}" == "end-user"  RegistrationPage.Enter End User Fields  ${UserData}
+    Run Keyword If  "${UserData.type}" == "end-user"  RegistrationPage.First Registration Form Steps  ${UserData}
     ...  ELSE IF  "${UserData.type}" == "system-user"  RegistrationPage.Enter System User Fields  ${UserData}
 
     RegistrationPage.Submit Form
@@ -356,13 +384,23 @@ Load Localised Sites
     ProfileEdit.Verify German Text
 
 Check Preselected Security Questions
+    [Arguments]  ${UserData}
+
+    Submit First End User Form  ${UserData}
+
     ${form_url} =  Catenate  ${AUTH_SERVICE_URL.${ENVIRONMENT}}/en/registration/?theme=springster&hide=end-user&question_ids=2&question_ids=4
     Go To  ${form_url}
+
     RegistrationPage.Verify Preselected Question Values And Text
 
 Check Security Question Defaults
+    [Arguments]  ${UserData}
+
+    Submit First End User Form  ${UserData}
+
     ${form_url} =  Catenate  ${AUTH_SERVICE_URL.${ENVIRONMENT}}/en/registration/?theme=springster&hide=end-user
     Go To  ${form_url}
+
     RegistrationPage.Verify Preselected Question Defaults
 
 Login Form Credential Validation
@@ -382,3 +420,11 @@ Registration Form Credential Validation
     Create New Profile  ${UserData}
     Verify Registration Error  ${UserData}
 
+Create New Profile With Errors
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Set No-validate
+    RegistrationPage.Verify Registration Form
+    RegistrationPage.First Registration Form Steps  ${UserData}

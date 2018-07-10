@@ -71,7 +71,7 @@ Enter MSISDN Field
     
     Input Text  ${registration.form_msisdn}  ${UserData.msisdn}
 
-Enter Password Field
+Enter Password Fields
     [Arguments]  ${UserData}
     
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
@@ -111,8 +111,8 @@ Accept Terms
     Click Element  ${registration_form.terms}
 
 Submit Form
-    #Click Button  Register
-    Click Element  ${registration_form.submit}
+    Click Button  Submit
+    #Click Element  ${registration_form.submit}
 
 Verify Registration Form
     #Wait Until Page Contains  Registration
@@ -149,7 +149,8 @@ Enter End User Fields
     Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
     Click Element  ${registration_form.terms}
     # Click Submit To Go To Second Step
-    Click Element  ${registration_form.submit}
+    #Click Element  ${registration_form.submit}
+    Click Button  Submit
     Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
@@ -167,7 +168,8 @@ First Registration Form Steps
     Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
     Click Element  ${registration_form.terms}
     # Click Submit To Go To Second Step
-    Click Element  ${registration_form.submit}
+    Click Button  Submit
+    #Click Element  ${registration_form.submit}
 
 Enter System User Fields
     [Arguments]  ${UserData}
@@ -201,11 +203,14 @@ Verify End User Fields
     Element Should Be Visible  ${registration.form_age}
     Element Should Be Visible  ${registration.form_pwd1}
     Element Should Be Visible  ${registration.form_pwd2}
+    Element Should Be Visible  ${registration_form.terms}
+
+    Click Element  ${registration_form.submit}
+
     Element Should Be Visible  ${registration.form_question1}
     Element Should Be Visible  ${registration.form_answer1}
     Element Should Be Visible  ${registration.form_question2}
     Element Should Be Visible  ${registration.form_answer2}
-    Element Should Be Visible  ${registration_form.terms}
 
     Element Should Not Be Visible  ${registration.form_first}
     Element Should Not Be Visible  ${registration.form_last}
@@ -236,46 +241,6 @@ Verify System User Fields
     Element Should Be Visible  ${registration.form_msisdn}
 
     Element Should Not Be Visible  ${registration.form_nickname}
-
-Question Usage
-    [Arguments]  ${UserData}
-    
-    #TODO - Refactor to use enter end-user function.
-    Input Text  ${registration.form_username}  ${UserData.username}
-    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
-    Input Text  ${registration.form_age}  ${UserData.age}
-    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
-    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
-    Input Text  ${registration.form_answer1}  ${UserData.first_answer}
-    Select From List By Value  ${registration.form_question2}  ${UserData.first_question}
-    Input Text  ${registration.form_answer2}  ${UserData.second_answer}
-
-    Click Element  ${registration_form.terms}
-
-    Submit Form
-
-    Page Should Contain  Each question can only be picked once.
-
-    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
-
-    Select From List By Value  ${registration.form_question1}  ${UserData.second_question} 
-    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
-
-    Submit Form
-
-    Page Should Contain  Each question can only be picked once.
-
-    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
-    Input Text  ${registration.form_pwd2}  ${UserData.pwd}
-
-    Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
-    Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
-
-    Submit Form
-
-    Page Should Not Contain  Each question can only be picked once.
 
 Password Match Error
     [Arguments]  ${UserData}
@@ -311,12 +276,23 @@ Verify Registration Successful
     Element Text Should Be  ${registration_form.success_msg}  Congratulations, you have successfully registered for a Girl Effect account.
 
 Verify Preselected Question Values And Text
-    List Selection Should Be  id:id_form-0-question  2
-    List Selection Should Be  id:id_form-1-question  4
+    List Selection Should Be  ${registration.form_question1}  2
+    List Selection Should Be  ${registration.form_question2}  4
 
 Verify Preselected Question Defaults
-    List Selection Should Be  id:id_form-0-question  ${EMPTY}
-    List Selection Should Be  id:id_form-1-question  ${EMPTY}
+    List Selection Should Be  ${registration.form_question1}  ${EMPTY}
+    List Selection Should Be  ${registration.form_question2}  ${EMPTY}
 
 Go Back To First Step
     Click Element  ${registration_form.back_btn}
+
+Select Specific Question
+    [Arguments]  ${question.field}  ${question.value}
+
+    Select From List By Value  ${question.field}  ${question.value}
+
+Security Question Error
+    Page Should Contain  Each question can only be picked once.
+
+No Security Question Error
+    Page Should Not Contain  Each question can only be picked once.
