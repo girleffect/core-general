@@ -52,9 +52,10 @@ Create end user profile using username which already exists
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  wip
 
-    springster.Create New Profile  ${END_USER_INVALID_PASS}
+    #springster.Create New Profile  ${END_USER_INVALID_PASS}
+    springster.Submit First End User Form  ${END_USER_INVALID_PASS}
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
@@ -313,6 +314,10 @@ Check security question default values
 
 Back button on end user form should take user to first step.
     [Documentation]  Back button should take user to first step and keep fields filled in.
+    [Tags]  end-user  wip
+
+Supply end user email address and ensure that second registration step shows.
+    [Documentation]  Second step of registration is optional. Only shows if user supplies email address.
     [Tags]  end-user  wip
 
 Remove end user record

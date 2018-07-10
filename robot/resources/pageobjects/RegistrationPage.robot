@@ -5,27 +5,27 @@ Library  String
 *** Variables ***
 
 ${header_txt} =  xpath://h1[contains(text(), "Registration")]
-${registration.form_username} =  name:username
-${registration.form_gender} =  name:gender
-${registration.form_age} =  name:age
-${registration.form_pwd1} =  name:password1
-${registration.form_pwd2} =  name:password2
-${registration.form_question1} =  name:form-0-question
-${registration.form_answer1} =  name:form-0-answer
-${registration.form_question2} =  name:form-1-question
-${registration.form_answer2} =  name:form-1-answer
+${registration.form_username} =  name:userdata-username
+${registration.form_gender} =  name:userdata-gender
+${registration.form_age} =  name:userdata-age
+${registration.form_pwd1} =  name:userdata-password1
+${registration.form_pwd2} =  name:userdata-password2
+${registration.form_question1} =  name:securityquestions-0-question
+${registration.form_answer1} =  name:securityquestions-0-answer
+${registration.form_question2} =  name:securityquestions-1-question
+${registration.form_answer2} =  name:securityquestions-1-answer
 ## System User Fields ##
-${registration.form_first} =  name:first_name
-${registration.form_last} =  name:last_name
-${registration.form_dob} =  name:dob
-${registration.form_nickname} =  name:nickname
-${registration.form_avatar} =  name:avatar
-${registration.form_email} =  name:email
-${registration.form_country} =  name:country
-${registration.form_msisdn} =  name:msisdn
+${registration.form_first} =  name:userdata-first_name
+${registration.form_last} =  name:userdata-last_name
+${registration.form_dob} =  name:userdata-dob
+${registration.form_nickname} =  name:userdata-nickname
+${registration.form_avatar} =  name:userdata-avatar
+${registration.form_email} =  name:userdata-email
+${registration.form_country} =  name:userdata-country
+${registration.form_msisdn} =  name:userdata-msisdn
 ${registration_form.qr_code} =  xpath://*[@class="QR-image"]
 ##
-${registration_form.terms} =  name:terms
+${registration_form.terms} =  name:userdata-terms
 ${registration_form.tclink} =  xpath://a[@]
 ${registration_form.novalidate} =  var forms = document.querySelectorAll('.Form');for (var i = 0; i < forms.length; i++){forms[i].setAttribute('novalidate', false);}
 ${registration_form.username_error} =  xpath://*//div[@class="Field-item"]//li[1]
@@ -110,11 +110,9 @@ Enter Answer Two
 Accept Terms
     Click Element  ${registration_form.terms}
 
-Submit First Form
-    Click Element  ${registration_form.submit}
-
 Submit Form
-    Click Button  Register
+    #Click Button  Register
+    Click Element  ${registration_form.submit}
 
 Verify Registration Form
     #Wait Until Page Contains  Registration
@@ -149,16 +147,27 @@ Enter End User Fields
     Input Text  ${registration.form_age}  ${UserData.age}
     Input Text  ${registration.form_pwd1}  ${UserData.pwd}
     Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
+    Click Element  ${registration_form.terms}
     # Click Submit To Go To Second Step
     Click Element  ${registration_form.submit}
     Select From List By Value  ${registration.form_question1}  ${UserData.first_question}
     Input Text  ${registration.form_answer1}  ${UserData.first_answer}
     Select From List By Value  ${registration.form_question2}  ${UserData.second_question}
     Input Text  ${registration.form_answer2}  ${UserData.second_answer}
-
+    
     Element Should Be Visible  ${registration_form.back_btn}
 
+First Registration Form Steps
+    [Arguments]  ${UserData}
+
+    Input Text  ${registration.form_username}  ${UserData.username}
+    Select From List By Value  ${registration.form_gender}  ${UserData.gender}
+    Input Text  ${registration.form_age}  ${UserData.age}
+    Input Text  ${registration.form_pwd1}  ${UserData.pwd}
+    Input Text  ${registration.form_pwd2}  ${UserData.pwd_conf}
     Click Element  ${registration_form.terms}
+    # Click Submit To Go To Second Step
+    Click Element  ${registration_form.submit}
 
 Enter System User Fields
     [Arguments]  ${UserData}

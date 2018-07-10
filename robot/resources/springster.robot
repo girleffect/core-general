@@ -31,6 +31,15 @@ Create New Profile
     RegistrationPage.Enter User Details  ${UserData}
     RegistrationPage.Submit Form
 
+Submit First End User Form
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Set No-validate
+    RegistrationPage.Verify Registration Form
+    RegistrationPage.First Registration Form Steps  ${UserData}
+
 Check Registration Passed
     RegistrationPage.Verify Registration Successful
 
@@ -372,3 +381,4 @@ Registration Form Credential Validation
 
     Create New Profile  ${UserData}
     Verify Registration Error  ${UserData}
+
