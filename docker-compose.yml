@@ -9,7 +9,7 @@ services:
       context: ../core-user-data-store/
     environment:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
-      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-user-data-store/:/app/
@@ -30,7 +30,7 @@ services:
       context: ../core-access-control/
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
-      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-access-control/:/app/
@@ -90,6 +90,10 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - EMAIL_HOST=smtp
       - SKIP_MIGRATIONS=1
+      - USER_DATA_STORE_API_KEY=demo-authentication-service-celery-api-key
+      - ACCESS_CONTROL_API_KEY=demo-authentication-service-celery-api-key
+      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
+      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
       # - EMAIL_USER=
       # - EMAIL_PASSWORD=
       # - EMAIL_USE_TLS=
