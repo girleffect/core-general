@@ -64,14 +64,20 @@ End user password validation - blank
     springster.Submit First End User Form  ${END_USER_BLANK_PASS}
     springster.Password Blank Error  ${END_USER_BLANK_PASS}
 
-End user credential validation 
-    [Documentation]  Test end user credential validation.
-    [Tags]  wip  end-user
-    [Template]  Create New Profile With Errors
+End user registration credential validation
+    [Documentation]  Test registration form validation.
+    [Tags]  wip  error  system-user
+    [Template]  Registration Form Credential Validation
 
-    ${END_USER_INVALID_PASS}
-    ${END_USER_BLANK_PASS}
-    ${END_USER_MIS_PASS}
+    ${USERNAME_ALREADY_REGISTERED}
+    ${PWD_BLANK}
+    ${PWD_LESS_THAN_FOUR_CHARS}
+    ${PWD_NO_SPECIAL_CHARS}
+    ${PWD_NO_UPPERCASE}
+    ${PWD_NO_LOWERCASE}
+    ${PWD_NO_NUMERICS}
+    ${PWD_NOT_USERNAME}
+    ${PWD_MISMATCH}
 
 Site must not allow de-activated user to login. 
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
@@ -343,7 +349,7 @@ System user login credential validation
 
 System user registration credential validation
     [Documentation]  Test registration form validation.
-    [Tags]  error  system-user
+    [Tags]  lah  system-user
     [Template]  Registration Form Credential Validation
 
     ${USERNAME_ALREADY_REGISTERED}
@@ -354,6 +360,7 @@ System user registration credential validation
     ${PWD_NO_LOWERCASE}
     ${PWD_NO_NUMERICS}
     ${PWD_NOT_USERNAME}
+    ${PWD_MISMATCH}
 
 Remove system user record
     [Documentation]  Remove the user record added in the first test.
