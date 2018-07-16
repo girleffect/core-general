@@ -64,7 +64,7 @@ End user password validation - blank
     springster.Submit First End User Form  ${END_USER_BLANK_PASS}
     springster.Password Blank Error  ${END_USER_BLANK_PASS}
 
-End user credential validation
+End user credential validation 
     [Documentation]  Test end user credential validation.
     [Tags]  wip  end-user
     [Template]  Create New Profile With Errors
@@ -341,11 +341,19 @@ System user login credential validation
     ${SYS_BLANK_USERNAME_USER}
     ${SYS_INVALID_PASSWORD_USER}
 
-System user registration form validation
-    [Documentation]
-    [Tags]
+System user registration credential validation
+    [Documentation]  Test registration form validation.
+    [Tags]  error  system-user
     [Template]  Registration Form Credential Validation
 
+    ${USERNAME_ALREADY_REGISTERED}
+    ${PWD_BLANK}
+    ${PWD_LESS_THAN_EIGHT_CHARS}
+    ${PWD_NO_SPECIAL_CHARS}
+    ${PWD_NO_UPPERCASE}
+    ${PWD_NO_LOWERCASE}
+    ${PWD_NO_NUMERICS}
+    ${PWD_NOT_USERNAME}
 
 Remove system user record
     [Documentation]  Remove the user record added in the first test.

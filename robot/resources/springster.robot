@@ -407,17 +407,19 @@ Login Form Credential Validation
     LoginPage.Submit
     LoginPage.Verify Login Error  ${UserData}
 
+#Registration Form Credential Validation
+#    [Arguments]  ${UserData}
+
+#    Create New Profile  ${UserData}
+#    Verify Registration Error  ${UserData}
+
 Registration Form Credential Validation
-    [Arguments]  ${UserData}
-
-    Create New Profile  ${UserData}
-    Verify Registration Error  ${UserData}
-
-Create New Profile With Errors
     [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
     LandingPage.Open Registration Form  ${UserData}
     RegistrationPage.Set No-validate
     RegistrationPage.Verify Registration Form
-    RegistrationPage.First Registration Form Steps  ${UserData}
+    RegistrationPage.Enter User Details  ${UserData}
+    RegistrationPage.Submit Form
+    RegistrationPage.Verify Error Message  ${UserData}

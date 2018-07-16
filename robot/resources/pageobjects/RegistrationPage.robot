@@ -36,6 +36,7 @@ ${registration_form.success} =  id:title
 ${registration_form.success_msg} =  id:content
 ${registration_form.submit} =  name:submit
 ${registration_form.back_btn} =  name:wizard_goto_step
+${registration_form.errorlist} =  xpath://form//ul[@class="errorlist"]
 
 *** Keywords ***
 
@@ -242,3 +243,8 @@ Security Question Error
 
 No Security Question Error
     Page Should Not Contain  Each question can only be picked once.
+
+Verify Error Message
+    [Arguments]  ${UserData}
+
+    Element Text Should Be  ${registration_form.errorlist}  ${UserData.error}
