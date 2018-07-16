@@ -46,38 +46,33 @@ Logout from user's edit profile page
 
 Create end user profile using username which already exists
     [Documentation]  Register with existing username.
-    [Tags]  ready  end-user
+    [Tags]  deprecated  end-user
 
     springster.Assert Existing User Error  ${END_USER_VALID}  username
 
 End user password validation - length
     [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  ready  end-user
+    [Tags]  deprecated  end-user
 
     springster.Submit First End User Form  ${END_USER_INVALID_PASS}
     springster.Password Length Error  ${END_USER_INVALID_PASS}
 
 End user password validation - blank
     [Documentation]  Form must show appropriate error if password field is not entered.
-    [Tags]  ready  end-user
+    [Tags]  deprecated  end-user
 
     springster.Submit First End User Form  ${END_USER_BLANK_PASS}
     springster.Password Blank Error  ${END_USER_BLANK_PASS}
 
 End user registration credential validation
     [Documentation]  Test registration form validation.
-    [Tags]  wip  error  system-user
-    [Template]  Registration Form Credential Validation
+    [Tags]  error  system-user
+    [Template]  End User Registration Validation
 
-    ${USERNAME_ALREADY_REGISTERED}
-    ${PWD_BLANK}
-    ${PWD_LESS_THAN_FOUR_CHARS}
-    ${PWD_NO_SPECIAL_CHARS}
-    ${PWD_NO_UPPERCASE}
-    ${PWD_NO_LOWERCASE}
-    ${PWD_NO_NUMERICS}
-    ${PWD_NOT_USERNAME}
-    ${PWD_MISMATCH}
+    ${END_USER_REGISTERED}
+    ${END_USER_PWD_SHORT}
+    ${END_USER_PWD_BLANK}
+    ${END_USER_PWD_MISS}
 
 Site must not allow de-activated user to login. 
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
@@ -321,6 +316,8 @@ Check security question default values
 
     springster.Check Security Question Defaults  ${END_USER_VALID}
 
+Check avatar field rejects .py file etc. jpgs. tiff. pngs.
+
 ## Do some system-user checks here:
 
 Create a new system user profile
@@ -349,8 +346,8 @@ System user login credential validation
 
 System user registration credential validation
     [Documentation]  Test registration form validation.
-    [Tags]  lah  system-user
-    [Template]  Registration Form Credential Validation
+    [Tags]  ready  system-user
+    [Template]  System User Registration Form Validation
 
     ${USERNAME_ALREADY_REGISTERED}
     ${PWD_BLANK}

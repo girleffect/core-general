@@ -15,6 +15,11 @@ ${BROWSER} =  chrome
 &{END_USER_MIS_PASS}  type=end-user  username=robotapiuser  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue  error=The two password fields didn't match.
 &{END_USER_WRONG_ANSWERS}  username=robotanswers  first_answer=blue  second_answer=black
 
+&{END_USER_REGISTERED}  type=end-user  username=robotframework  pwd=asdfg  pwd_conf=asdfg  email=registered@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2  error=A user with that username already exists.
+&{END_USER_PWD_SHORT}  type=end-user  username=end_rnd  pwd=as  pwd_conf=as  email=jasonbarr.qa@gmail.com  age=18  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2  error=Password not long enough.
+&{END_USER_PWD_BLANK}  type=end-user  username=end_rnd  pwd=${EMPTY}  pwd_conf=${EMPTY}  email=unknown@ge.com  age=18  gender=male  first_question=1  first_answer=black  second_question=2  second_answer=blue  error=This field is required.
+&{END_USER_PWD_MISS}  type=end-user  username=end_rnd  pwd=zetas  pwd_conf=orion  age=21  gender=male  first_question=1  first_answer=blue  second_question=2  second_answer=blue  error=The two password fields didn't match.
+
 &{SYS_USER_VALID}  type=system-user  username=robotsystem  pwd=sDf45Y7!@  pwd_conf=sDf45Y7!@  fname=Robot  lname=Framework  email=jasonbarr.qa+sys@gmail.com  age=21  gender=male  first_question=1  first_answer=1  second_question=2  second_answer=2  msisdn=0213456789  country=ZA
 &{SYS_UNREGISTERED_USER}  type=system-user  username=robotnoreg  pwd=sDf45Y7!@  error=Please enter a correct username and password. Note that both fields may be case-sensitive.
 &{SYS_BLANK_USERNAME_USER}  type=system-user  username=${EMPTY}  pwd=sDf45Y7!@  pwd_conf=sDf45Y7!@  error=This field is required.

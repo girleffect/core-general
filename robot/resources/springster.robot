@@ -413,7 +413,7 @@ Login Form Credential Validation
 #    Create New Profile  ${UserData}
 #    Verify Registration Error  ${UserData}
 
-Registration Form Credential Validation
+System User Registration Form Validation
     [Arguments]  ${UserData}
 
     LandingPage.Load Landing Page
@@ -422,4 +422,14 @@ Registration Form Credential Validation
     RegistrationPage.Verify Registration Form
     RegistrationPage.Enter User Details  ${UserData}
     RegistrationPage.Submit Form
+    RegistrationPage.Verify Error Message  ${UserData}
+
+End User Registration Validation
+    [Arguments]  ${UserData}
+
+    LandingPage.Load Landing Page
+    LandingPage.Open Registration Form  ${UserData}
+    RegistrationPage.Set No-validate
+    RegistrationPage.Verify Registration Form
+    RegistrationPage.First Registration Form Steps  ${UserData}
     RegistrationPage.Verify Error Message  ${UserData}
