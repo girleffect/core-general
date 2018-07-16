@@ -44,26 +44,6 @@ Logout from user's edit profile page
     [Documentation]
     [Tags]
 
-Create end user profile using username which already exists
-    [Documentation]  Register with existing username.
-    [Tags]  deprecated  end-user
-
-    springster.Assert Existing User Error  ${END_USER_VALID}  username
-
-End user password validation - length
-    [Documentation]  Verify end user pwd length requirement. Submit two char password.
-    [Tags]  deprecated  end-user
-
-    springster.Submit First End User Form  ${END_USER_INVALID_PASS}
-    springster.Password Length Error  ${END_USER_INVALID_PASS}
-
-End user password validation - blank
-    [Documentation]  Form must show appropriate error if password field is not entered.
-    [Tags]  deprecated  end-user
-
-    springster.Submit First End User Form  ${END_USER_BLANK_PASS}
-    springster.Password Blank Error  ${END_USER_BLANK_PASS}
-
 End user registration credential validation
     [Documentation]  Test registration form validation.
     [Tags]  error  system-user
@@ -72,7 +52,7 @@ End user registration credential validation
     ${END_USER_REGISTERED}
     ${END_USER_PWD_SHORT}
     ${END_USER_PWD_BLANK}
-    ${END_USER_PWD_MISS}
+    ${END_USER_PWD_MIS}
 
 Site must not allow de-activated user to login. 
     [Documentation]  De-activate an end-user and ensure they are blocked from accessing the site.
