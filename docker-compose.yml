@@ -9,7 +9,7 @@ services:
       context: ../core-user-data-store/
     environment:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
-      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-user-data-store/:/app/
@@ -30,7 +30,7 @@ services:
       context: ../core-access-control/
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
-      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-management-layer-api-key
+      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - ../core-access-control/:/app/
@@ -53,6 +53,8 @@ services:
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
       - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
+      - STATIC_ROOT="/app/static"
+      - MEDIA_ROOT="/app/media"
       - ALLOWED_HOSTS=*
       - CELERY_BROKER_URL=redis://redis:6379/0
       - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
@@ -90,6 +92,10 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - EMAIL_HOST=smtp
       - SKIP_MIGRATIONS=1
+      - USER_DATA_STORE_API_KEY=demo-authentication-service-celery-api-key
+      - ACCESS_CONTROL_API_KEY=demo-authentication-service-celery-api-key
+      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
+      - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
       # - EMAIL_USER=
       # - EMAIL_PASSWORD=
       # - EMAIL_USE_TLS=
@@ -270,32 +276,32 @@ services:
 
   # The name "core-robot" was chosen so that this container is accessible via
   # the squid proxy, which are configured to service URLs starting with "core-".
-  core-robot:
-    build:
-      context: .
-    ports:
-      - "${ROBOT_PORT}:8000"
-    environment:
-      - ENVIRONMENT=docker
-      - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
-    volumes:
-      - ./robot:/app/
-    restart: on-failure
-    command: test_runner.sh
-    depends_on:
-      - db
-      - memcache
-      - redis
-      - smtp
-      - core-access-control
-      - core-authentication-service
-      - core-user-data-store
-      - core-management-layer
-      - core-management-portal
-      - wagtail-demo-1
-      - wagtail-demo-2
-    networks:
-      - oidcnetwork
+  #core-robot:
+  #  build:
+  #    context: .
+  #  ports:
+  #    - "${ROBOT_PORT}:8000"
+  #  environment:
+  #    - ENVIRONMENT=docker
+  #    - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
+  #  volumes:
+  #    - ./robot:/app/
+  #  restart: on-failure
+  #  command: test_runner.sh
+  #  depends_on:
+  #    - db
+  #    - memcache
+  #    - redis
+  #    - smtp
+  #    - core-access-control
+  #    - core-authentication-service
+  #    - core-user-data-store
+  #    - core-management-layer
+  #    - core-management-portal
+  #    - wagtail-demo-1
+  #    - wagtail-demo-2
+  #  networks:
+  #    - oidcnetwork
 
 # This network definition limits the IP range that can be used.
 # This is convenient because we need to refer to the IP range in the
