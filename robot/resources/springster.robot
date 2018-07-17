@@ -13,6 +13,13 @@ Resource  ../resources/pageobjects/UpdateQuestions.robot
 *** Variables ***
 
 *** Keywords ***
+Reset Password Flow
+    [Arguments]  ${UserData}
+
+    Reset Password Via Email  ${UserData}
+    Check Password Reset Email
+    Open Password Update Page
+    Complete Password Reset  ${UserData}
 
 Login With Updated Password
     [Arguments]  ${username}  ${password}
@@ -22,6 +29,7 @@ Login With Updated Password
     LoginPage.Enter Custom Username  ${username}
     LoginPage.Enter Custom Password  ${password}
     LoginPage.Submit
+    Assert User Logged In
 
 Generate User Name
     ${RND_USER} =  Generate Random String  8  [LETTERS]
@@ -337,8 +345,6 @@ Complete Password Reset
 
     PasswordReset.Generate Random User Password
     PasswordReset.Verify Password Reset Form
-    #PasswordReset.Fill In Password  ${UserData}
-    #PasswordReset.Fill In Password Confirmation  ${UserData}
     PasswordReset.Enter Random Password
     PasswordReset.Submit Password Reset
 

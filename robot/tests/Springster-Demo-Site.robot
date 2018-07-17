@@ -129,18 +129,16 @@ Reset end user pwd via security questions - lockout
 Reset end user pwd via lost password email
     [Documentation]  End-user with valid email address.
     [Tags]  ready  end-user
+    [Template]  Reset Password Flow
 
-    springster.Reset Password Via Email  ${END_USER_STATIC}
-    springster.Check Password Reset Email
-    springster.Open Password Update Page
-    springster.Complete Password Reset  ${END_USER_STATIC}
+    ${END_USER_STATIC}
 
-Login with updated password
+Login with updated password (end user)
     [Documentation]  Login as the end user created above.
     [Tags]  ready  end-user
-
-    springster.Login With Updated Password  robotstatic  ${rnd_pwd}
-    springster.Assert User Logged In
+    [Template]  Login With Updated Password
+    
+    robotstatic  ${rnd_pwd}
 
 End User submitting a request to delete their profile - valid email
     [Documentation]  GE-472. User can only request a profile removal if they have an msisdn or email listed for their account.
@@ -352,12 +350,17 @@ System user registration credential validation
 
 Reset system user pwd via lost password email
     [Documentation]  End-user with valid email address.
-    [Tags]  ready  end-user
+    [Tags]  ready  system-user
+    [Template]  Reset Password Flow
 
-    springster.Reset Password Via Email  ${END_USER_STATIC}
-    springster.Check Password Reset Email
-    springster.Open Password Update Page
-    springster.Complete Password Reset  ${END_USER_STATIC}
+    ${SYS_USER_STATIC}
+
+Login with updated password (system user)
+    [Documentation]  Login with the updated password created above.
+    [Tags]  ready  system-user
+    [Template]  Login With Updated Password
+    
+    systemstatic  ${rnd_pwd}
 
 Remove system user record
     [Documentation]  Remove the user record added in the first test.
