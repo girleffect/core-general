@@ -128,7 +128,7 @@ Reset end user pwd via security questions - lockout
 
 Reset end user pwd via lost password email
     [Documentation]  End-user with valid email address.
-    [Tags]  reset  ready  end-user
+    [Tags]  ready  end-user
 
     springster.Reset Password Via Email  ${END_USER_STATIC}
     springster.Check Password Reset Email
@@ -137,7 +137,7 @@ Reset end user pwd via lost password email
 
 Login with updated password
     [Documentation]  Login as the end user created above.
-    [Tags]  reset  ready  end-user
+    [Tags]  ready  end-user
 
     springster.Login With Updated Password  robotstatic  ${rnd_pwd}
     springster.Assert User Logged In
