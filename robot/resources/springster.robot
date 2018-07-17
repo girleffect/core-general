@@ -80,7 +80,7 @@ Logout
     ProfileHome.Logout
 
 Logout From Profile Edit Page
-    ProfileHome.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
     ProfileEdit.Logout
     
 Login To CMS
@@ -175,25 +175,25 @@ Assert User Logged In
 Delete User Profile
     [Arguments]  ${UserData}
 
-    ProfileHome.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
     ProfileEdit.Verify Edit Page
     Run Keyword If  "${UserData.username}" == "robotapiuser"  ProfileEdit.Delete Profile With Missing Email
     ...  ELSE  ProfileEdit.Delete User Profile
 
 Goto Edit User Profile Page
-    ProfileHome.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
 
 Edit User Profile
     [Arguments]  ${sex}  ${age}
 
     ProfileHome.Verify User Home Page
-    ProfileHome.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
     ProfileEdit.Verify Edit Page
     ProfileEdit.Fill In Age Field  ${age}
     ProfileEdit.Select Gender  ${sex}
     ProfileEdit.Click Update
     ProfileHome.Verify User Home Page
-    ProfileHome.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
     ProfileEdit.Check Age Field  ${age}
     ProfileEdit.Check Gender Field  ${sex}
 
@@ -207,7 +207,7 @@ Reset Edited Fields
 Update Security Questions
 
     ProfileHome.Verify User Home Page
-    ProfileEdit.Edit User Profile
+    ProfileHome.Go To Edit Profile Page
     ProfileEdit.Goto Update Questions Page
     UpdateQuestions.Verify Edit Questions Page
     UpdateQuestions.Select Question One
@@ -390,10 +390,10 @@ Show Reset Sent Message
     PasswordReset.Verify Reset Sent
 
 Load Localised Sites
-    ProfileHome.Goto Afrikaans Site
+    ProfileHome.Go To Afrikaans Site
     ProfileEdit.Verify Afrikaans Text
     Go Back
-    ProfileHome.Goto German Site
+    ProfileHome.Go To German Site
     ProfileEdit.Verify German Text
 
 Check Preselected Security Questions

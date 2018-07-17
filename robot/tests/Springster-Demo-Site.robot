@@ -41,8 +41,8 @@ Logout as end user
     springster.Assert Landing Page Header
 
 Logout from user's edit profile page
-    [Documentation]
-    [Tags]
+    [Documentation]  Logout from the profile edit page.
+    [Tags]  ready  end-user
 
     springster.Login As User  ${END_USER_VALID}
     springster.Assert User Logged In
@@ -50,7 +50,7 @@ Logout from user's edit profile page
     
 End user registration credential validation
     [Documentation]  Test validation on end user registration form.
-    [Tags]  ready  system-user
+    [Tags]  ready  end-user
     [Template]  End User Registration Validation
 
     ${END_USER_REGISTERED}

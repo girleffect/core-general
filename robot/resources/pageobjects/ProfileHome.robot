@@ -21,14 +21,14 @@ Verify User Home Page
 Logout
     Click Element  ${userhome.logout_btn}
 
-Edit User Profile
+Go To Edit Profile Page
     Click Element  ${userhome.edit_btn}
 
 Language Header
     Element Text Should Be  ${userhome.lang_hdr}  Try out different languages on the Authentication Service.
 
-Goto Afrikaans Site
+Go To Afrikaans Site
     Click Element  ${userhome.afrikaans}
 
-Goto German Site
+Go To German Site
     Click Link  German

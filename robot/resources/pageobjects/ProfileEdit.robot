@@ -40,9 +40,6 @@ Verify Edit Page
 Logout
     Click Element  ${profileedit.logout_lnk}
 
-Edit User Profile
-    Click Element  ${profileedit.edit_btn}
-
 Fill In Age Field
     [Arguments]  ${age}
 
