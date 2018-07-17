@@ -72,6 +72,8 @@ services:
     depends_on:
       - db
       - smtp
+      - core-access-control
+      - core-user-data-store
     networks:
       - oidcnetwork
 
@@ -220,6 +222,7 @@ services:
       - REACT_APP_PORTAL_LOGIN_CALLBACK=#/oidc/callback?
     depends_on:
       - core-authentication-service
+      - core-management-layer
     volumes:
         - "../core-management-portal/:/app/"
     networks:
@@ -258,9 +261,12 @@ services:
       - oidcnetwork
 
   smtp:
-    image: "namshi/smtp"
+    build:
+      context: apps/smtp/
     expose:
       - "25"
+    environment:
+      - PYTHONUNBUFFERED=1
     networks:
       - oidcnetwork
 
@@ -269,6 +275,8 @@ services:
       context: apps/proxy/
     ports:
       - "${PACSERVER_PORT}:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
     networks:
       - oidcnetwork
 
