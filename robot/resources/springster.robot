@@ -14,6 +14,15 @@ Resource  ../resources/pageobjects/UpdateQuestions.robot
 
 *** Keywords ***
 
+Login With Updated Password
+    [Arguments]  ${username}  ${password}
+
+    LandingPage.Load Landing Page
+    LandingPage.Login
+    LoginPage.Enter Custom Username  ${username}
+    LoginPage.Enter Custom Password  ${password}
+    LoginPage.Submit
+
 Generate User Name
     ${RND_USER} =  Generate Random String  8  [LETTERS]
     Set Global Variable  ${RND_USER}
@@ -62,6 +71,10 @@ Login As User
 Logout
     ProfileHome.Logout
 
+Logout From Profile Edit Page
+    ProfileHome.Edit User Profile
+    ProfileEdit.Logout
+    
 Login To CMS
     [Arguments]  ${AUTH_USERNAME}  ${AUTH_PASSWORD}
 
@@ -322,10 +335,11 @@ Reset Password Lockout
 Complete Password Reset
     [Arguments]  ${UserData}
 
-    PasswordReset.Generate End User Password
+    PasswordReset.Generate Random User Password
     PasswordReset.Verify Password Reset Form
-    PasswordReset.Fill In Password  ${UserData}
-    PasswordReset.Fill In Password Confirmation  ${UserData}
+    #PasswordReset.Fill In Password  ${UserData}
+    #PasswordReset.Fill In Password Confirmation  ${UserData}
+    PasswordReset.Enter Random Password
     PasswordReset.Submit Password Reset
 
 Exceed Login Attempts

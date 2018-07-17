@@ -15,8 +15,11 @@ ${passwordreset.reset_txt}  id:content
 ${passwordreset.django_txt}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
-Generate End User Password
-    ${UserData.pwd} =  Generate Random String  5
+Generate Random User Password
+    [Documentation]  Use this keyword to generate a random pwd. Currently used during the pwd reset flow.
+
+    ${rnd_pwd} =  Generate Random String  5
+    Set Global Variable  ${rnd_pwd}
 
 Fill In Email
     [Arguments]  ${UserData}
@@ -105,6 +108,12 @@ Supply Passwords
     Fill In Password  ${UserData}
     Fill In Password Confirmation  ${UserData}
     Submit Password Reset
+
+Enter Random Password
+    [Documentation]  This keyword is used for the password reset via email flow.
+
+    Input Text  ${passwordreset.pwd1}  ${rnd_pwd}
+    Input Text  ${passwordreset.pwd2}  ${rnd_pwd}
 
 Assert Lockout Message For Login
     Wait Until Page Contains  You have exceeded the maximum number of allowed incorrect login attempts

@@ -44,9 +44,13 @@ Logout from user's edit profile page
     [Documentation]
     [Tags]
 
+    springster.Login As User  ${END_USER_VALID}
+    springster.Assert User Logged In
+    springster.Logout From Profile Edit Page
+    
 End user registration credential validation
-    [Documentation]  Test registration form validation.
-    [Tags]  error  system-user
+    [Documentation]  Test validation on end user registration form.
+    [Tags]  ready  system-user
     [Template]  End User Registration Validation
 
     ${END_USER_REGISTERED}
@@ -124,12 +128,19 @@ Reset end user pwd via security questions - lockout
 
 Reset end user pwd via lost password email
     [Documentation]  End-user with valid email address.
-    [Tags]  ready  end-user
+    [Tags]  reset  ready  end-user
 
-    springster.Reset Password Via Email  ${END_USER_VALID}
+    springster.Reset Password Via Email  ${END_USER_STATIC}
     springster.Check Password Reset Email
     springster.Open Password Update Page
-    springster.Complete Password Reset  ${END_USER_VALID}
+    springster.Complete Password Reset  ${END_USER_STATIC}
+
+Login with updated password
+    [Documentation]  Login as the end user created above.
+    [Tags]  reset  ready  end-user
+
+    springster.Login With Updated Password  robotstatic  ${rnd_pwd}
+    springster.Assert User Logged In
 
 End User submitting a request to delete their profile - valid email
     [Documentation]  GE-472. User can only request a profile removal if they have an msisdn or email listed for their account.
@@ -301,7 +312,7 @@ Check avatar field rejects .py file etc. jpgs. tiff. pngs.
 ## Do some system-user checks here:
 
 Create a new system user profile
-    [Documentation]  Register as a system user.
+    [Documentation]  Register as a system user called 'robotsystem'.
     [Tags]  ready  system-user
 
     springster.Create New Profile  ${SYS_USER_VALID}
@@ -338,6 +349,15 @@ System user registration credential validation
     ${PWD_NO_NUMERICS}
     ${PWD_NOT_USERNAME}
     ${PWD_MISMATCH}
+
+Reset system user pwd via lost password email
+    [Documentation]  End-user with valid email address.
+    [Tags]  ready  end-user
+
+    springster.Reset Password Via Email  ${END_USER_STATIC}
+    springster.Check Password Reset Email
+    springster.Open Password Update Page
+    springster.Complete Password Reset  ${END_USER_STATIC}
 
 Remove system user record
     [Documentation]  Remove the user record added in the first test.

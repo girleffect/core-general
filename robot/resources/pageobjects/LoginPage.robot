@@ -25,6 +25,18 @@ Enter Auth Password
 
     Input Text  name:auth-password  ${UserData.pwd}
 
+Enter Custom Username
+    [Documentation]  Use this keyword if you don't want to be tied to the details in ${UserData}.
+    [Arguments]  ${username}
+
+    Input Text  name:auth-username  ${username}
+
+Enter Custom Password
+    [Documentation]  Use this keyword if you don't want to be tied to the details in ${UserData}.
+    [Arguments]  ${password}
+
+    Input Text  name:auth-password  ${password}
+    
 Submit
     Click Button  Login
 
