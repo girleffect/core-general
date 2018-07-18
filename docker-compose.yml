@@ -56,6 +56,7 @@ services:
       - STATIC_ROOT="/app/static"
       - MEDIA_ROOT="/app/media"
       - ALLOWED_HOSTS=*
+      - LOG_LEVEL=DEBUG
       - CELERY_BROKER_URL=redis://redis:6379/0
       - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
       - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
