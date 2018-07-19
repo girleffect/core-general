@@ -13,6 +13,13 @@ Resource  ../resources/pageobjects/UpdateQuestions.robot
 *** Variables ***
 
 *** Keywords ***
+Check Site State
+    [Arguments]  ${site_url}  ${site_active}
+
+    Go To  ${site_url}
+    LandingPage.Login
+    LoginPage.Assert Site Status  ${site_active}
+
 Reset Password Flow
     [Arguments]  ${UserData}
 
