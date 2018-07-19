@@ -5,10 +5,29 @@ Library  HttpLibrary.HTTP
 Library  REST
 
 *** Variables ***
-${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable AUTHENTICATION_SERVICE_API_KEY
+${AUTHENTICATION_SERVICE_API_KEY} =  Get Environment Variable  AUTHENTICATION_SERVICE_API_KEY
 &{AUTH_HOST}  local=localhost:8000  docker=core-authentication-service:8000  qa=authentication-service.qa-hub.ie.gehosting.org
+&{ACCESS_HOST}  qa=access-control-service.qa-hub.ie.gehosting.org
 
 *** Keywords ***
+Change Site State
+    [Documentation]  Set the user 'is_active' flag to true/false.
+    [Arguments]  ${site_id}  ${state}
+
+    RequestsLibrary.Create Session  hook  https://${ACCESS_HOST.${ENVIRONMENT}}  verify=${True}
+    RequestsLibrary.Create Session  status  https://${ACCESS_HOST.${ENVIRONMENT}}  verify=${True}
+
+    # Do the PUT request:
+    ${body} =  Create Dictionary  is_active=${state}
+    ${headers} =  Create Dictionary  Accept=application/json  Content-Type=application/json  X-API-Key=${AUTHENTICATION_SERVICE_API_KEY}
+    ${resp} =  RequestsLibrary.Put Request  hook  /api/v1/sites/${site_id}  data=${body}  headers=${headers}
+    Should Be Equal As Strings  ${resp.status_code}  200
+
+    # Check that the flag has been set correctly:
+    ${headers} =  Create Dictionary  Accept=application/json  X-API-Key=${AUTHENTICATION_SERVICE_API_KEY}
+    ${resp} =  RequestsLibrary.Get Request  status  /api/v1/sites/${site_id}  headers=${headers}
+    Should be Equal  ${resp.json()["is_active"]}  ${state} 
+
 Get Access Token
     RequestsLibrary.Create Session  hook  https://${AUTH_HOST}  verify=${True}
     ${body} =  Create Dictionary  grant_type=password  client_id=872786  client_secret=bc075e82af1b135bb1869db54f2d8ff34fa998c0e0a7988621b27058  username=jasonb  password=12QWas\!\@  scope=openid%20site%20roles%20email

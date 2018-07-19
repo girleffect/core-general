@@ -8,6 +8,12 @@ ${loginpage.lost_pwd_link}  xpath://a[@href="/en/reset-password/"]
 ${loginpage.content}  xpath://div[@id="content"]/p[1]
 
 *** Keywords ***
+Assert Site Status
+    [Arguments]  ${site_active}
+    
+    Run Keyword If  "${site_active}" == "false"  Wait Until Page Contains  Site access disabled
+    ...  ELSE IF  "${site_active}" == "true"  Wait Until Page Contains  Login
+
 Fill In Form
     [Arguments]  ${UserData}
 

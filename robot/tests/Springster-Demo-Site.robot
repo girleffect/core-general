@@ -12,6 +12,7 @@ Test Teardown  End Web Test
 #Suite Teardown  Stop All Containers
 
 *** Variables ***
+#robot -d robot/results -v ENVIRONMENT:qa -v AUTHENTICATION_SERVICE_API_KEY:qa_ThashaerieL2ahfa0ahy -i ready robot/tests/Springster-Demo-Site.robot
 
 *** Test Cases ***
 Create a new end user profile
@@ -306,6 +307,19 @@ Check security question default values
     springster.Check Security Question Defaults  ${END_USER_VALID}
 
 Check avatar field rejects .py file etc. jpgs. tiff. pngs.
+User should not be able to login on disabled site
+    [Documentation]  Set a site to inactive and make sure a user can't access the login screen.
+    [Tags]  api
+
+    girleffect_api.Change Site State  7  ${false}
+    springster.Check Site State  https://ninyampinga-example.qa-hub.ie.gehosting.org/  false
+
+Set site back to active and user should be able to see login page
+    [Documentation]  User should be able to login to active site.
+    [Tags]  api
+
+    girleffect_api.Change Site State  7  ${true}
+    springster.Check Site State  https://ninyampinga-example.qa-hub.ie.gehosting.org/  true
 
 ## Do some system-user checks here:
 
