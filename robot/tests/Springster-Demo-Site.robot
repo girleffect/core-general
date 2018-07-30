@@ -15,6 +15,7 @@ Test Teardown  End Web Test
 #robot -d robot/results -v ENVIRONMENT:qa -v AUTHENTICATION_SERVICE_API_KEY:qa_ThashaerieL2ahfa0ahy -i ready robot/tests/Springster-Demo-Site.robot
 
 *** Test Cases ***
+# *** End User Checks ***
 Create a new end user profile
     [Documentation]  Register as an end user.
     [Tags]  ready  end-user
@@ -321,7 +322,7 @@ Set site back to active and user should be able to see login page
     girleffect_api.Change Site State  7  ${true}
     springster.Check Site State  https://ninyampinga-example.qa-hub.ie.gehosting.org/  true
 
-## Do some system-user checks here:
+# *** System User Checks ***
 
 Create a new system user profile
     [Documentation]  Register as a system user called 'robotsystem'.
@@ -382,3 +383,38 @@ Remove system user record
 
     girleffect_api.Delete User  ${SYS_USER_VALID}
 
+# *** Invite User Flow ***
+
+Send User Invite
+    [Documentation]  Create and send user invite via GMP.
+    [Tags]  wip  admin
+
+
+Complete user registration via invite
+    [Documentation]  Complete user registration via invite
+    [Tags]  wip  admin
+
+View user invite in GMP
+    [Documentation]  Check valid/invalid invite in GMP
+    [Tags]  wip  admin
+
+ 
+Details on registration form must match user details entered by admin user.
+    [Documentation]  Form details must match those entered by admin.
+    [Tags]  wip  admin
+
+Check that user is able to access site they are enabled for
+    [Documentation]
+    [Tags]  wip  admin
+
+Ensure user is blocked from accessing site not enabled for
+    [Documentation]
+    [Tags]  wip  admin
+
+Check user domain role
+    [Documentation]
+    [Tags]  wip  admin
+
+Check user site role
+    [Documentation]
+    [Tags]  wip  admin

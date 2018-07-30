@@ -9,6 +9,7 @@ Resource  ../resources/pageobjects/ProfileEdit.robot
 Resource  ../resources/pageobjects/PasswordReset.robot
 Resource  ../resources/pageobjects/UpdatePassword.robot
 Resource  ../resources/pageobjects/UpdateQuestions.robot
+Resource  ../resources/pageobjects/AdminPortal.robot
 
 *** Variables ***
 
