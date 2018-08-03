@@ -130,7 +130,7 @@ Reset end user pwd via security questions - lockout
 
 Reset end user pwd via lost password email
     [Documentation]  End-user with valid email address.
-    [Tags]  ready  end-user
+    [Tags]  ready  end-user  xxx
     [Template]  Reset Password Flow
 
     ${END_USER_STATIC}
@@ -221,7 +221,7 @@ Update end user password via profile page - enter invalid password length.
 
 End user age validation
     [Documentation]
-    [Tags]  wip
+    [Tags]  todo
 
     Page Should Contain  Ensure this value is less than or equal to 100.
     Page Should Contain  Error for 13 yr old validation
@@ -255,7 +255,7 @@ Reset password for email address which does not exist.
 
 Password validation on password update page.
     [Documentation]  Ensure that the validation rules applied on registration form are used on the update form.
-    [Tags]  wip  end-user
+    [Tags]  todo  end-user
 
 Login to non-English site
     [Documentation]  Make sure the translated sites load.
@@ -266,19 +266,19 @@ Login to non-English site
 
 Verify Home Link On Lockout Page
     [Documentation]  Home link should appear on lockout page.
-    [Tags]  wip  end-user
+    [Tags]  todo  end-user
 
 Password reset link invalid/old/expired
     [Documentation]  Make sure invalid link is not accepted.
-    [Tags]  wip  end-user
+    [Tags]  todo  end-user
 
 Back button on end user form should take user to first step.
     [Documentation]  Back button should take user to first step and keep fields filled in.
-    [Tags]  end-user  wip
+    [Tags]  end-user  todo
 
 Supply end user email address and ensure that second registration step shows.
     [Documentation]  Second step of registration is optional. Only shows if user supplies email address.
-    [Tags]  end-user  wip
+    [Tags]  end-user  todo
 
 Remove end user record
     [Documentation]  Remove the user record added in the first test.
@@ -389,6 +389,7 @@ Send User Invite
     [Documentation]  Create and send user invite via GMP.
     [Tags]  wip  admin
 
+    springster.Create Invite
 
 Complete user registration via invite
     [Documentation]  Complete user registration via invite

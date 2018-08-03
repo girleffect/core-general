@@ -3,7 +3,6 @@ Resource  ../resources/pageobjects/LandingPage.robot
 Resource  ../resources/pageobjects/LoginPage.robot
 Resource  ../resources/pageobjects/RegistrationPage.robot
 Resource  ../resources/pageobjects/AuthPage.robot
-Resource  ../resources/pageobjects/ManagementPortal.robot
 Resource  ../resources/pageobjects/ProfileHome.robot
 Resource  ../resources/pageobjects/ProfileEdit.robot
 Resource  ../resources/pageobjects/PasswordReset.robot
@@ -14,6 +13,10 @@ Resource  ../resources/pageobjects/AdminPortal.robot
 *** Variables ***
 
 *** Keywords ***
+Create Invite
+    AdminPortal.Load GMP
+    AdminPortal.Create Invite
+
 Check Site State
     [Arguments]  ${site_url}  ${site_active}
 

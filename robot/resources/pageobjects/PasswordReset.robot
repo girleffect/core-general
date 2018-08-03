@@ -67,10 +67,12 @@ Verify Reset Sent
 Check Reset Email
     Open Mailbox  server=imap.googlemail.com  user=jasonbarr.qa@gmail.com  password=letstest
 
-    ${LATEST}=  Wait for Email  sender=auth@gehosting.org  timeout=120
+    #${LATEST}=  Wait for Email  sender=auth@gehosting.org  timeout=120
+    ${LATEST}=  Wait for Email  sender=support@govchat.org.za  subject=Invitation to join GovChat  timeout=120 
     ${body}=  Get Email Body  ${LATEST}
-
-    Should Contain  ${body}  Please go to the following page and choose a new password:
+    Log  ${body}
+    #Should Contain  ${body}  Please go to the following page and choose a new password:
+    Should Contain  ${body}  You have been invited to join GovChat
     Mark All Emails As Read
     Close Mailbox
 
