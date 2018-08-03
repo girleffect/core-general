@@ -12034,7 +12034,7 @@
 							},
 							"name": "deletion_requested_at",
 							"documentation": "When the value is NULL, it means no deletion request has been sent to the Site.\n",
-							"type": "TIMESTAMP",
+							"type": "DATETIME",
 							"length": 0,
 							"nullable": true
 						},
@@ -12058,7 +12058,7 @@
 							},
 							"name": "deletion_confirmed_at",
 							"documentation": "When the value is NULL, it means no deletion confirmation has been received from the Site.",
-							"type": "TIMESTAMP",
+							"type": "DATETIME",
 							"length": 0,
 							"nullable": true
 						},
