@@ -175,6 +175,8 @@ services:
     build:
       context: ../core-management-layer/
     environment:
+      - MAPPING_REFRESH_SLEEP_SECONDS=60
+      - CACHE_TIME=60
       - STUBS_CLASS=management_layer.integration.Implementation
       # - PYTHONASYNCIODEBUG=1
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
