@@ -8976,7 +8976,8 @@
 								"name": "client_id",
 								"reference": {
 									"$ref": "AAAAAAFfCn/ZBMjmMNQ="
-								}
+								},
+								"cardinality": "0..1"
 							}
 						}
 					],
@@ -10154,6 +10155,7 @@
 							"referenceTo": {
 								"$ref": "AAAAAAFgTqzGcpj5+QU="
 							},
+							"nullable": true,
 							"unique": true
 						},
 						{
