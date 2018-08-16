@@ -125,6 +125,7 @@ services:
       - SERVER_EMAIL=no-reply@gehosting.org
       - SECRET_KEY=aiMohghaik3AesooLoal6vohchahcahx
       - WAGTAIL_REDIRECT_URL=http://core-corporate-site/
+      - USE_OIDC=1
       - OIDC_RP_CLIENT_ID=corporate_site
       - OIDC_RP_CLIENT_SECRET=corporate_site_secret
       - OIDC_OP=http://core-authentication-service:8000
@@ -220,8 +221,7 @@ services:
       - ACCESS_CONTROL_API_KEY=demo-management-layer-api-key
       - AUTHENTICATION_SERVICE_API_KEY=demo-management-layer-api-key
       - USER_DATA_STORE_API_KEY=demo-management-layer-api-key
-      - MEMCACHE_HOST=memcache
-      - MEMCACHE_PORT=11211
+      - REDIS=redis://redis:6379/1
       # - SENTRY_DSN=<sentry_dsn_goes_here>
       - MANAGEMENT_PORTAL_CLIENT_ID=management_portal
     volumes:
@@ -232,7 +232,7 @@ services:
          soft: 20000
          hard: 40000
     depends_on:
-      - memcache
+      - redis
       - core-access-control
       - core-user-data-store
       - core-authentication-service
@@ -276,13 +276,6 @@ services:
     image: "redis:alpine"
     expose:
       - "6379"
-    networks:
-      - oidcnetwork
-
-  memcache:
-    image: "memcached:alpine"
-    expose:
-      - "11211"
     networks:
       - oidcnetwork
 
@@ -331,7 +324,6 @@ services:
   #  command: test_runner.sh
   #  depends_on:
   #    - db
-  #    - memcache
   #    - redis
   #    - smtp
   #    - core-access-control
