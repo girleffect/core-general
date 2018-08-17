@@ -8598,6 +8598,7 @@
 								"$ref": "AAAAAAFfCeOfncXGQRA="
 							},
 							"name": "date_joined",
+							"documentation": "Despite the `date` in the name, the type of this field is actually datetime/timestamp.",
 							"type": "DATETIME",
 							"length": 0
 						},
