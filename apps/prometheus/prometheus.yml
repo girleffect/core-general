@@ -18,6 +18,5 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
   - job_name: 'user-data-store'
-#    proxy_url: 'http://localhost:3128'
     static_configs:
-      - targets: ['core-user-data-store:6060']
+      - targets: ['core-user-data-store:8000']
