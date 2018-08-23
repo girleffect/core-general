@@ -23,3 +23,6 @@ scrape_configs:
   - job_name: 'user-access-control'
     static_configs:
       - targets: ['core-access-control:8080']
+  - job_name: 'management-layer'
+    static_configs:
+      - targets: ['core-management-layer:8000']
