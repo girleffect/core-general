@@ -19,4 +19,7 @@ scrape_configs:
       - targets: ['localhost:9090']
   - job_name: 'user-data-store'
     static_configs:
-      - targets: ['core-user-data-store:8000']
+      - targets: ['core-user-data-store:8080']
+  - job_name: 'user-access-control'
+    static_configs:
+      - targets: ['core-access-control:8080']
