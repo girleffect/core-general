@@ -26,3 +26,6 @@ scrape_configs:
   - job_name: 'management-layer'
     static_configs:
       - targets: ['core-management-layer:8000']
+  - job_name: 'authentication_service'
+    static_configs:
+      - targets: ['core-authentication-service:8000']
