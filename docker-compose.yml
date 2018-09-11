@@ -53,8 +53,8 @@ services:
       - REDIS_URI=redis://redis:6379/0
       # NOTE: we bootstrap our database container with some dbs.
       - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
-      - STATIC_ROOT="/app/static"
-      - MEDIA_ROOT="/app/media"
+      - STATIC_ROOT=/app/static
+      - MEDIA_ROOT=/app/media
       - ALLOWED_HOSTS=*
       - LOG_LEVEL=DEBUG
       - CELERY_BROKER_URL=redis://redis:6379/0
