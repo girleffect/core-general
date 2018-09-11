@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -202,21 +201,21 @@ standard for JSON Web Tokens and must contain 3 parts: a header, a body and a si
 information is digitally signed, using either a secret or a public/private key pair. Therefor
 the information can be trusted and verified (Jwt.io, 2018).</p>
 <p><strong>An encoded JWT:</strong> - in the form <em>x.y.z</em></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span><span class="o">.</span><span class="n">eyJzdWIiOiIxMjM0NTY3ODkwIiwibm</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</span><span class="o">.</span><span class="n">eyJzdWIiOiIxMjM0NTY3ODkwIiwibm</span>
 <span class="n">FtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ</span><span class="o">.</span><span class="n">XbPfbIHMI6arZ3Y922BhjWg</span>
 <span class="n">QzWXcXNrz0ogtVhfEd2o</span>
 </pre></div>
 </div>
 <p>can be decoded into three parts:</p>
 <p><strong>Header (x)</strong> - Algorithm &amp; Token Type</p>
-<div class="highlight-JSON"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;alg&quot;</span><span class="p">:</span> <span class="s2">&quot;HS256&quot;</span><span class="p">,</span>
     <span class="nt">&quot;typ&quot;</span><span class="p">:</span> <span class="s2">&quot;JWT&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p><strong>Body (y)</strong> - Data</p>
-<div class="highlight-JSON"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;sub&quot;</span><span class="p">:</span> <span class="s2">&quot;1234567890&quot;</span><span class="p">,</span>
     <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
     <span class="nt">&quot;iat&quot;</span><span class="p">:</span> <span class="mi">1516239022</span>
@@ -224,7 +223,7 @@ the information can be trusted and verified (Jwt.io, 2018).</p>
 </pre></div>
 </div>
 <p><strong>Signature (z)</strong> - Gets verified by doing</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">HMACSHA256</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">HMACSHA256</span><span class="p">(</span>
     <span class="n">base64UrlEncode</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span>
     <span class="n">base64UrlEncode</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span>
     <span class="n">secret</span>
@@ -313,10 +312,7 @@ libraries can/should be used for other types of apps. Mozilla Django OIDC can be
 
   
 
-  
-  
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
