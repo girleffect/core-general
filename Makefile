@@ -70,8 +70,8 @@ run: build-virtualenv
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
 
-run-dev: build-virtualenv
-	@echo "$(CYAN)Running docker-compose dev...$(CLEAR)"
+run-with-dev-portal: build-virtualenv
+	@echo "$(CYAN)Running docker-compose with the Management Portal in development mode...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose -f docker-compose.yml -f docker-compose.core-management-portal.yml up --build
 
 docker-build-image:

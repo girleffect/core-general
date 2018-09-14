@@ -17,7 +17,7 @@ which should result in the following output:
 ../core-user-data-store/Dockerfile
 ```
 
-For development run `make run-dev` as a shortcut to start `docker-compose` with the `core-management-portal` in a dev build.
+For development run `make run-with-dev-portal` as a shortcut to start `docker-compose` with the `core-management-portal` in a dev build.
 You can use `make run` as a shortcut to start `docker-compose` production based environment for the `core-management-portal`.
 Look at [DEMO_README.md](DEMO_README.md) for further setup instructions.
 
