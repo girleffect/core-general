@@ -70,6 +70,10 @@ run: build-virtualenv
 	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose up --build
 
+run-dev: build-virtualenv
+	@echo "$(CYAN)Running docker-compose dev...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f docker-compose.yml -f docker-compose.core-management-portal.yml up --build
+
 docker-build-image:
 	@echo "$(CYAN)Building local image (version:$(DOCKER-VERSION))...$(CLEAR)"
 	docker build -t robotframework:$(DOCKER-VERSION) .
