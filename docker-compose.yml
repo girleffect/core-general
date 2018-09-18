@@ -202,6 +202,28 @@ services:
         aliases:
           - wagtail-demo-2-site-1
 
+  core-data-ingestion-site:
+    image: dataingestion-site:0.1
+    build:
+      context: ../core-data-ingestion-service/
+    environment:
+      - DATABASE_URL=postgres://core_data_ingestion_service:password@db/core_data_ingestion_service
+      #- SECRET_KEY=
+      - OIDC_RP_CLIENT_ID=
+      - OIDC_RP_CLIENT_SECRET=
+      - OIDC_OP=http://core-authentication-service:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../core-data-ingestion-service/:/app/"
+    networks:
+      - oidcnetwork
+
   core-management-layer:
     build:
       context: ../core-management-layer/
