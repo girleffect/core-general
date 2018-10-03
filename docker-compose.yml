@@ -50,14 +50,14 @@ services:
     # command: scripts/waitFor.sh scripts/startDjango.sh
     command: project.wsgi:application --threads 5 --timeout 50
     environment:
-      - REDIS_URI=redis://redis:6379/0
+      - REDIS_URI=redis://redis:6379/3
       # NOTE: we bootstrap our database container with some dbs.
       - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
       - STATIC_ROOT=/app/static
       - MEDIA_ROOT=/app/media
       - ALLOWED_HOSTS=*
       - LOG_LEVEL=DEBUG
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/2
       - USER_DATA_STORE_API_KEY=demo-authentication-service-api-key
       - ACCESS_CONTROL_API_KEY=demo-authentication-service-api-key
       - ALLOWED_API_KEYS=demo-management-layer-api-key
@@ -90,9 +90,9 @@ services:
     environment:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
       - DB_DEFAULT=ENGINE=django.db.backends.postgresql,NAME=authentication_service,USER=authentication_service,PASSWORD=password,HOST=db,PORT=5432
-      - REDIS_URI=redis://redis:6379/0
+      - REDIS_URI=redis://redis:6379/3
       - CELERY_APP=project
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/2
       - EMAIL_HOST=smtp
       - SKIP_MIGRATIONS=1
       - USER_DATA_STORE_API_KEY=demo-authentication-service-celery-api-key
@@ -115,7 +115,7 @@ services:
     build:
       context: ../girleffect.org/
     environment:
-      - REDIS=redis://redis:6379/1
+      - REDIS=redis://redis:6379/4
       - ALLOWED_HOSTS=core-corporate-site
       - DATABASE_URL=postgres://core_corporate_site:password@db/core_corporate_site
       - CFG_APP_NAME=girleffect
