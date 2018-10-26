@@ -6,13 +6,13 @@ services:
 
   core-user-data-store:
     build:
-      context: ../core-user-data-store/
+      context: ../../core-user-data-store/
     environment:
       - DB_URI=postgresql+psycopg2://user_data_store:password@db:5432/user_data_store
       - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
-      - ../core-user-data-store/:/app/
+      - "../../core-user-data-store/:/app/"
     ulimits:
        nproc: 65535
        nofile:
@@ -27,13 +27,13 @@ services:
 
   core-access-control:
     build:
-      context: ../core-access-control/
+      context: ../../core-access-control/
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
       - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
-      - ../core-access-control/:/app/
+      - "../../core-access-control/:/app/"
     restart: on-failure
     command: scripts/waitFor.sh scripts/startApp.sh
     depends_on:
@@ -44,9 +44,9 @@ services:
   core-authentication-service:
     image: ge-auth:0.1
     build:
-      context: ../core-authentication-service/
+      context: ../../core-authentication-service/
     volumes:
-      - ../core-authentication-service/:/app/
+      - "../../core-authentication-service/:/app/"
     # command: scripts/waitFor.sh scripts/startDjango.sh
     command: project.wsgi:application --threads 5 --timeout 50
     environment:
@@ -83,9 +83,9 @@ services:
   core-authentication-celery:
     image: ge-auth:0.1
     build:
-      context: ../core-authentication-service/
+      context: ../../core-authentication-service/
     volumes:
-      - ../core-authentication-service/:/app/
+      - "../../core-authentication-service/:/app/"
     command: celery worker # scripts/waitFor.sh celery -A project worker -l info
     environment:
       - ALLOWED_API_KEYS=demo-management-layer-api-key
@@ -110,102 +110,10 @@ services:
     networks:
       - oidcnetwork
 
-  core-corporate-site:
-    image: corporate-site:0.1
-    build:
-      context: ../girleffect.org/
-    environment:
-      - REDIS=redis://redis:6379/4
-      - ALLOWED_HOSTS=core-corporate-site
-      - DATABASE_URL=postgres://core_corporate_site:password@db/core_corporate_site
-      - CFG_APP_NAME=girleffect
-      - DJANGO_SETTINGS_MODULE=girleffect.settings.dev
-      - EMAIL_HOST=smtp
-      - PRIMARY_HOST=core-corporate-site
-      - SERVER_EMAIL=no-reply@gehosting.org
-      - SECRET_KEY=aiMohghaik3AesooLoal6vohchahcahx
-      - WAGTAIL_REDIRECT_URL=http://core-corporate-site/
-      - USE_OIDC=1
-      - OIDC_RP_CLIENT_ID=corporate_site
-      - OIDC_RP_CLIENT_SECRET=corporate_site_secret
-      - OIDC_OP=http://core-authentication-service:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
-      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
-    depends_on:
-      - db
-      - core-authentication-service
-    volumes:
-        - "../girleffect.org/:/app/"
-    networks:
-      - oidcnetwork
-
-  wagtail-demo-1:
-    image: wtd_1:0.1
-    build:
-      context: ../core-integration-demo/
-    command: scripts/waitFor.sh scripts/startDjango.sh
-    environment:
-      # Not current on postgres.
-      - DB_HOST=db
-      - DB_NAME=wagtail_1
-      - DB_USER=wagtail_1
-      - DB_PASSWORD=password
-      - SITE_CODE=springster
-      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-1:8000/
-      # - OIDC_RP_CLIENT_ID=client_id_1
-      # - OIDC_RP_CLIENT_SECRET=super_client_secret_1
-      - OIDC_OP=http://core-authentication-service:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
-      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
-    depends_on:
-      - db
-      - core-authentication-service
-    volumes:
-        - "../core-integration-demo/:/app/"
-    networks:
-      oidcnetwork:
-        aliases:
-          - wagtail-demo-1-site-1
-          - wagtail-demo-1-site-2
-
-  wagtail-demo-2:
-    image: wtd_2:0.1
-    build:
-      context: ../core-integration-demo/
-    command: scripts/waitFor.sh scripts/startDjango.sh
-    environment:
-      # Not current on postgres.
-      - DB_HOST=db
-      - DB_NAME=wagtail_2
-      - DB_USER=wagtail_2
-      - DB_PASSWORD=password
-      - SITE_CODE=ninyampinga
-      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-2:8000/
-      # - OIDC_RP_CLIENT_ID=client_id_2
-      # - OIDC_RP_CLIENT_SECRET=super_client_secret_2
-      - OIDC_OP=http://core-authentication-service:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
-      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
-    depends_on:
-      - db
-      - core-authentication-service
-    volumes:
-        - "../core-integration-demo/:/app/"
-    networks:
-      oidcnetwork:
-        aliases:
-          - wagtail-demo-2-site-1
-
   core-data-ingestion-site:
     image: dataingestion-site:0.1
     build:
-      context: ../core-data-ingestion-service/
+      context: ../../core-data-ingestion-service/
     command: scripts/waitFor.sh scripts/startDjango.sh
     environment:
       #- SECRET_KEY=
@@ -220,13 +128,13 @@ services:
       - db
       - core-authentication-service
     volumes:
-        - "../core-data-ingestion-service/:/app/"
+        - "../../core-data-ingestion-service/:/app/"
     networks:
       - oidcnetwork
 
   core-management-layer:
     build:
-      context: ../core-management-layer/
+      context: ../../core-management-layer/
     environment:
       - MAPPING_REFRESH_SLEEP_SECONDS=60
       - CACHE_TIME=60
@@ -248,7 +156,7 @@ services:
       # - SENTRY_DSN=<sentry_dsn_goes_here>
       - MANAGEMENT_PORTAL_CLIENT_ID=management_portal
     volumes:
-      - ../core-management-layer/:/app/
+      - "../../core-management-layer/:/app/"
     ulimits:
        nproc: 65535
        nofile:
@@ -269,7 +177,7 @@ services:
   core-management-portal:
     image: ge-gmp:0.1
     build:
-      context: ../core-management-portal/
+      context: ../../core-management-portal/
       args:
         - REACT_APP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
         - REACT_APP_AUTHORIZATION_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
@@ -286,7 +194,7 @@ services:
 
   db:
     build:
-      context: apps/database/
+      context: ../apps/database/
     # To rather mount localhost postgres data.
     #volumes:
     #    - "/var/lib/postgresql/data:/var/lib/postgresql/data"
@@ -311,7 +219,7 @@ services:
 
   smtp:
     build:
-      context: apps/smtp/
+      context: ../apps/smtp/
     expose:
       - "25"
     environment:
@@ -321,7 +229,7 @@ services:
 
   pacserver:
     build:
-      context: apps/proxy/
+      context: ../apps/proxy/
     ports:
       - "${PACSERVER_PORT}:8000"
     environment:
@@ -333,13 +241,13 @@ services:
     image: "prom/prometheus:latest"
     container_name: prometheus
     build:
-      context: apps/prometheus/
+      context: ../apps/prometheus/
     expose:
       - 9090
     ports:
       - "9090:9090"
     volumes:
-      - ./apps/prometheus/:/etc/prometheus/
+      - "../apps/prometheus/:/etc/prometheus/"
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"

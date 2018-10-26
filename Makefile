@@ -16,7 +16,10 @@ help:
 	@echo "    $(CYAN)build-virtualenv$(CLEAR): Creates virtualenv directory, 've/', in project root."
 	@echo "    $(CYAN)clean-virtualenv$(CLEAR): Deletes 've/' directory in project root."
 	@echo "    $(CYAN)docs-build$(CLEAR): Build documents and place html output in docs root."
-	@echo "    $(CYAN)run$(CLEAR): Run the core components using docker-compose."
+	@echo "    $(CYAN)build-run-core$(CLEAR): Build images for and run the core components using docker-compose."
+	@echo "    $(CYAN)run-core$(CLEAR): Run the core components using docker-compose."
+	@echo "    $(CYAN)build-run-with-apps$(CLEAR): Build images for run the core components, alongside some non core apps, using docker-compose."
+	@echo "    $(CYAN)run-with-apps$(CLEAR): Run the core components, alongside some non core apps, using docker-compose."
 	@echo "    $(CYAN)docker-build-image$(CLEAR): Build out the Girl Effect base image to the local docker repo."
 	@echo "    $(CYAN)docker-remove-image$(CLEAR): Remove the Girl Effect base image from the local docker repo. NOTE: Only the Girl Effect image gets removed, not the one/s it is based off"
 	@echo "    $(CYAN)list-services$(CLEAR): List the services defined in the docker-compose.yml file""
@@ -66,13 +69,21 @@ docs-build:  $(VENV)
 docker-network:
 	docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.1 oidcnetwork
 
-run: build-virtualenv
-	@echo "$(CYAN)Running docker-compose...$(CLEAR)"
-	@sudo $(VENV)/bin/docker-compose up --build
+build-run-core: build-virtualenv
+	@echo "$(CYAN)Building and running docker-compose for core services...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml up --build
 
-run-with-dev-portal: build-virtualenv
-	@echo "$(CYAN)Running docker-compose with the Management Portal in development mode...$(CLEAR)"
-	@sudo $(VENV)/bin/docker-compose -f docker-compose.yml -f docker-compose.core-management-portal.yml up --build
+run-core: build-virtualenv
+	@echo "$(CYAN)Running docker-compose for core services....$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml up
+
+build-run-with-apps: build-virtualenv
+	@echo "$(CYAN)Building and running docker-compose for core services as well as other apps...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml -f compose_files/docker-compose.apps.yml up --build
+
+run-with-apps: build-virtualenv
+	@echo "$(CYAN)Running docker-compose for core services as well as other apps...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml -f compose_files/docker-compose.apps.yml up
 
 docker-build-image:
 	@echo "$(CYAN)Building local image (version:$(DOCKER-VERSION))...$(CLEAR)"

@@ -1,0 +1,94 @@
+version: "3"
+
+services:
+  core-corporate-site:
+    image: corporate-site:0.1
+    build:
+      context: ../../girleffect.org/
+    environment:
+      - REDIS=redis://redis:6379/4
+      - ALLOWED_HOSTS=core-corporate-site
+      - DATABASE_URL=postgres://core_corporate_site:password@db/core_corporate_site
+      - CFG_APP_NAME=girleffect
+      - DJANGO_SETTINGS_MODULE=girleffect.settings.dev
+      - EMAIL_HOST=smtp
+      - PRIMARY_HOST=core-corporate-site
+      - SERVER_EMAIL=no-reply@gehosting.org
+      - SECRET_KEY=aiMohghaik3AesooLoal6vohchahcahx
+      - WAGTAIL_REDIRECT_URL=http://core-corporate-site/
+      - USE_OIDC=1
+      - OIDC_RP_CLIENT_ID=corporate_site
+      - OIDC_RP_CLIENT_SECRET=corporate_site_secret
+      - OIDC_OP=http://core-authentication-service:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../../girleffect.org/:/app/"
+    networks:
+      - oidcnetwork
+
+  wagtail-demo-1:
+    image: wtd_1:0.1
+    build:
+      context: ../../core-integration-demo/
+    command: scripts/waitFor.sh scripts/startDjango.sh
+    environment:
+      # Not current on postgres.
+      - DB_HOST=db
+      - DB_NAME=wagtail_1
+      - DB_USER=wagtail_1
+      - DB_PASSWORD=password
+      - SITE_CODE=springster
+      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-1:8000/
+      # - OIDC_RP_CLIENT_ID=client_id_1
+      # - OIDC_RP_CLIENT_SECRET=super_client_secret_1
+      - OIDC_OP=http://core-authentication-service:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../../core-integration-demo/:/app/"
+    networks:
+      oidcnetwork:
+        aliases:
+          - wagtail-demo-1-site-1
+          - wagtail-demo-1-site-2
+
+  wagtail-demo-2:
+    image: wtd_2:0.1
+    build:
+      context: ../../core-integration-demo/
+    command: scripts/waitFor.sh scripts/startDjango.sh
+    environment:
+      # Not current on postgres.
+      - DB_HOST=db
+      - DB_NAME=wagtail_2
+      - DB_USER=wagtail_2
+      - DB_PASSWORD=password
+      - SITE_CODE=ninyampinga
+      # - WAGTAIL_REDIRECT_URL=http://wagtail-demo-2:8000/
+      # - OIDC_RP_CLIENT_ID=client_id_2
+      # - OIDC_RP_CLIENT_SECRET=super_client_secret_2
+      - OIDC_OP=http://core-authentication-service:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../../core-integration-demo/:/app/"
+    networks:
+      oidcnetwork:
+        aliases:
+          - wagtail-demo-2-site-1
