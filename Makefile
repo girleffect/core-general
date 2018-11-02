@@ -18,6 +18,8 @@ help:
 	@echo "    $(CYAN)docs-build$(CLEAR): Build documents and place html output in docs root."
 	@echo "    $(CYAN)build-run-core$(CLEAR): Build images for and run the core components using docker-compose."
 	@echo "    $(CYAN)run-core$(CLEAR): Run the core components using docker-compose."
+	@echo "    $(CYAN)build-run-core-with-aws$(CLEAR): Build images for and run the core components alongside aws localstack using docker-compose."
+	@echo "    $(CYAN)run-core-with-aws$(CLEAR): Run the core components alongside aws localstack using docker-compose."
 	@echo "    $(CYAN)build-run-with-apps$(CLEAR): Build images for run the core components, alongside some non core apps, using docker-compose."
 	@echo "    $(CYAN)run-with-apps$(CLEAR): Run the core components, alongside some non core apps, using docker-compose."
 	@echo "    $(CYAN)docker-build-image$(CLEAR): Build out the Girl Effect base image to the local docker repo."
@@ -76,6 +78,14 @@ build-run-core: build-virtualenv
 run-core: build-virtualenv
 	@echo "$(CYAN)Running docker-compose for core services....$(CLEAR)"
 	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml up
+
+build-run-core-with-aws: build-virtualenv
+	@echo "$(CYAN)Building and running docker-compose for core services alongside aws localstack...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml -f compose_files/docker-compose.localstack.yml up --build
+
+run-core-with-aws: build-virtualenv
+	@echo "$(CYAN)Building and running docker-compose for core services alongside aws localstack...$(CLEAR)"
+	@sudo $(VENV)/bin/docker-compose -f compose_files/docker-compose.yml -f compose_files/docker-compose.core-management-portal.yml -f compose_files/docker-compose.localstack.yml up
 
 build-run-with-apps: build-virtualenv
 	@echo "$(CYAN)Building and running docker-compose for core services as well as other apps...$(CLEAR)"
