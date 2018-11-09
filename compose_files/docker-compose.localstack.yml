@@ -24,6 +24,9 @@ services:
       - "4584" # SecretsManager
       - "8080" # Web UI
     environment:
+      - DEFAULT_REGION=us-east-1
       - FORCE_NONINTERACTIVE=True
+      - AWS_ACCESS_KEY_ID=foobar
+      - AWS_SECRET_ACCESS_KEY=foobar
     networks:
       - oidcnetwork
