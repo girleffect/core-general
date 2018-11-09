@@ -63,6 +63,7 @@ services:
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
       - EMAIL_HOST=smtp
+      # Migrations can no longer be run without a specific env var being set specifically for it.
       - SKIP_MIGRATIONS=1
       - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
       - KINESIS_PRODUCER=stream_name=test-stream
