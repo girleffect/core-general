@@ -64,6 +64,9 @@ services:
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
       - EMAIL_HOST=smtp
       - SKIP_MIGRATIONS=1
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
       # The varaibles below are not used in production, just the docker-compose env
       - WAGTAIL_1_CALLBACK=http://wagtail-demo-1-site-1:8000/oidc/callback/
       - WAGTAIL_2_CALLBACK=http://wagtail-demo-2-site-1:8000/oidc/callback/
@@ -98,8 +101,9 @@ services:
       - ACCESS_CONTROL_API_KEY=demo-authentication-service-celery-api-key
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
-      - KINESIS_SESSION=aws_access_key_id="foobar",aws_secret_access_key="foobar",region_name="us-east-1"
-      - KINESIS_PRODUCER=stream_name="test-stream",boto3_client_settings={'endpoint_url':'http://localstack:4568'},buffer_time=5
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
       # - EMAIL_USER=
       # - EMAIL_PASSWORD=
       # - EMAIL_USE_TLS=
