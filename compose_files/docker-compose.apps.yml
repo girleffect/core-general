@@ -92,3 +92,26 @@ services:
       oidcnetwork:
         aliases:
           - wagtail-demo-2-site-1
+
+  # While it has the core name, at this stage it is not a core component.
+  core-data-ingestion-site:
+    image: dataingestion-site:0.1
+    build:
+      context: ../../core-data-ingestion-service/
+    command: scripts/waitFor.sh scripts/startDjango.sh
+    environment:
+      #- SECRET_KEY=
+      - OIDC_RP_CLIENT_ID=core_data_ingestion
+      - OIDC_RP_CLIENT_SECRET=core_data_ingestion_secret
+      - OIDC_OP=http://core-authentication-service:8000
+      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
+      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
+      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
+      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
+    depends_on:
+      - db
+      - core-authentication-service
+    volumes:
+        - "../../core-data-ingestion-service/:/app/"
+    networks:
+      - oidcnetwork

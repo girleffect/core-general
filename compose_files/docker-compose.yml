@@ -47,8 +47,7 @@ services:
       context: ../../core-authentication-service/
     volumes:
       - "../../core-authentication-service/:/app/"
-    # command: scripts/waitFor.sh scripts/startDjango.sh
-    command: project.wsgi:application --threads 5 --timeout 50
+    command: scripts/startDjango.sh
     environment:
       - REDIS_URI=redis://redis:6379/3
       # NOTE: we bootstrap our database container with some dbs.
@@ -64,7 +63,11 @@ services:
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
       - EMAIL_HOST=smtp
-      # - SKIP_MIGRATIONS=1  Set this on QA, but not for docker compose.
+      # Migrations can no longer be run without a specific env var being set specifically for it.
+      - SKIP_MIGRATIONS=1
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
       # The varaibles below are not used in production, just the docker-compose env
       - WAGTAIL_1_CALLBACK=http://wagtail-demo-1-site-1:8000/oidc/callback/
       - WAGTAIL_2_CALLBACK=http://wagtail-demo-2-site-1:8000/oidc/callback/
@@ -99,6 +102,9 @@ services:
       - ACCESS_CONTROL_API_KEY=demo-authentication-service-celery-api-key
       - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
       - USER_DATA_STORE_API=http://core-user-data-store:8080/api/v1
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
       # - EMAIL_USER=
       # - EMAIL_PASSWORD=
       # - EMAIL_USE_TLS=
@@ -107,28 +113,6 @@ services:
     depends_on:
       - db
       - smtp
-    networks:
-      - oidcnetwork
-
-  core-data-ingestion-site:
-    image: dataingestion-site:0.1
-    build:
-      context: ../../core-data-ingestion-service/
-    command: scripts/waitFor.sh scripts/startDjango.sh
-    environment:
-      #- SECRET_KEY=
-      - OIDC_RP_CLIENT_ID=core_data_ingestion
-      - OIDC_RP_CLIENT_SECRET=core_data_ingestion_secret
-      - OIDC_OP=http://core-authentication-service:8000
-      - OIDC_OP_AUTHORIZATION_ENDPOINT=http://core-authentication-service:8000/openid/authorize/
-      - OIDC_OP_TOKEN_ENDPOINT=http://core-authentication-service:8000/openid/token/
-      - OIDC_OP_USER_ENDPOINT=http://core-authentication-service:8000/openid/userinfo/
-      - OIDC_OP_LOGOUT_URL=http://core-authentication-service:8000/openid/end-session/
-    depends_on:
-      - db
-      - core-authentication-service
-    volumes:
-        - "../../core-data-ingestion-service/:/app/"
     networks:
       - oidcnetwork
 
