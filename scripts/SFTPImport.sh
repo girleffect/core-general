@@ -1,4 +1,4 @@
-#!/bin/bash -v
+#!/bin/sh -v
 
 # REMOTE_HOST, USERNAME, REMOTE_DIR, FILES
 
