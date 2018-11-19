@@ -3,6 +3,7 @@ version: "3"
 services:
   core-management-portal:
     build:
+      context: ../../core-management-portal/
       dockerfile: Dockerfile.dev
     command: yarn start
     environment:
@@ -14,4 +15,4 @@ services:
       - REACT_APP_PORTAL_URL=http://core-management-portal/
       - REACT_APP_PORTAL_LOGIN_CALLBACK=#/oidc/callback?
     volumes:
-      - ../core-management-portal/:/app/
+      - ../../core-management-portal/:/app/
