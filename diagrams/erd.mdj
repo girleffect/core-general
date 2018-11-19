@@ -8288,7 +8288,7 @@
 									"font": "Arial;13;1",
 									"left": 672,
 									"top": 1109,
-									"width": 208.9150390625,
+									"width": 237.822265625,
 									"height": 13,
 									"text": "Credentials"
 								},
@@ -8314,7 +8314,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1132,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8329,7 +8329,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1147,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8344,7 +8344,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1162,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8359,7 +8359,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1177,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8374,7 +8374,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1192,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8389,7 +8389,7 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1207,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										},
 										{
@@ -8404,21 +8404,21 @@
 											"font": "Arial;13;0",
 											"left": 677,
 											"top": 1222,
-											"width": 198.9150390625,
+											"width": 227.822265625,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 672,
 									"top": 1127,
-									"width": 208.9150390625,
+									"width": 237.822265625,
 									"height": 113
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 672,
 							"top": 1104,
-							"width": 208.9150390625,
+							"width": 237.822265625,
 							"height": 136,
 							"nameLabel": {
 								"$ref": "AAAAAAFmhxetCRZ+04s="
@@ -13084,8 +13084,8 @@
 								"$ref": "AAAAAAFmhxetBxZ7KmE="
 							},
 							"name": "account_id",
-							"type": "TEXT",
-							"length": 0,
+							"type": "VARCHAR",
+							"length": "256",
 							"unique": true
 						},
 						{
@@ -13095,8 +13095,8 @@
 								"$ref": "AAAAAAFmhxetBxZ7KmE="
 							},
 							"name": "account_secret",
-							"type": "TEXT",
-							"length": 0
+							"type": "VARCHAR",
+							"length": "256"
 						},
 						{
 							"_type": "ERDColumn",
