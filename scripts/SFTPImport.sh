@@ -8,7 +8,7 @@ RH_ERROR="Remote host is needed"
 RU_ERROR="Remote username is needed"
 RD_ERROR="Remote directory is needed"
 
-while getopts ":d:f:h:u" option
+while getopts ":d:f:h:u:" option
 do
  case "${option}" in
  d) REMOTE_DIR=${OPTARG};;
