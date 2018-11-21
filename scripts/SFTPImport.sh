@@ -13,7 +13,7 @@
 # -f Files to Download from from remote machine
 # -b S3 Bucket name
 # -a S3 Access token
-# -s S3 Secrete Key
+# -s S3 Secret Key
 
 D_ERROR="Directory is required"
 RH_ERROR="Remote host is required"
