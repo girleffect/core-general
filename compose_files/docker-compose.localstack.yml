@@ -3,6 +3,9 @@ version: "3"
 services:
   localstack:
     image: "localstack/localstack:latest"
+    build:
+      context: ../apps/localstack/
+    entrypoint: ./scripts/startUp.sh
     expose:
       - "4567" # API Gateway
       - "4568" # Kinesis
@@ -28,5 +31,6 @@ services:
       - FORCE_NONINTERACTIVE=True
       - AWS_ACCESS_KEY_ID=foobar
       - AWS_SECRET_ACCESS_KEY=foobar
+      - TEST_STREAM=test-stream
     networks:
       - oidcnetwork
