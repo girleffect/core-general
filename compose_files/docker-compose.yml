@@ -140,6 +140,10 @@ services:
       - REDIS=redis://redis:6379/1
       # - SENTRY_DSN=<sentry_dsn_goes_here>
       - MANAGEMENT_PORTAL_CLIENT_ID=management_portal
+      - USE_KINESIS_PRODUCER=true
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
     volumes:
       - "../../core-management-layer/:/app/"
     ulimits:
