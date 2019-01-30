@@ -1,4 +1,4 @@
-#!/usr/env python
+#!/usr/bin/env python
 
 # pip install boto3
 # pip install requests
