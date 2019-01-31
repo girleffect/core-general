@@ -11,15 +11,15 @@
 # -h ssh host machine
 # -d Is the directory (without trailing slash) to dump the contents of -f (files)
 # -f Files to Download from from remote machine
-# -b S3 Bucket name
+# -b S3 Bucket name (if prefix given omit trailing slash)
 # -a S3 Access token
 # -s S3 Secret Key
 
 D_ERROR="Directory is required"
+S3_ERROR="S3 bucket is required"
 RH_ERROR="Remote host is required"
 P_ERROR="User password is required"
 RU_ERROR="Remote username is required"
-S3_ERROR="S3 bucket is required"
 
 while getopts ":d:f:h:u:p:b:a:s:" option
 do
