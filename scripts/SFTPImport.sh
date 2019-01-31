@@ -35,7 +35,13 @@ do
  esac
 done
 
+# get the files from remote
 sshpass -p ${PASSWORD:? $P_ERROR} sftp -a ${USERNAME:? $RU_ERROR}@${REMOTE_HOST:? $RH_ERROR}:${FILES:- *} ${DIR:? $D_ERROR}
 
 # upload downloaded to S3
-s3cmd sync --secret_key=${SECRET_KEY} --access_key=${ACCESS_KEY} ${DIR:? $D_ERROR}/${FILES:- *} s3://${BUCKET:? S3_ERROR}/
+s3cmd sync --secret_key=${SECRET_KEY} --access_key=${ACCESS_KEY} ${DIR:? $D_ERROR}/${FILES:- *} s3://${BUCKET:? S3_ERROR}
+
+# remove the files from remote
+sshpass -p ${PASSWORD:? $P_ERROR} sftp ${USERNAME:? $RU_ERROR}@${REMOTE_HOST:? $RH_ERROR}
+rm -rf ${FILES:- *}
+exit

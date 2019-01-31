@@ -30,7 +30,7 @@ services:
       context: ../../core-access-control/
     environment:
       - DB_URI=postgresql+psycopg2://access_control:password@db:5432/access_control
-      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key
+      - ALLOWED_API_KEYS=demo-authentication-service-api-key,demo-authentication-service-celery-api-key,demo-management-layer-api-key,demo-eventd-api-key
       # - SENTRY_DSN=<sentry_dsn_goes_here>
     volumes:
       - "../../core-access-control/:/app/"
@@ -65,6 +65,7 @@ services:
       - EMAIL_HOST=smtp
       # Migrations can no longer be run without a specific env var being set specifically for it.
       - SKIP_MIGRATIONS=1
+      - USE_KINESIS_PRODUCER=true
       - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
       - KINESIS_PRODUCER=stream_name=test-stream
       - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
@@ -139,6 +140,10 @@ services:
       - REDIS=redis://redis:6379/1
       # - SENTRY_DSN=<sentry_dsn_goes_here>
       - MANAGEMENT_PORTAL_CLIENT_ID=management_portal
+      - USE_KINESIS_PRODUCER=true
+      - KINESIS_SESSION=aws_access_key_id=foobar,aws_secret_access_key=foobar,region_name=us-east-1
+      - KINESIS_PRODUCER=stream_name=test-stream
+      - KINESIS_BOTO3_CLIENT_SETTINGS=endpoint_url=http://localstack:4568
     volumes:
       - "../../core-management-layer/:/app/"
     ulimits:
@@ -154,7 +159,7 @@ services:
     restart: on-failure
     # For mocking:
     # command: ./prism run --validate --debug --list --mockDynamic -s ./swagger/management_layer.yml -p 8080
-    command: httpd.py --logging=debug
+    command: httpd.py --logging=info
     networks:
       - oidcnetwork
 
@@ -173,6 +178,37 @@ services:
     depends_on:
       - core-authentication-service
       - core-management-layer
+    networks:
+      - oidcnetwork
+
+  core-eventd:
+    build:
+      context: ../../core-eventd/
+    environment:
+      - MAPPING_REFRESH_SLEEP_SECONDS=60
+      - CACHE_TIME=60
+      - STUBS_CLASS=eventd.integration.Implementation
+      # - PYTHONASYNCIODEBUG=1
+      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
+      - WITH_UI=false
+      - UI_HOST=core-eventd
+      - ACCESS_CONTROL_API_KEY=demo-eventd-api-key
+      - REDIS=redis://redis:6379/4
+      # - SENTRY_DSN=<sentry_dsn_goes_here>
+    volumes:
+      - "../../core-eventd/:/app/"
+    ulimits:
+       nproc: 65535
+       nofile:
+         soft: 20000
+         hard: 40000
+    depends_on:
+      - redis
+      - core-access-control
+    restart: on-failure
+    # For mocking:
+    # command: ./prism run --validate --debug --list --mockDynamic -s ./swagger/eventd.yml -p 8080
+    command: httpd.py --logging=debug
     networks:
       - oidcnetwork
 
