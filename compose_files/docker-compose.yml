@@ -181,37 +181,6 @@ services:
     networks:
       - oidcnetwork
 
-  core-eventd:
-    build:
-      context: ../../core-eventd/
-    environment:
-      - MAPPING_REFRESH_SLEEP_SECONDS=60
-      - CACHE_TIME=60
-      - STUBS_CLASS=eventd.integration.Implementation
-      # - PYTHONASYNCIODEBUG=1
-      - ACCESS_CONTROL_API=http://core-access-control:8080/api/v1
-      - WITH_UI=false
-      - UI_HOST=core-eventd
-      - ACCESS_CONTROL_API_KEY=demo-eventd-api-key
-      - REDIS=redis://redis:6379/4
-      # - SENTRY_DSN=<sentry_dsn_goes_here>
-    volumes:
-      - "../../core-eventd/:/app/"
-    ulimits:
-       nproc: 65535
-       nofile:
-         soft: 20000
-         hard: 40000
-    depends_on:
-      - redis
-      - core-access-control
-    restart: on-failure
-    # For mocking:
-    # command: ./prism run --validate --debug --list --mockDynamic -s ./swagger/eventd.yml -p 8080
-    command: httpd.py --logging=debug
-    networks:
-      - oidcnetwork
-
   db:
     build:
       context: ../apps/database/
